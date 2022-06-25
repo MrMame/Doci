@@ -28,43 +28,40 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logger
             set { _PrintingLogLevel = value; }
         }
 
-        #region " CONSTRUCTOR -----------------------------------------------------------------"
+        #region " CONSTRUCTOR"
 
         public TextFileLogger() {
             _isTextfileAccessible = false;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Filename">Filename des Logfiles, das erzeugt werden soll</param>
-        public TextFileLogger(string Filename)
+     
+        public TextFileLogger(string LogFileName)
         {
-            _Filename = Filename;
+            _Filename = LogFileName;
             _isTextfileAccessible = IsTextfileAccessible(_Filename);
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Filename">Dateiname des Logfiles, das erzeugt werden soll</param>
-        /// <param name="BackupOversizedLogfiles">Gibt an, ob das Logfile mit einem Datum 
-        /// versehen werden soll und als Backup gespeichert werden soll, 
-        /// sobald das Logfile die maximale Grösse überschritten hat.
-        /// Andernfalls wird das Logfile komplett gelöscht und von vorne befüllt.
-        /// Achtung: Vorangegangene Meldungen werden dadurch unwiderbringlich gelöscht.</param>
-        public TextFileLogger(string Filename,bool BackupOversizedLogfiles) {
-            _Filename = Filename;
+        /// <param name="LogFileName">Filename of the target Logfile</param>
+        /// <param name="BackupOversizedLogfiles"> If true, a new logfile will be created if the size 
+        /// of the target logfile exceeds the maxFileSize threshold.actual datei will be append 
+        /// to the backup logfiles filename.
+        /// If false, the target logfile will be deleted as soon as the maxFileSize threshhold is exceeded.
+        /// All old data will be lost.</param>
+        public TextFileLogger (string LogFileName, bool BackupOversizedLogfiles) {
+            _Filename = LogFileName;
             _backupOversizedLogs = BackupOversizedLogfiles;
             _isTextfileAccessible = IsTextfileAccessible(_Filename);
         }
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="BackupOversizedLogfiles">Gibt an, ob das Logfile mit einem Datum 
-        /// versehen werden soll und als Backup gespeichert werden soll, 
-        /// sobald das Logfile die maximale Grösse überschritten hat.
-        /// Andernfalls wird das Logfile komplett gelöscht und von vorne befüllt.
-        /// Achtung: Vorangegangene Meldungen werden dadurch unwiderbringlich gelöscht.</param>
-        public TextFileLogger(bool BackupOversizedLogfiles) {
+        /// <param name="BackupOversizedLogfiles"> If true, a new logfile will be created if the size 
+        /// of the target logfile exceeds the maxFileSize threshold.actual datei will be append 
+        /// to the backup logfiles filename.
+        /// If false, the target logfile will be deleted as soon as the maxFileSize threshhold is exceeded.
+        /// All old data will be lost.</param>
+        public TextFileLogger (bool BackupOversizedLogfiles) {
             _backupOversizedLogs = BackupOversizedLogfiles;
             _isTextfileAccessible = IsTextfileAccessible(_Filename);
         }
@@ -72,7 +69,7 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logger
         #endregion "CONSTRUCTOR"
 
 
-        #region "PUBLICS --------------------------------------------------------------"
+        #region "PUBLICS"
 
         public void LogText(LogLevels MessageType, string Text)
         {
@@ -86,28 +83,19 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logger
         #endregion "PUBLICS"
 
 
-        #region "PRIVATES -------------------------------------------------------------"
-        /// <summary>
-        /// Prüft, ob die Dateigrösse des Logfiles überschritten wurde. In diesem Fall 
-        /// wird das alte Logfile mit einem Datum versehen und es wird 
-        /// ein neues Logfile angelegt.
-        /// </summary>
+        #region "PRIVATES"
+
         private void RenameOrDeleteMaxSizedFile(bool BackupOversizedLogfiles) {
-            // Wenn Datei nicht verfügbur, schliessen
             if (!_isTextfileAccessible) return;
             
             var fi = new FileInfo(_Filename);
-            // Wenn Die Datei über die maximale Grösse hinaus gewachsen ist...
             if (fi.Length > _maxFileSize) {
-                // ... und das Logfile gespeichert werden soll
                 if (BackupOversizedLogfiles) {
                     fi.MoveTo(fi.DirectoryName + "\\" + 
                                 fi.Name.Replace(fi.Extension, "") + 
                                 "_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") 
                                 + fi.Extension.ToString());
-
                 } else {
-                // ... das Logfile NICHT gespeichert werden soll
                     fi.Delete();
                 }
             }
@@ -115,25 +103,19 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logger
 
         private void WriteToTextfile(string Filename,string Message)
         {
-            // Wenn Datei nicht verfügbur, schliessen
             if (!_isTextfileAccessible) return;
 
             using (FileStream fs = File.OpenWrite(Filename))
             {
                 Byte[] info =
                     new UTF8Encoding(true).GetBytes(Message);
-                // Add some information to the file.
-                fs.Position = fs.Length;
+                fs.Position = fs.Length;        // Set file inputmarker to the files end
                 fs.Write(info, 0, info.Length);
             }
 
         }
 
-        /// <summary>
-        /// Prüft, ob das Textfile für die VErwendung mit dem Logger zur verfügung steht.
-        /// </summary>
-        /// <param name="Filename">Name der TEtdatei, die geprüft werden soll.</param>
-        /// <returns></returns>
+
         private bool IsTextfileAccessible(string Filename) {
 
             FileInfo fi;
@@ -159,12 +141,6 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logger
                     return false;
                 }
             }
-            //if (fi.IsReadOnly) {
-            //    return false;
-            //}
-            // Datei öffnen/Schliessen um Zugriff zu testen
-            
-            
             return true;
         }
 

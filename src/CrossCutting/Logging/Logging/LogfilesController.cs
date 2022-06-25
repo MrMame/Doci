@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 namespace MarkusMeinhard.Doci.CrossCutting.Logger {
     
     
-    /// <summary>
-    /// Bietet die möglichkeit, beliebig viele Logger zu registrieren. Wird die Funktion LogText ausgeführt, 
-    /// wird für alle in dieser Klassen registrierten Logger geloggt.
-    /// </summary>
-    class LogfilesController :ILogger{
+
+    class MultiLogger:ILogger{
 
         List<ILogger> _Loggers = new List<ILogger>();
         LogLevels _PrintingLogLevel = LogLevels.All;
@@ -23,28 +20,19 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logger {
         }
 
 
-        #region "PUBLICS vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv"
+        #region "PUBLICS"
 
-        /// <summary>
-        /// Logt in jedem registrierten Loggingobjekt den Übergebenen Text
-        /// </summary>
-        /// <param name="MessageType">Typ des Meldungstextes</param>
-        /// <param name="Text">Meldungstext, der geloggt werden soll.</param>
         public void LogText(LogLevels MessageType, string Text) {
             foreach (ILogger logger in _Loggers) {
                 logger.LogText(MessageType, Text);
             }
         }
 
-        /// <summary>
-        /// Fügt der Logger Liste ein neues Logger Objekt hinzu
-        /// </summary>
-        /// <param name="Logger"></param>
         public void AddLogger(ILogger Logger) {
             _Loggers.Add(Logger);
         }
 
-        #endregion "PUBLICS ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+        #endregion "PUBLICS"
         
     }
 }
