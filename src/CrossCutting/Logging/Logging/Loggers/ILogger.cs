@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logger
+namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
 {
     public interface ILogger
     {

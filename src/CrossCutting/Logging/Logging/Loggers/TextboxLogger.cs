@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 using System.Windows.Forms;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logger
+namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
 {
     public class TextboxLogger:ILogger
     {
