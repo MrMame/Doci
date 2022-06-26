@@ -121,8 +121,7 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
                 }
             } else {
                 try {
-                    FileStream s = TargetLogfile.OpenWrite();
-                    s.Close();
+                    TargetLogfile.OpenWrite().Close();
                 } catch (UnauthorizedAccessException ex) {
                     return false;
                 } catch (DirectoryNotFoundException ex) {
