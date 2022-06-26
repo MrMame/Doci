@@ -10,19 +10,17 @@ using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
 
 namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
 {
-    class TextFileLogger:ILogger
+    public class TextFileLogger:ILogger
     {
 
-        // string _Filename = "Logfile.log";
+        private const bool DEFAULT_BACKUP_OVERSIZED_FILES = true;
+
         FileInfo _fi;
         char _seperator = ';';
         string _DateTimeFormat = "yyyyMMdd_HH:mm:ss";
         long _maxFileSize = 150000000;
-        bool _backupOversizedLogs = false;
-        bool _isTextfileAccessible;
-
-
-
+        bool _backupOversizedLogs = DEFAULT_BACKUP_OVERSIZED_FILES;
+        bool _isTextfileAccessible=false;
         LogLevels _PrintingLogLevel = LogLevels.All;
 
         public LogLevels PrintingLogLevel {
@@ -32,14 +30,13 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
 
         #region " CONSTRUCTOR"
 
-        public TextFileLogger() {
-            _isTextfileAccessible = false;
+        public TextFileLogger()
+        {
         }
      
         public TextFileLogger(FileInfo TargetLogFile)
+            :this(TargetLogFile, DEFAULT_BACKUP_OVERSIZED_FILES)
         {
-            _fi = TargetLogFile;
-            _isTextfileAccessible = IsTextfileAccessible(TargetLogFile);
         }
         /// <summary>
         /// 
@@ -51,9 +48,10 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
         /// If false, the target logfile will be deleted as soon as the maxFileSize threshhold is exceeded.
         /// All old data will be lost.</param>
         public TextFileLogger (FileInfo TargetLogFile, bool BackupOversizedLogfiles) {
+            if (TargetLogFile is null) throw new NullReferenceException ();
             _fi = TargetLogFile;
             _backupOversizedLogs = BackupOversizedLogfiles;
-            _isTextfileAccessible = IsTextfileAccessible(TargetLogFile);
+            _isTextfileAccessible = IsTextfileAccessible (TargetLogFile);
         }
    
         #endregion "CONSTRUCTOR"
