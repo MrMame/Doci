@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 using System.IO;
+using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.TestSupport;
 
 namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
 {
@@ -16,10 +17,22 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
         public void LogText_IfTargetFileIsAccessible_TextIsWritten()
         {
             //Arrange
+            var WriteableTextLogger = TextFileLoggerFactory.CreateWithNotExistingWriteableTargetFile ();
+            FileInfo TargetFile = WriteableTextLogger.TargetFile;
+            
             //Act
+            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is a warning message.");
+            
             //Assert
-            Assert.Fail ("TestNotImplemented");
+            using (StreamReader sr = TargetFile.OpenText ()) { 
+                Assert.IsTrue (sr.ReadToEnd ().Contains("This is a warning message."));
+                sr.Close ();
+            } ;
+            
+            // CleanUp
+            TargetFile.Delete ();
         }
+
         [Test]
         public void LogText_IfTargetFileIsNotAccessible_ThrowsException ()
         {

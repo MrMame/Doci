@@ -2,20 +2,28 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using FactoryProduct = Mame.Doci.CrossCutting.Logging.Loggers.TextFileLogger;
+using Mame.Doci.CrossCutting.Logging.Loggers;
 
 namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.TestSupport
 {
     static public class TextFileLoggerFactory
     {
-        public static FactoryProduct CreateParameterless ()
+        public static TextFileLogger CreateParameterless ()
         {
-            return new FactoryProduct ();
+            return new TextFileLogger ();
         }
-        public static FactoryProduct CreateWithNullReferenceTargetFile ()
+        public static TextFileLogger CreateWithNullReferenceTargetFile ()
         {
             FileInfo nullReferenceTargetFile = null;
-            return new FactoryProduct (nullReferenceTargetFile);
+            return new TextFileLogger (nullReferenceTargetFile);
+        }
+
+        public static TextFileLogger CreateWithNotExistingWriteableTargetFile ()
+        {
+            string TargetFileName = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\TextFileLoggerTesting.Log";
+            FileInfo WriteableTargetFile = new FileInfo(TargetFileName);
+            if (WriteableTargetFile.Exists) WriteableTargetFile.Delete ();
+            return new TextFileLogger (WriteableTargetFile);
         }
     }
 }

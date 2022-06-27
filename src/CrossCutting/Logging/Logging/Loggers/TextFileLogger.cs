@@ -29,6 +29,10 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
             set { _printingLogLevel = value; }
         }
 
+        public FileInfo TargetFile {
+            get { return _TargetFileInfo; }
+        }
+
         #region " CONSTRUCTOR"
 
         public TextFileLogger()
@@ -98,7 +102,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         {
             if (!_isTextfileAccessible) return;
 
-            using (FileStream fs = TargetLogfile.OpenRead())
+            using (FileStream fs = TargetLogfile.OpenWrite())
             {
                 Byte[] info =
                     new UTF8Encoding(true).GetBytes(Message);
