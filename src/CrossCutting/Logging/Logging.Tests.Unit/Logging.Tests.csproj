@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>MarkusMeinhard.Doci.CrossCutting.Logging.Tests.Unit</RootNamespace>
+    <RootNamespace>Mame.Doci.CrossCutting.Logging.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

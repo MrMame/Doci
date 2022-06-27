@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MarkusMeinhard.Doci.CrossCutting.Logging;
+using Mame.Doci.CrossCutting.Logging;
 using System.IO;
-using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Data;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
+namespace Mame.Doci.CrossCutting.Logging.Loggers
 {
     public class TextFileLogger:ILogger
     {

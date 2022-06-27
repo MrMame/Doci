@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "UI\Console
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "CrossCutting\Logging\Logging\Logging.csproj", "{5C17187A-8332-45D3-AA26-F4E359E99C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Tests.Unit", "CrossCutting\Logging\Logging.Tests.Unit\Logging.Tests.Unit.csproj", "{B457C814-0360-45CC-BF0A-63A6955F54CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Tests", "CrossCutting\Logging\Logging.Tests.Unit\Logging.Tests.csproj", "{B457C814-0360-45CC-BF0A-63A6955F54CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

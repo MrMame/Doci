@@ -1,11 +1,11 @@
-﻿using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
+﻿using Mame.Doci.CrossCutting.Logging.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
+namespace Mame.Doci.CrossCutting.Logging.Loggers
 {
     class ConsoleLogger :ILogger{
 

@@ -1,7 +1,10 @@
 using NUnit.Framework;
+using Mame.Doci.CrossCutting.Logging.Loggers;
+using System.IO;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logging.Tests.Unit.UnitTests.TextFileloggerTests
+namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
 {
+    [TestFixture]
     public partial class TextFileLoggerTests
     {
         [SetUp]
@@ -13,5 +16,11 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Tests.Unit.UnitTests.TextFile
        public void TearDown()
         {
         }
+
+        
+ 
+
+
+
     }
 }
