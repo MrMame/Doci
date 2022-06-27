@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "development_v0.1.0" branch
   push:
-  
+   branches: 4_WriteLoggertests
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
