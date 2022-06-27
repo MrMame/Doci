@@ -34,6 +34,14 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.Tes
             return new TextFileLogger (WriteableTargetFile);
         }
 
+        public static TextFileLogger CreateWithReadOnlyTargetFile ()
+        {
+            string TargetFileName = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\TextFileLoggerTesting.Log";
+            FileInfo TargetFile = new FileInfo (TargetFileName);
+            TargetFile.Attributes = FileAttributes.ReadOnly;
+            return new TextFileLogger (TargetFile);
+        }
+
         public static TextFileLogger CreateWithFileInfo (FileInfo TargetFilename)
         {
            return new TextFileLogger (TargetFilename);

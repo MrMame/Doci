@@ -33,17 +33,25 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             TargetFile.Delete ();
         }
 
-       
-
 
         [Test]
-        public void LogText_IfTargetFileIsNotAccessible_ThrowsException ()
+        public void LogText_IfTargetFileIsNotAccessible_ThrowsUnauthorizedAccessException ()
         {
             //Arrange
+            var TextLogger = TextFileLoggerFactory.CreateWithExistingWriteableTargetFile ();
+            FileInfo TargetFile = TextLogger.TargetFile;
+            TargetFile.Attributes = FileAttributes.ReadOnly;
             //Act
             //Assert
-            Assert.Fail ("TestNotImplemented");
+            Assert.Throws<System.UnauthorizedAccessException> (() =>
+            {
+                TextLogger.LogText(Data.LogLevels.Warning,"Logggingmessage bu file is not accessible");
+            }, "System.UnauthorizedAccessException was not thrown");
+            // CleanUp
+            TargetFile.Attributes = FileAttributes.Normal;
+            TargetFile.Delete ();
         }
+
         [Test]
         public void LogText_IfTargetFileIsNotExistingButAccessible_TextIsWrittenIntoNewFile ()
         {
