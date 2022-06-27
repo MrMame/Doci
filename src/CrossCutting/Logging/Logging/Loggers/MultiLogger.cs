@@ -31,6 +31,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         }
 
         public void AddLogger(ILogger Logger) {
+            if (Logger is null) throw new ArgumentNullException ();
             _Loggers.Add(Logger);
         }
 
