@@ -43,7 +43,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         /// </summary>
         /// <param name="LogFileName">Filename of the target Logfile</param>
         /// <param name="BackupOversizedLogfiles"> If true, a new logfile will be created if the size 
-        /// of the target logfile exceeds the maxFileSize threshold.actual datei will be append 
+        /// of the target logfile exceeds the maxFileSize threshold. actual date will be append 
         /// to the backup logfiles filename.
         /// If false, the target logfile will be deleted as soon as the maxFileSize threshhold is exceeded.
         /// All old data will be lost.</param>

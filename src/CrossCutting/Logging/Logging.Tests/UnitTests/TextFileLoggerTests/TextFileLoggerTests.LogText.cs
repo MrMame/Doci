@@ -12,15 +12,57 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
     public partial class TextFileLoggerTests
     {
 
-
         [Test]
-        public void LogText_RunningTest_WillAlwaysFail ()
+        public void LogText_ToAccessibleTargetFile_WritesIntoTargetfile ()
         {
             //Arrange
             //Act
             //Assert
-            Assert.IsTrue (false);
+            Assert.Fail ("TestNotImplemented");
         }
+        [Test]
+        public void LogText_ToNotAccessibleTargetFile_ThrowsException ()
+        {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Fail ("TestNotImplemented");
+        }
+        [Test]
+        public void LogText_ToNotExistingButAccessibleTargetFile_WritesIntoTargetfile ()
+        {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Fail ("TestNotImplemented");
+        }
+
+        [Test]
+        public void LogText_ToNULLTargetFile_ThrowsException ()
+        {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Fail ("TestNotImplemented");
+        }
+        [Test]
+        public void LogText_ToMaxSizedTargetIfBackupIsFalse_DeletesOldFileAndAppendsToNewFile ()
+        {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Fail ("TestNotImplemented");
+        }
+        [Test]
+        public void LogText_ToMaxSizedTargetIfBackupIsTrue_CreatesBackupFileAndAppendsTextToNewTargetfile ()
+        {
+            //Arrange
+            //Act
+            //Assert
+            Assert.Fail ("TestNotImplemented");
+        }
+        
+
 
 
 
