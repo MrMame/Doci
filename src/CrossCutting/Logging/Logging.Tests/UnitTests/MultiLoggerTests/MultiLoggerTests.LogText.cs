@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Mame.Doci.CrossCutting.Logging.Loggers;
+using NUnit.Framework;
+using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,9 +14,21 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
         public void LogText_IfLoggersAdded_CallLogTextOnAllLoggersFromList ()
         {
             //ARRANGE
+            ILogger LoggerA = Substitute.For<ILogger> ();
+            var LoggerB = Substitute.For<ILogger> ();
+            var TestMultiLogger = new MultiLogger ();
+            TestMultiLogger.AddLogger (LoggerA);
+            TestMultiLogger.AddLogger (LoggerB);
+
             //ACT
+            var TargetLogLevel = Data.LogLevels.Error;
+            var TargetLogMessage = "Test logmessage for all loggers";
+            TestMultiLogger.LogText (TargetLogLevel, TargetLogMessage);
+
             //ASSERT
-            Assert.Fail ("TestNotImplemented");
+            LoggerA.Received ().LogText (TargetLogLevel, TargetLogMessage);
+            LoggerB.Received ().LogText (TargetLogLevel, TargetLogMessage);
+
         }
         [Test]
         public void LogText_IfNoLoggersAdded_NothingHappens ()

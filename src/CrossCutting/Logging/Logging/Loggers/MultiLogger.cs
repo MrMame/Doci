@@ -10,7 +10,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
     
     
 
-    class MultiLogger:ILogger{
+    public class MultiLogger:ILogger{
 
         List<ILogger> _Loggers = new List<ILogger>();
         LogLevels _PrintingLogLevel = LogLevels.All;
