@@ -18,6 +18,14 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.Tes
             return new TextFileLogger (nullReferenceTargetFile);
         }
 
+        public static TextFileLogger CreateWithExistingWriteableTargetFile ()
+        {
+            string TargetFileName = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\TextFileLoggerTesting.Log";
+            FileInfo WriteableTargetFile = new FileInfo (TargetFileName);
+            File.WriteAllText (TargetFileName, "ExampleRow1\r\nExampleRow2\r\n");
+            return new TextFileLogger (WriteableTargetFile);
+        }
+
         public static TextFileLogger CreateWithNotExistingWriteableTargetFile ()
         {
             string TargetFileName = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\TextFileLoggerTesting.Log";

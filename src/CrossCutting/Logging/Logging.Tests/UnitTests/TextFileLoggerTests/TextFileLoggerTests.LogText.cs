@@ -14,10 +14,10 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
     {
 
         [Test]
-        public void LogText_IfTargetFileIsAccessible_TextIsWritten()
+        public void LogText_IfTargetFileIsExistingAndAccessible_TextIsAppend()
         {
             //Arrange
-            var WriteableTextLogger = TextFileLoggerFactory.CreateWithNotExistingWriteableTargetFile ();
+            var WriteableTextLogger = TextFileLoggerFactory.CreateWithExistingWriteableTargetFile ();
             FileInfo TargetFile = WriteableTextLogger.TargetFile;
             
             //Act
@@ -25,7 +25,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             
             //Assert
             using (StreamReader sr = TargetFile.OpenText ()) { 
-                Assert.IsTrue (sr.ReadToEnd ().Contains("This is a warning message."));
+                Assert.IsTrue (sr.ReadToEnd ().EndsWith("This is a warning message.\r\n"));
                 sr.Close ();
             } ;
             
@@ -48,9 +48,21 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
         public void LogText_IfTargetFileIsNotExistingButAccessible_TextIsWrittenIntoNewFile ()
         {
             //Arrange
+            var WriteableTextLogger = TextFileLoggerFactory.CreateWithNotExistingWriteableTargetFile ();
+            FileInfo TargetFile = WriteableTextLogger.TargetFile;
+
             //Act
+            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is a warning message.");
+
             //Assert
-            Assert.Fail ("TestNotImplemented");
+            using (StreamReader sr = TargetFile.OpenText ())
+            {
+                Assert.IsTrue (sr.ReadToEnd ().Contains ("This is a warning message."));
+                sr.Close ();
+            };
+
+            // CleanUp
+            TargetFile.Delete ();
         }
 
         [Test]
