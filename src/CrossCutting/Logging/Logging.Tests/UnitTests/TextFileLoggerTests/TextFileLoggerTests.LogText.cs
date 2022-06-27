@@ -33,7 +33,6 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             TargetFile.Delete ();
         }
 
-
         [Test]
         public void LogText_IfTargetFileIsNotAccessible_ThrowsUnauthorizedAccessException ()
         {
@@ -74,21 +73,27 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
         }
 
         [Test]
-        public void LogText_IfTargetFileIsNULL_ThrowsException ()
-        {
-            //Arrange
-            //Act
-            //Assert
-            Assert.Fail ("TestNotImplemented");
-        }
-        [Test]
         public void LogText_IfBackupIsFalseAndTargetFileMaxSizedReached_DeletesOldTargetFileAndAppendsToNewTargetFile ()
         {
             //Arrange
+            TextFileLogger WriteableTextLogger = TextFileLoggerFactory.CreateWithNotExistingWriteableTargetFile ();
+            WriteableTextLogger.BackupOversizedLogfiles = false;
+
+            Int32 NumberOfBytesForExtrapayload = WriteableTextLogger.MaxNumberOfBytes + 10000;
+            ExtraPayloadTargetFile (WriteableTextLogger.TargetFile, NumberOfBytesForExtrapayload);
+
             //Act
+            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is the stroke that brokes the camels back.");
+
             //Assert
-            Assert.Fail ("TestNotImplemented");
+            Assert.Less (WriteableTextLogger.TargetFile.Length, WriteableTextLogger.MaxNumberOfBytes,"TargetFile was not deleted because of MaximumBytes! Message was added to old oversized file instead.");
+
+            // CleanUp
+            WriteableTextLogger.TargetFile.Delete ();
+
         }
+
+
         [Test]
         public void LogText_IfBackupIsTrueAndTargetFileMaxSizedReached_CreatesBackupFileAndAppendsTextToNewTargetfile ()
         {
@@ -97,8 +102,30 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             //Assert
             Assert.Fail ("TestNotImplemented");
         }
-        
 
+
+
+        private void ExtraPayloadTargetFile (FileInfo OversizedTargetFile, Int32 NumberOfBytes)
+        {
+            Int32 MoreBytesThanMaximum = NumberOfBytes;
+            char[] payload = CreatePayload (MoreBytesThanMaximum, FillChar: 'X');
+            using (StreamWriter sr = OversizedTargetFile.AppendText ())
+            {
+                sr.Write (payload);
+                sr.Close ();
+            }
+            OversizedTargetFile.Refresh ();
+        }
+
+        private char[] CreatePayload (Int32 NumberOfBytes,char FillChar)
+        {
+            char[] payload = new char[NumberOfBytes];
+            for (int i = 0; i < payload.Length; i++)
+            {
+                payload[i] = FillChar;
+            }
+            return payload;
+        }
 
 
 

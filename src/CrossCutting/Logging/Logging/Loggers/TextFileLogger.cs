@@ -24,6 +24,17 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         bool _isTextfileAccessible=false;
         LogLevels _printingLogLevel = LogLevels.All;
 
+        public bool BackupOversizedLogfiles
+        {
+            get { return _backupOversizedTargetFiles; }
+            set { _backupOversizedTargetFiles = value; }
+        }
+
+        public Int32 MaxNumberOfBytes
+        {
+            get { return DEFAULT_BACKUP_MAXSIZE; }
+        }
+
         public LogLevels PrintingLogLevel {
             get { return _printingLogLevel; }
             set { _printingLogLevel = value; }
@@ -69,11 +80,13 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
 
         public void LogText(LogLevels MessageType, string Text)
         {
+            _TargetFileInfo.Refresh ();
             if (_isTextfileAccessible) {
                 string message = DateTime.Now.ToString(_logTextDateTimeFormat) + _logTextSeperator + MessageType.ToString("G") + _logTextSeperator + Text + "\r\n";
-                WriteToTextfile(_TargetFileInfo,message);
                 RenameOrDeleteMaxSizedFile(_backupOversizedTargetFiles);
+                WriteToTextfile(_TargetFileInfo,message);
             }
+            _TargetFileInfo.Refresh ();
         }
 
         #endregion "PUBLICS"
@@ -85,10 +98,10 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
 
         private void RenameOrDeleteMaxSizedFile(bool BackupOversizedLogfiles) {
             if (!_isTextfileAccessible) return;
-            
+            _TargetFileInfo.Refresh ();
             if (_TargetFileInfo.Length > _maxBackupFileSize) {
                 if (BackupOversizedLogfiles) {
-                    _TargetFileInfo.MoveTo(_TargetFileInfo.DirectoryName + "\\" +
+                    _TargetFileInfo.CopyTo(_TargetFileInfo.DirectoryName + "\\" +
                                 _TargetFileInfo.Name.Replace(_TargetFileInfo.Extension, "") + 
                                 "_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") 
                                 + _TargetFileInfo.Extension.ToString());
