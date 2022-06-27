@@ -14,18 +14,19 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
     {
 
         private const bool DEFAULT_BACKUP_OVERSIZED_FILES = true;
+        private const Int32 DEFAULT_BACKUP_MAXSIZE = 150000000;
 
         FileInfo _fi;
-        char _seperator = ';';
-        string _DateTimeFormat = "yyyyMMdd_HH:mm:ss";
-        long _maxFileSize = 150000000;
-        bool _backupOversizedLogs = DEFAULT_BACKUP_OVERSIZED_FILES;
+        char _logTextSeperator = ';';
+        string _logTextDateTimeFormat = "yyyyMMdd_HH:mm:ss";
+        long _maxBackupFileSize = DEFAULT_BACKUP_MAXSIZE;
+        bool _backupOversizedTargetFiles = DEFAULT_BACKUP_OVERSIZED_FILES;
         bool _isTextfileAccessible=false;
-        LogLevels _PrintingLogLevel = LogLevels.All;
+        LogLevels _printingLogLevel = LogLevels.All;
 
         public LogLevels PrintingLogLevel {
-            get { return _PrintingLogLevel; }
-            set { _PrintingLogLevel = value; }
+            get { return _printingLogLevel; }
+            set { _printingLogLevel = value; }
         }
 
         #region " CONSTRUCTOR"
@@ -50,7 +51,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         public TextFileLogger (FileInfo TargetLogFile, bool BackupOversizedLogfiles) {
             if (TargetLogFile is null) throw new NullReferenceException ();
             _fi = TargetLogFile;
-            _backupOversizedLogs = BackupOversizedLogfiles;
+            _backupOversizedTargetFiles = BackupOversizedLogfiles;
             _isTextfileAccessible = IsTextfileAccessible (TargetLogFile);
         }
    
@@ -65,9 +66,9 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         public void LogText(LogLevels MessageType, string Text)
         {
             if (_isTextfileAccessible) {
-                string message = DateTime.Now.ToString(_DateTimeFormat) + _seperator + MessageType.ToString("G") + _seperator + Text + "\r\n";
+                string message = DateTime.Now.ToString(_logTextDateTimeFormat) + _logTextSeperator + MessageType.ToString("G") + _logTextSeperator + Text + "\r\n";
                 WriteToTextfile(_fi,message);
-                RenameOrDeleteMaxSizedFile(_backupOversizedLogs);
+                RenameOrDeleteMaxSizedFile(_backupOversizedTargetFiles);
             }
         }
 
@@ -81,7 +82,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         private void RenameOrDeleteMaxSizedFile(bool BackupOversizedLogfiles) {
             if (!_isTextfileAccessible) return;
             
-            if (_fi.Length > _maxFileSize) {
+            if (_fi.Length > _maxBackupFileSize) {
                 if (BackupOversizedLogfiles) {
                     _fi.MoveTo(_fi.DirectoryName + "\\" +
                                 _fi.Name.Replace(_fi.Extension, "") + 
