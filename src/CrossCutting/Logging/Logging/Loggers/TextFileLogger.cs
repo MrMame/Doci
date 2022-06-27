@@ -16,7 +16,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         private const bool DEFAULT_BACKUP_OVERSIZED_FILES = true;
         private const Int32 DEFAULT_BACKUP_MAXSIZE = 150000000;
 
-        FileInfo _fi;
+        FileInfo _TargetFileInfo;
         char _logTextSeperator = ';';
         string _logTextDateTimeFormat = "yyyyMMdd_HH:mm:ss";
         long _maxBackupFileSize = DEFAULT_BACKUP_MAXSIZE;
@@ -50,7 +50,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         /// All old data will be lost.</param>
         public TextFileLogger (FileInfo TargetLogFile, bool BackupOversizedLogfiles) {
             if (TargetLogFile is null) throw new NullReferenceException ();
-            _fi = TargetLogFile;
+            _TargetFileInfo = TargetLogFile;
             _backupOversizedTargetFiles = BackupOversizedLogfiles;
             _isTextfileAccessible = IsTextfileAccessible (TargetLogFile);
         }
@@ -67,7 +67,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         {
             if (_isTextfileAccessible) {
                 string message = DateTime.Now.ToString(_logTextDateTimeFormat) + _logTextSeperator + MessageType.ToString("G") + _logTextSeperator + Text + "\r\n";
-                WriteToTextfile(_fi,message);
+                WriteToTextfile(_TargetFileInfo,message);
                 RenameOrDeleteMaxSizedFile(_backupOversizedTargetFiles);
             }
         }
@@ -82,14 +82,14 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         private void RenameOrDeleteMaxSizedFile(bool BackupOversizedLogfiles) {
             if (!_isTextfileAccessible) return;
             
-            if (_fi.Length > _maxBackupFileSize) {
+            if (_TargetFileInfo.Length > _maxBackupFileSize) {
                 if (BackupOversizedLogfiles) {
-                    _fi.MoveTo(_fi.DirectoryName + "\\" +
-                                _fi.Name.Replace(_fi.Extension, "") + 
+                    _TargetFileInfo.MoveTo(_TargetFileInfo.DirectoryName + "\\" +
+                                _TargetFileInfo.Name.Replace(_TargetFileInfo.Extension, "") + 
                                 "_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") 
-                                + _fi.Extension.ToString());
+                                + _TargetFileInfo.Extension.ToString());
                 } else {
-                    _fi.Delete();
+                    _TargetFileInfo.Delete();
                 }
             }
         }
