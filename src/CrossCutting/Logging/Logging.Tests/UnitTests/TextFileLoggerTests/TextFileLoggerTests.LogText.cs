@@ -13,7 +13,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
     {
 
         [Test]
-        public void LogText_ToAccessibleTargetFile_WritesIntoTargetfile ()
+        public void LogText_IfTargetFileIsAccessible_TextIsWritten()
         {
             //Arrange
             //Act
@@ -21,7 +21,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             Assert.Fail ("TestNotImplemented");
         }
         [Test]
-        public void LogText_ToNotAccessibleTargetFile_ThrowsException ()
+        public void LogText_IfTargetFileIsNotAccessible_ThrowsException ()
         {
             //Arrange
             //Act
@@ -29,7 +29,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             Assert.Fail ("TestNotImplemented");
         }
         [Test]
-        public void LogText_ToNotExistingButAccessibleTargetFile_WritesIntoTargetfile ()
+        public void LogText_IfTargetFileIsNotExistingButAccessible_TextIsWrittenIntoNewFile ()
         {
             //Arrange
             //Act
@@ -38,7 +38,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
         }
 
         [Test]
-        public void LogText_ToNULLTargetFile_ThrowsException ()
+        public void LogText_IfTargetFileIsNULL_ThrowsException ()
         {
             //Arrange
             //Act
@@ -46,7 +46,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             Assert.Fail ("TestNotImplemented");
         }
         [Test]
-        public void LogText_ToMaxSizedTargetIfBackupIsFalse_DeletesOldFileAndAppendsToNewFile ()
+        public void LogText_IfBackupIsFalseAndTargetFileMaxSizedReached_DeletesOldTargetFileAndAppendsToNewTargetFile ()
         {
             //Arrange
             //Act
@@ -54,7 +54,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             Assert.Fail ("TestNotImplemented");
         }
         [Test]
-        public void LogText_ToMaxSizedTargetIfBackupIsTrue_CreatesBackupFileAndAppendsTextToNewTargetfile ()
+        public void LogText_IfBackupIsTrueAndTargetFileMaxSizedReached_CreatesBackupFileAndAppendsTextToNewTargetfile ()
         {
             //Arrange
             //Act
