@@ -33,6 +33,9 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             TargetFile.Delete ();
         }
 
+       
+
+
         [Test]
         public void LogText_IfTargetFileIsNotAccessible_ThrowsException ()
         {

@@ -25,5 +25,10 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.Tes
             if (WriteableTargetFile.Exists) WriteableTargetFile.Delete ();
             return new TextFileLogger (WriteableTargetFile);
         }
+
+        public static TextFileLogger CreateWithFileInfo (FileInfo TargetFilename)
+        {
+           return new TextFileLogger (TargetFilename);
+        }
     }
 }

@@ -44,7 +44,25 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
           
         }
 
+        [Test]
+        [TestCase ("Invalid::Filename.txt")]
+        [TestCase ("Invalid>>Filename.txt")]
+        [TestCase ("Invalid<<Filename.txt")]
+        [TestCase ("Invalid\"Filename.txt")]
+        [TestCase ("Invalid??Filename.txt")]
+        [TestCase ("Invalid||Filename.txt")]
+        [TestCase ("Invalid**Filename.txt")]
+        public void Constructor_IfTargetfileNameHasInvalidChars_ThrowsIOExceptionn (string testFileName)
+        {
+            //Arrange
+            var FileInfoInvalidName = new FileInfo (testFileName);
+            //Act
+            //Assert
+            Assert.Throws<System.IO.IOException> (() => {
+                TextFileLogger TestLogger = TextFileLoggerFactory.CreateWithFileInfo (FileInfoInvalidName);
+            }, "System.IO.IOException was not thrown.");
 
+        }
 
     }
 }

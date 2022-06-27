@@ -114,22 +114,11 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
 
 
         private bool IsTextfileAccessible(FileInfo TargetLogfile) {
-
-                   
+   
             if (!TargetLogfile.Exists) {
-                try {
-                    TargetLogfile.CreateText().Close();
-                } catch (Exception) {
-                    return false;
-                }
+                TargetLogfile.CreateText().Close();
             } else {
-                try {
-                    TargetLogfile.OpenWrite().Close();
-                } catch (UnauthorizedAccessException ex) {
-                    return false;
-                } catch (DirectoryNotFoundException ex) {
-                    return false;
-                }
+                TargetLogfile.OpenWrite().Close();
             }
             return true;
         }
