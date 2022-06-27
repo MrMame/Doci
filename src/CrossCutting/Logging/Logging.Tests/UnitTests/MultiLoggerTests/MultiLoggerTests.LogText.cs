@@ -4,6 +4,7 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests.TestSupports;
 
 namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
 {
@@ -16,10 +17,8 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
             //ARRANGE
             ILogger LoggerA = Substitute.For<ILogger> ();
             var LoggerB = Substitute.For<ILogger> ();
-            var TestMultiLogger = new MultiLogger ();
-            TestMultiLogger.AddLogger (LoggerA);
-            TestMultiLogger.AddLogger (LoggerB);
-
+            var TestMultiLogger = MultiLoggerFactory.CreateWithLoggers (LoggerA, LoggerB);
+            
             //ACT
             var TargetLogLevel = Data.LogLevels.Error;
             var TargetLogMessage = "Test logmessage for all loggers";
@@ -31,12 +30,19 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
 
         }
         [Test]
-        public void LogText_IfNoLoggersAdded_NothingHappens ()
+        public void LogText_IfNoLoggersAdded_ThrowsNoException ()
         {
             //ARRANGE
+            var TestMultiLogger = MultiLoggerFactory.CreateParameterless ();
             //ACT
             //ASSERT
-            Assert.Fail ("TestNotImplemented");
+            Assert.DoesNotThrow (() =>
+            {
+                var TargetLogLevel = Data.LogLevels.Error;
+                var TargetLogMessage = "Test logmessage for all loggers";
+                TestMultiLogger.LogText (TargetLogLevel, TargetLogMessage);
+            }, "Calling LogText to empty Multilogger has thrown exception!");
+            
         }
 
     }
