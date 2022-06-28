@@ -15,6 +15,7 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
 
         private const bool DEFAULT_BACKUP_OVERSIZED_FILES = true;
         private const Int32 DEFAULT_BACKUP_MAXSIZE = 150000000;
+        private const string DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME = "_yyyyMMdd_hhmmss";
 
         FileInfo _TargetFileInfo;
         char _logTextSeperator = ';';
@@ -23,6 +24,12 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         bool _backupOversizedTargetFiles = DEFAULT_BACKUP_OVERSIZED_FILES;
         bool _isTextfileAccessible=false;
         LogLevels _printingLogLevel = LogLevels.All;
+
+        public string BackupDateFormat
+        {
+            get { return DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME; }
+        }
+
 
         public bool BackupOversizedLogfiles
         {
@@ -97,18 +104,20 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         #region "PRIVATES"
 
         private void RenameOrDeleteMaxSizedFile(bool BackupOversizedLogfiles) {
-            if (!_isTextfileAccessible) return;
             _TargetFileInfo.Refresh ();
+            if (!_isTextfileAccessible) return;
             if (_TargetFileInfo.Length > _maxBackupFileSize) {
                 if (BackupOversizedLogfiles) {
                     _TargetFileInfo.CopyTo(_TargetFileInfo.DirectoryName + "\\" +
-                                _TargetFileInfo.Name.Replace(_TargetFileInfo.Extension, "") + 
-                                "_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") 
+                                _TargetFileInfo.Name.Replace(_TargetFileInfo.Extension, "")
+                                + DateTime.Now.ToString(DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME) 
                                 + _TargetFileInfo.Extension.ToString());
+                    _TargetFileInfo.Delete ();
                 } else {
                     _TargetFileInfo.Delete();
                 }
             }
+            _TargetFileInfo.Refresh ();
         }
 
         private void WriteToTextfile(FileInfo TargetLogfile,string Message)

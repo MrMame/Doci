@@ -6,12 +6,15 @@ using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 using System.IO;
 using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.TestSupport;
+using System.Linq;
 
 namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
 {
     [TestFixture]
     public partial class TextFileLoggerTests
     {
+
+        #region "TESTS"
 
         [Test]
         public void LogText_IfTargetFileIsExistingAndAccessible_TextIsAppend()
@@ -73,7 +76,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
         }
 
         [Test]
-        public void LogText_IfBackupIsFalseAndTargetFileMaxSizedReached_DeletesOldTargetFileAndAppendsToNewTargetFile ()
+        public void LogText_IfBackupIsFalseAndTargetFileMaxSizeReached_OldTargetFileIsDeletedAndMessageAppendsToNewTargetFile ()
         {
             //Arrange
             TextFileLogger WriteableTextLogger = TextFileLoggerFactory.CreateWithNotExistingWriteableTargetFile ();
@@ -98,12 +101,49 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
         public void LogText_IfBackupIsTrueAndTargetFileMaxSizedReached_CreatesBackupFileAndAppendsTextToNewTargetfile ()
         {
             //Arrange
+            /* Define the name 0of the Logfile and delete if any files (backupsincluded) are still exsiting from previous tests*/
+            string TargetFileFolder = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\";
+            string TargetFileNameNoExt = "TextFileLoggerTesting"; 
+            string TargetFileExt = ".Log";
+            string targetFileFullname = TargetFileFolder + TargetFileNameNoExt + TargetFileExt;
+            TextFileLogger WriteableTextLogger = TextFileLoggerFactory.CreateWithFileInfo (new FileInfo(targetFileFullname));
+            string TargetFileNameBackupDatePlaceholders = string.Concat (Enumerable.Repeat ("?", WriteableTextLogger.BackupDateFormat.Length));
+            RemoveExistingFiles (new DirectoryInfo(TargetFileFolder), 
+                                        TargetFileNameNoExt + TargetFileNameBackupDatePlaceholders + TargetFileExt);
+            /* Create Logfile and fill with placeholder bytes to exceed maxFileSize */
+            WriteableTextLogger.BackupOversizedLogfiles = true;
+            Int32 NumberOfBytesForExtrapayload = WriteableTextLogger.MaxNumberOfBytes + 10000;
+            ExtraPayloadTargetFile (WriteableTextLogger.TargetFile, NumberOfBytesForExtrapayload);
+
             //Act
+            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is the stroke that brokes the camels back.");
+
             //Assert
-            Assert.Fail ("TestNotImplemented");
+            bool isBackupFileExisting = (WriteableTextLogger.TargetFile.Directory.GetFiles (TargetFileNameNoExt + TargetFileNameBackupDatePlaceholders + TargetFileExt).Count() == 2);
+            Assert.True (isBackupFileExisting, "It seems that no Backupfile was created.");
+            Assert.Less (WriteableTextLogger.TargetFile.Length, WriteableTextLogger.MaxNumberOfBytes, "TargetFile seems not to be deleted because of ist size ! Message was added to old oversized file instead of a small sized new file.");
+            
+
+            // CleanUp
+            RemoveExistingFiles (new DirectoryInfo (TargetFileFolder),
+                                TargetFileNameNoExt + TargetFileNameBackupDatePlaceholders + TargetFileExt);
+
         }
 
+        #endregion
 
+
+
+        #region "PRIVATES"
+
+        private void RemoveExistingFiles (DirectoryInfo TargetDirectory ,string FilenamePattern)
+        {  
+            foreach (FileInfo fi in TargetDirectory.GetFiles (FilenamePattern))
+            {
+                fi.Attributes = FileAttributes.Normal;
+                fi.Delete();
+            }
+        }
 
         private void ExtraPayloadTargetFile (FileInfo OversizedTargetFile, Int32 NumberOfBytes)
         {
@@ -127,7 +167,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             return payload;
         }
 
-
+        #endregion
 
     }
 }
