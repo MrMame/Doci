@@ -16,10 +16,11 @@ namespace Mame.Doci.CrossCutting.Logging.Loggers
         private const bool DEFAULT_BACKUP_OVERSIZED_FILES = true;
         private const Int32 DEFAULT_BACKUP_MAXSIZE = 150000000;
         private const string DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME = "_yyyyMMdd_hhmmss";
+        private const string DEFAULT_FORMATSTRING_LOGTEXT_DATEFORMAT = "yyyyMMdd_HH:mm:ss";
 
         FileInfo _TargetFileInfo;
         char _logTextSeperator = ';';
-        string _logTextDateTimeFormat = "yyyyMMdd_HH:mm:ss";
+        string _logTextDateTimeFormat = DEFAULT_FORMATSTRING_LOGTEXT_DATEFORMAT;
         long _maxBackupFileSize = DEFAULT_BACKUP_MAXSIZE;
         bool _backupOversizedTargetFiles = DEFAULT_BACKUP_OVERSIZED_FILES;
         bool _isTextfileAccessible=false;
