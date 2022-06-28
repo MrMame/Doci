@@ -4,56 +4,78 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MarkusMeinhard.Doci.CrossCutting.Logging;
+using Mame.Doci.CrossCutting.Logging;
 using System.IO;
-using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Data;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
+namespace Mame.Doci.CrossCutting.Logging.Loggers
 {
-    class TextFileLogger:ILogger
+    public class TextFileLogger:ILogger
     {
 
-        // string _Filename = "Logfile.log";
-        FileInfo _fi;
-        char _seperator = ';';
-        string _DateTimeFormat = "yyyyMMdd_HH:mm:ss";
-        long _maxFileSize = 150000000;
-        bool _backupOversizedLogs = false;
-        bool _isTextfileAccessible;
+        private const bool DEFAULT_BACKUP_OVERSIZED_FILES = true;
+        private const Int32 DEFAULT_BACKUP_MAXSIZE = 150000000;
+        private const string DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME = "_yyyyMMdd_hhmmss";
+        private const string DEFAULT_FORMATSTRING_LOGTEXT_DATEFORMAT = "yyyyMMdd_HH:mm:ss";
+
+        FileInfo _TargetFileInfo;
+        char _logTextSeperator = ';';
+        string _logTextDateTimeFormat = DEFAULT_FORMATSTRING_LOGTEXT_DATEFORMAT;
+        long _maxBackupFileSize = DEFAULT_BACKUP_MAXSIZE;
+        bool _backupOversizedTargetFiles = DEFAULT_BACKUP_OVERSIZED_FILES;
+        bool _isTextfileAccessible=false;
+        LogLevels _printingLogLevel = LogLevels.All;
+
+        public string BackupDateFormat
+        {
+            get { return DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME; }
+        }
 
 
+        public bool BackupOversizedLogfiles
+        {
+            get { return _backupOversizedTargetFiles; }
+            set { _backupOversizedTargetFiles = value; }
+        }
 
-        LogLevels _PrintingLogLevel = LogLevels.All;
+        public Int32 MaxNumberOfBytes
+        {
+            get { return DEFAULT_BACKUP_MAXSIZE; }
+        }
 
         public LogLevels PrintingLogLevel {
-            get { return _PrintingLogLevel; }
-            set { _PrintingLogLevel = value; }
+            get { return _printingLogLevel; }
+            set { _printingLogLevel = value; }
+        }
+
+        public FileInfo TargetFile {
+            get { return _TargetFileInfo; }
         }
 
         #region " CONSTRUCTOR"
 
-        public TextFileLogger() {
-            _isTextfileAccessible = false;
+        public TextFileLogger()
+        {
         }
      
         public TextFileLogger(FileInfo TargetLogFile)
+            :this(TargetLogFile, DEFAULT_BACKUP_OVERSIZED_FILES)
         {
-            _fi = TargetLogFile;
-            _isTextfileAccessible = IsTextfileAccessible(TargetLogFile);
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="LogFileName">Filename of the target Logfile</param>
         /// <param name="BackupOversizedLogfiles"> If true, a new logfile will be created if the size 
-        /// of the target logfile exceeds the maxFileSize threshold.actual datei will be append 
+        /// of the target logfile exceeds the maxFileSize threshold. actual date will be append 
         /// to the backup logfiles filename.
         /// If false, the target logfile will be deleted as soon as the maxFileSize threshhold is exceeded.
         /// All old data will be lost.</param>
         public TextFileLogger (FileInfo TargetLogFile, bool BackupOversizedLogfiles) {
-            _fi = TargetLogFile;
-            _backupOversizedLogs = BackupOversizedLogfiles;
-            _isTextfileAccessible = IsTextfileAccessible(TargetLogFile);
+            if (TargetLogFile is null) throw new NullReferenceException ();
+            _TargetFileInfo = TargetLogFile;
+            _backupOversizedTargetFiles = BackupOversizedLogfiles;
+            _isTextfileAccessible = IsTextfileAccessible (TargetLogFile);
         }
    
         #endregion "CONSTRUCTOR"
@@ -66,11 +88,13 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
 
         public void LogText(LogLevels MessageType, string Text)
         {
+            _TargetFileInfo.Refresh ();
             if (_isTextfileAccessible) {
-                string message = DateTime.Now.ToString(_DateTimeFormat) + _seperator + MessageType.ToString("G") + _seperator + Text + "\r\n";
-                WriteToTextfile(_fi,message);
-                RenameOrDeleteMaxSizedFile(_backupOversizedLogs);
+                string message = DateTime.Now.ToString(_logTextDateTimeFormat) + _logTextSeperator + MessageType.ToString("G") + _logTextSeperator + Text + "\r\n";
+                RenameOrDeleteMaxSizedFile(_backupOversizedTargetFiles);
+                WriteToTextfile(_TargetFileInfo,message);
             }
+            _TargetFileInfo.Refresh ();
         }
 
         #endregion "PUBLICS"
@@ -81,25 +105,27 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
         #region "PRIVATES"
 
         private void RenameOrDeleteMaxSizedFile(bool BackupOversizedLogfiles) {
+            _TargetFileInfo.Refresh ();
             if (!_isTextfileAccessible) return;
-            
-            if (_fi.Length > _maxFileSize) {
+            if (_TargetFileInfo.Length > _maxBackupFileSize) {
                 if (BackupOversizedLogfiles) {
-                    _fi.MoveTo(_fi.DirectoryName + "\\" +
-                                _fi.Name.Replace(_fi.Extension, "") + 
-                                "_" + DateTime.Now.ToString("yyyyMMdd_hhmmss") 
-                                + _fi.Extension.ToString());
+                    _TargetFileInfo.CopyTo(_TargetFileInfo.DirectoryName + "\\" +
+                                _TargetFileInfo.Name.Replace(_TargetFileInfo.Extension, "")
+                                + DateTime.Now.ToString(DEFAULT_FORMATSTRING_BACKUP_DATEFILENAME) 
+                                + _TargetFileInfo.Extension.ToString());
+                    _TargetFileInfo.Delete ();
                 } else {
-                    _fi.Delete();
+                    _TargetFileInfo.Delete();
                 }
             }
+            _TargetFileInfo.Refresh ();
         }
 
         private void WriteToTextfile(FileInfo TargetLogfile,string Message)
         {
             if (!_isTextfileAccessible) return;
 
-            using (FileStream fs = TargetLogfile.OpenRead())
+            using (FileStream fs = TargetLogfile.OpenWrite())
             {
                 Byte[] info =
                     new UTF8Encoding(true).GetBytes(Message);
@@ -111,22 +137,11 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
 
 
         private bool IsTextfileAccessible(FileInfo TargetLogfile) {
-
-                   
+   
             if (!TargetLogfile.Exists) {
-                try {
-                    TargetLogfile.CreateText().Close();
-                } catch (Exception) {
-                    return false;
-                }
+                TargetLogfile.CreateText().Close();
             } else {
-                try {
-                    TargetLogfile.OpenWrite().Close();
-                } catch (UnauthorizedAccessException ex) {
-                    return false;
-                } catch (DirectoryNotFoundException ex) {
-                    return false;
-                }
+                TargetLogfile.OpenWrite().Close();
             }
             return true;
         }

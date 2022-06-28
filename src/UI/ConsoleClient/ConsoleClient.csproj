@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0EC36F93-5106-4FEE-9512-167035B14A62}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MarkusMeinhard.Doci.CrossCutting.ConsoleClient</RootNamespace>
+    <RootNamespace>Mame.Doci.CrossCutting.ConsoleClient</RootNamespace>
     <AssemblyName>ConsoleClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

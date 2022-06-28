@@ -7,7 +7,7 @@
     <ProjectGuid>{5C17187A-8332-45D3-AA26-F4E359E99C85}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MarkusMeinhard.Doci.CrossCutting.Logging</RootNamespace>
+    <RootNamespace>Mame.Doci.CrossCutting.Logging</RootNamespace>
     <AssemblyName>Logging</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,7 +44,7 @@
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Data\EnumLogLevels.cs" />
     <Compile Include="Loggers\ILogger.cs" />
-    <Compile Include="Loggers\LogfilesController.cs" />
+    <Compile Include="Loggers\MultiLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Loggers\TextboxLogger.cs" />
     <Compile Include="Loggers\TextFileLogger.cs" />

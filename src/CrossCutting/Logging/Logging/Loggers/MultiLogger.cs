@@ -1,16 +1,16 @@
-﻿using MarkusMeinhard.Doci.CrossCutting.Logging.Data;
+﻿using Mame.Doci.CrossCutting.Logging.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
+namespace Mame.Doci.CrossCutting.Logging.Loggers
 {
     
     
 
-    class MultiLogger:ILogger{
+    public class MultiLogger:ILogger{
 
         List<ILogger> _Loggers = new List<ILogger>();
         LogLevels _PrintingLogLevel = LogLevels.All;
@@ -31,6 +31,7 @@ namespace MarkusMeinhard.Doci.CrossCutting.Logging.Loggers
         }
 
         public void AddLogger(ILogger Logger) {
+            if (Logger is null) throw new ArgumentNullException ();
             _Loggers.Add(Logger);
         }
 
