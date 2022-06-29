@@ -13,8 +13,8 @@ namespace Mame.Doci.Logic.LuceneAccess.Logic.Indexing
           as their importfolder as parent.*/
         String ParentTargetPathForImportedDocuments { get; set; }
 
-        void AddToIndex (DirectoryInfo IndexFolder, FileInfo ImportFile);
-        void AddToIndex (DirectoryInfo IndexFolder, FileInfo[] ImportFiles);
-        void AddToIndex (DirectoryInfo IndexFolder, DirectoryInfo ImportFolder, bool ImportWithSubfolders);
+        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,FileInfo ImportFile);
+        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,FileInfo[] ImportFiles);
+        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex, DirectoryInfo ImportFolder, bool ImportWithSubfolders);
     }
 }

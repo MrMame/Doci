@@ -26,26 +26,42 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
             IndexingController TestController = IndexingControllerFactory.CreateController ();
 
             //Act
-            TestController.AddToIndex (CleanTargetIndexFolder, ImportFile);
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex:true, ImportFile);
 
             //Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
+            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentInIndexExisting (CleanTargetIndexFolder,ImportFile);
             Assert.IsTrue (IsLuceneindexExisting);
+            Assert.IsTrue (IsImporttFileInIndex);
+
+            // CleanUp
+            CleanTargetIndexFolder.Delete ();
 
         }
+
+      
 
 
 
 
         private DirectoryInfo CreateCleanAndWriteableFolder () {
             string TargetFoldername = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\IndexingControllerTestsLuceneIndex\\";
-            return new DirectoryInfo (TargetFoldername);
+            DirectoryInfo TargetDir =  new DirectoryInfo (TargetFoldername);
+            if (TargetDir.Exists)
+            {
+                TargetDir.Delete (recursive:true);
+                TargetDir.Refresh ();
+            }
+            TargetDir.Create ();
+            return TargetDir;
         }
 
         private FileInfo GetDefaultImportFile ()
         {
-            return new FileInfo ("_TestAssets\\A_Docs\\Continuous-Integration-mit-Jenkins.pdf");
+            return new FileInfo ("Assets\\jenkins-user-handbook.pdf");
         }
+
+
 
     }
 }
