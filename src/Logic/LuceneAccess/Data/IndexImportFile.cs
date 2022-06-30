@@ -7,9 +7,6 @@ using System.Linq;
 using System.Text;
 using TikaOnDotNet.TextExtraction;
 
-using sun.util.resources;
-using java.util;
-
 namespace Mame.Doci.Logic.LuceneAccess.Data
 {
     class IndexImportFile
@@ -29,10 +26,6 @@ namespace Mame.Doci.Logic.LuceneAccess.Data
             if (!FSFileToimport.Exists) throw new FileNotFoundException ();
 
             _lucDoc = ParseLuceneDocument (FSFileToimport);
-
-
-            OpenListResourceBundle fakeObj = null;
-            PropertyResourceBundle fakeObj2 = null;
 
 
 

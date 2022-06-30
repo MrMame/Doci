@@ -30,12 +30,12 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
 
             //Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
-            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentInIndexExisting (CleanTargetIndexFolder,ImportFile);
-            Assert.IsTrue (IsLuceneindexExisting);
-            Assert.IsTrue (IsImporttFileInIndex);
+            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (CleanTargetIndexFolder,ImportFile);
+            Assert.IsTrue (IsLuceneindexExisting,"There is no Lucene Index existing inside targetindexFolder! " + CleanTargetIndexFolder);
+            Assert.IsTrue (IsImporttFileInIndex,"No Document match found inside lucene index for test importfile! " + ImportFile.FullName);
 
             // CleanUp
-            CleanTargetIndexFolder.Delete ();
+            CleanTargetIndexFolder.Delete (true);
 
         }
 
@@ -53,6 +53,7 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
                 TargetDir.Refresh ();
             }
             TargetDir.Create ();
+            TargetDir.Refresh ();
             return TargetDir;
         }
 

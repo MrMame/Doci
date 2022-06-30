@@ -2,6 +2,7 @@
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
+using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using System;
@@ -16,7 +17,7 @@ namespace LuceneAccess.Tests.TestSupport
     static class  LuceneIndexQuery
     {
 
-        private const string INDEX_FIELDNAME_FILENAME = "FileName";
+        private const string INDEX_FIELDNAME_FILENAME = "Filename";
 
 
         
@@ -26,7 +27,7 @@ namespace LuceneAccess.Tests.TestSupport
             return IndexReader.IndexExists(targetFolder);
         }
 
-        internal static bool IsDocumentInIndexExisting (DirectoryInfo targetIndexFolder, FileInfo importFile)
+        internal static bool IsDocumentFilenameInIndexExisting (DirectoryInfo targetIndexFolder, FileInfo importFile)
         {
 
             bool isDocInIndexExisting = false;
@@ -35,23 +36,25 @@ namespace LuceneAccess.Tests.TestSupport
             SimpleFSDirectory targetFolder = new SimpleFSDirectory (targetIndexFolder);
             Analyzer analyzer = new StandardAnalyzer (Lucene.Net.Util.Version.LUCENE_30);
             IndexSearcher indexSearcher = new IndexSearcher (targetFolder, readOnly:true);
-            int maxAnzahlTreffer = 5;
+            int maxNumberOfDocuments = 5;
 
-            string searchTerm = "";
-            var queryParser = new Lucene.Net.QueryParsers.QueryParser (Lucene.Net.Util.Version.LUCENE_30, searchTerm, analyzer);
+            Term t = new Term ("Filename", importFile.FullName);
+            Query tq = new TermQuery (t);
+
+
             // Read
-            TopDocs tp = indexSearcher.Search (queryParser.Query(INDEX_FIELDNAME_FILENAME), maxAnzahlTreffer);
+            TopDocs tp = indexSearcher.Search (tq, maxNumberOfDocuments);
             
             // Check
             if(tp.TotalHits <= 0)
             {
-                isDocInIndexExisting = false;// Documenmt is not exitsing
+                isDocInIndexExisting = false;   // Documenmt is not exitsing
             } else
             {
                 Document HitDocument = indexSearcher.Doc (tp.ScoreDocs[0].Doc);
                 string hitDocumentFilename = HitDocument.Get (INDEX_FIELDNAME_FILENAME);
 
-                if (hitDocumentFilename == importFile.Name) {
+                if (hitDocumentFilename.Equals(importFile.FullName)) {
                     isDocInIndexExisting = true;    // Index Document has the same name as previously imported
                 } else
                 {
