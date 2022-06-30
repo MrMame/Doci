@@ -46,7 +46,17 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
         {
             Assert.Fail ("Test not implemented");
         }
-        
+        [TestMethod]
+        public void AddToIndex_IfImportFileIsNotAccessible_LogsMessage ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfSingleFileInImportFilesIsNotAccessible_LogsMessageAndProcessesRestOfFiles ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+
         [TestMethod]
         public void AddToIndex_IfImportFileIsNULL_ThrowsNullReferenceException ()
         {
