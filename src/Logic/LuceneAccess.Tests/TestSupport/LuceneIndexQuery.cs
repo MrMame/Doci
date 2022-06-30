@@ -38,7 +38,7 @@ namespace LuceneAccess.Tests.TestSupport
             IndexSearcher indexSearcher = new IndexSearcher (targetFolder, readOnly:true);
             int maxNumberOfDocuments = 5;
 
-            Term t = new Term ("Filename", importFile.FullName);
+            Term t = new Term (INDEX_FIELDNAME_FILENAME, importFile.FullName);
             Query tq = new TermQuery (t);
 
 

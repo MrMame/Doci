@@ -15,7 +15,9 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
     /// </summary>
     public partial class IndexingControllerTests
     {
-     
+
+        #region "TESTS"
+
         [TestMethod]
         public void AddToIndex_AccessibleIndexFolderAndImportFile_AddsDocumentToIndex ()
         {
@@ -39,10 +41,72 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
 
         }
 
-      
+        [TestMethod]
+        public void AddToIndex_IfIndexFolderIsNotAccessible_ThrowsException ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        
+        [TestMethod]
+        public void AddToIndex_IfImportFileIsNULL_ThrowsNullReferenceException ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfImportFilesIsNULL_ThrowsNullReferenceException ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfIndexFolderIsNULL_ThrowsNullReferenceException ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfImportFolderIsNULL_ThrowsNullReferenceException ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfIndexIsExistingAndOverwriteIsTRUE_ ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        public void AddToIndex_IfIndexIsExistingAndOverwriteIsFALSE_ ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+
+        [TestMethod]
+        public void AddToIndex_IfIndexIsNotExistingAndOverwriteIsFALSE_AddsDocument ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfIndexIsNotExistingAndOverwriteIsTRUE_AddsDocument ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+
+        [TestMethod]
+        public void AddToIndex_IfParentPathIsEmpty_AddsDocumentWithRelativePath ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
+        [TestMethod]
+        public void AddToIndex_IfParentPathIsGiven_AddsDocumentWithParentPath ()
+        {
+            Assert.Fail ("Test not implemented");
+        }
 
 
 
+
+        #endregion
+
+
+
+        #region "PRIVATE"
 
         private DirectoryInfo CreateCleanAndWriteableFolder () {
             string TargetFoldername = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\IndexingControllerTestsLuceneIndex\\";
@@ -62,7 +126,7 @@ namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
             return new FileInfo ("Assets\\jenkins-user-handbook.pdf");
         }
 
-
+        #endregion
 
     }
 }
