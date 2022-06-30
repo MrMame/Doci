@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.TestSupport
+namespace Logging.Tests.TestSupports
 {
     static public class TextFileLoggerFactory
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mame.Doci.Logic.LuceneAccess</RootNamespace>
+    <RootNamespace>Mame.Doci.Data.LuceneAccess</RootNamespace>
     <AssemblyName>LuceneAccess</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -182,15 +182,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\IndexImportFile.cs" />
-    <Compile Include="Logic\Indexing\IIndexingController.cs" />
-    <Compile Include="Logic\Indexing\IndexingController.cs" />
-    <Compile Include="Logic\Querying\IQueryController.cs" />
-    <Compile Include="Logic\Querying\QueryController.cs" />
+    <Compile Include="Indexing\IndexImportFile.cs" />
+    <Compile Include="Indexing\IIndexingController.cs" />
+    <Compile Include="Indexing\IndexingController.cs" />
+    <Compile Include="Querying\IQueryController.cs" />
+    <Compile Include="Querying\QueryController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

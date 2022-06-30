@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 using System.IO;
-using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.TestSupport;
+using Logging.Tests.TestSupports;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
+namespace Logging.Tests.UnitTests.Loggers
 {
     [TestFixture]
     public partial class TextFileLoggerTests

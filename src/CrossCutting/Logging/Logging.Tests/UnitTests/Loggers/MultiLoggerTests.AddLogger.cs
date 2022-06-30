@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests.TestSupports;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
+namespace Logging.Tests.UnitTests.Loggers
 {
     [TestFixture]
     public partial class MultiLoggerTests

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.Logic.LuceneAccess.Logic.Query
+namespace Mame.Doci.Data.LuceneAccess.Querying
 {
-    interface IQueryController
+    class QueryController: IQueryController
     {
+
 
 
     }

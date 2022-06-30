@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
+namespace LuceneAccess.Tests.UnitTests.Indexing
 {
     /// <summary>
     /// Zusammenfassungsbeschreibung für UnitTest1

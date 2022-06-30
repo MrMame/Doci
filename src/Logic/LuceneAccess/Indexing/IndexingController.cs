@@ -1,15 +1,15 @@
 ﻿using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Util;
 using Lucene.Net.Index;
 using Lucene.Net.Store;
-using Mame.Doci.Logic.LuceneAccess.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.Logic.LuceneAccess.Logic.Indexing
+namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
     public class IndexingController : IIndexingController
     {

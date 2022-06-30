@@ -8,7 +8,7 @@
     <ProjectGuid>{DB8090F8-976E-49A7-97FA-53A4D74A3BA6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mame.Doci.Logic.LuceneAccess.Tests</RootNamespace>
+    <RootNamespace>Mame.Doci.Data.LuceneAccess.Tests</RootNamespace>
     <AssemblyName>LuceneAccess.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -146,9 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestSupport\LuceneIndexQuery.cs" />
-    <Compile Include="UnitTests\Logic\Indexing\TestSupport\IndexingControllerFactory.cs" />
-    <Compile Include="UnitTests\Logic\Indexing\IndexingControllerTests.cs" />
-    <Compile Include="UnitTests\Logic\Indexing\IndexingControllerTests.AddToIndex.cs" />
+    <Compile Include="TestSupport\IndexingControllerFactory.cs" />
+    <Compile Include="UnitTests\Indexing\IndexingControllerTests.cs" />
+    <Compile Include="UnitTests\Indexing\IndexingControllerTests.AddToIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,7 +164,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UnitTests\Logic\Querying\" />
+    <Folder Include="UnitTests\Querying\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

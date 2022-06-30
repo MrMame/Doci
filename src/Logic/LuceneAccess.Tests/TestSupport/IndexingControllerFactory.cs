@@ -1,4 +1,4 @@
-﻿using Mame.Doci.Logic.LuceneAccess.Logic.Indexing;
+﻿using Mame.Doci.Data.LuceneAccess.Indexing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LuceneAccess.Tests.UnitTests.Logic.Indexing.TestSupport
+namespace LuceneAccess.Tests.TestSupport
 {
     public static class IndexingControllerFactory
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests.TestSupports
+namespace Logging.Tests.TestSupports
 {
     static class MultiLoggerFactory
     {

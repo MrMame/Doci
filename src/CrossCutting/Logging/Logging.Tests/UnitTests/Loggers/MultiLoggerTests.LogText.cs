@@ -4,9 +4,11 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests.TestSupports;
+using Mame.Doci.CrossCutting.Logging.Data;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
+using Logging.Tests.TestSupports;
+
+namespace Logging.Tests.UnitTests.Loggers
 {
     [TestFixture]
     public partial class MultiLoggerTests
@@ -20,7 +22,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
             var TestMultiLogger = MultiLoggerFactory.CreateWithLoggers (LoggerA, LoggerB);
             
             //ACT
-            var TargetLogLevel = Data.LogLevels.Error;
+            var TargetLogLevel = LogLevels.Error;
             var TargetLogMessage = "Test logmessage for all loggers";
             TestMultiLogger.LogText (TargetLogLevel, TargetLogMessage);
 
@@ -38,7 +40,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.MultiLoggerTests
             //ASSERT
             Assert.DoesNotThrow (() =>
             {
-                var TargetLogLevel = Data.LogLevels.Error;
+                var TargetLogLevel = LogLevels.Error;
                 var TargetLogMessage = "Test logmessage for all loggers";
                 TestMultiLogger.LogText (TargetLogLevel, TargetLogMessage);
             }, "Calling LogText to empty Multilogger has thrown exception!");

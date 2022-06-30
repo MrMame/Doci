@@ -1,5 +1,5 @@
 ﻿using Lucene.Net.Documents;
-using Mame.Doci.Logic.LuceneAccess.Logic.Indexing;
+using Mame.Doci.Data.LuceneAccess.Indexing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using TikaOnDotNet.TextExtraction;
 
-namespace Mame.Doci.Logic.LuceneAccess.Data
+namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
     class IndexImportFile
     {
@@ -66,7 +66,7 @@ namespace Mame.Doci.Logic.LuceneAccess.Data
             /*This field is savinf the compressed content text of the source file to import. It can be used to display
              the text inside a previewbox.*/
             luceneDocument.Add (new Field ("ContentCompressed",
-                        Lucene.Net.Documents.CompressionTools.CompressString (tikaRes.Text),
+                        CompressionTools.CompressString (tikaRes.Text),
                         Field.Store.YES));
             luceneDocument.Add (new Field ("Type",
                         fSFileToimport.Extension.ToString (),

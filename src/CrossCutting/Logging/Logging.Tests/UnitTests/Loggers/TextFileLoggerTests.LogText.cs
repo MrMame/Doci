@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Data;
 using System.IO;
-using Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests.TestSupport;
+using Logging.Tests.TestSupports;
 using System.Linq;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
+namespace Logging.Tests.UnitTests.Loggers
 {
     [TestFixture]
     public partial class TextFileLoggerTests
@@ -24,7 +25,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             FileInfo TargetFile = WriteableTextLogger.TargetFile;
             
             //Act
-            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is a warning message.");
+            WriteableTextLogger.LogText (LogLevels.Warning, "This is a warning message.");
             
             //Assert
             using (StreamReader sr = TargetFile.OpenText ()) { 
@@ -47,7 +48,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             //Assert
             Assert.Throws<System.UnauthorizedAccessException> (() =>
             {
-                TextLogger.LogText(Data.LogLevels.Warning,"Logggingmessage bu file is not accessible");
+                TextLogger.LogText(LogLevels.Warning,"Logggingmessage bu file is not accessible");
             }, "System.UnauthorizedAccessException was not thrown");
             // CleanUp
             TargetFile.Attributes = FileAttributes.Normal;
@@ -62,7 +63,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             FileInfo TargetFile = WriteableTextLogger.TargetFile;
 
             //Act
-            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is a warning message.");
+            WriteableTextLogger.LogText (LogLevels.Warning, "This is a warning message.");
 
             //Assert
             using (StreamReader sr = TargetFile.OpenText ())
@@ -86,7 +87,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             ExtraPayloadTargetFile (WriteableTextLogger.TargetFile, NumberOfBytesForExtrapayload);
 
             //Act
-            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is the stroke that brokes the camels back.");
+            WriteableTextLogger.LogText (LogLevels.Warning, "This is the stroke that brokes the camels back.");
 
             //Assert
             Assert.Less (WriteableTextLogger.TargetFile.Length, WriteableTextLogger.MaxNumberOfBytes,"TargetFile was not deleted because of MaximumBytes! Message was added to old oversized file instead.");
@@ -116,7 +117,7 @@ namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
             ExtraPayloadTargetFile (WriteableTextLogger.TargetFile, NumberOfBytesForExtrapayload);
 
             //Act
-            WriteableTextLogger.LogText (Data.LogLevels.Warning, "This is the stroke that brokes the camels back.");
+            WriteableTextLogger.LogText (LogLevels.Warning, "This is the stroke that brokes the camels back.");
 
             //Assert
             bool isBackupFileExisting = (WriteableTextLogger.TargetFile.Directory.GetFiles (TargetFileNameNoExt + TargetFileNameBackupDatePlaceholders + TargetFileExt).Count() == 2);

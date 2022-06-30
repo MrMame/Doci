@@ -2,7 +2,7 @@ using NUnit.Framework;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 using System.IO;
 
-namespace Mame.Doci.CrossCutting.Logging.Tests.UnitTests.TextFileLoggerTests
+namespace Logging.Tests.UnitTests.Loggers
 {
     [TestFixture]
     public partial class TextFileLoggerTests

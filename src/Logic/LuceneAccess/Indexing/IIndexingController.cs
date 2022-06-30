@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.Logic.LuceneAccess.Logic.Indexing
+namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
     interface IIndexingController
     {

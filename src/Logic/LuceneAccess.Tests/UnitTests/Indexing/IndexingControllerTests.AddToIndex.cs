@@ -1,14 +1,13 @@
-﻿using Mame.Doci.Logic.LuceneAccess.Logic.Indexing;
+﻿using Mame.Doci.Data.LuceneAccess.Indexing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-using LuceneAccess.Tests.UnitTests.Logic.Indexing.TestSupport;
 using LuceneAccess.Tests.TestSupport;
 
-namespace LuceneAccess.Tests.UnitTests.Logic.Indexing
+namespace LuceneAccess.Tests.UnitTests.Indexing
 {
     /// <summary>
     /// Zusammenfassungsbeschreibung für UnitTest1
