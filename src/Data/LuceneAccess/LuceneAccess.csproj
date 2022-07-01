@@ -182,6 +182,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cross\DocumentRulesSpace\DocumentRuleField.cs" />
+    <Compile Include="Cross\DocumentRulesSpace\DocumentRules.cs" />
     <Compile Include="Indexing\IndexImportFile.cs" />
     <Compile Include="Indexing\IIndexingController.cs" />
     <Compile Include="Indexing\IndexingController.cs" />
