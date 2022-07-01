@@ -182,8 +182,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cross\DocumentRulesSpace\DocumentRuleField.cs" />
-    <Compile Include="Cross\DocumentRulesSpace\DocumentRules.cs" />
     <Compile Include="Indexing\IndexImportFile.cs" />
     <Compile Include="Indexing\IIndexingController.cs" />
     <Compile Include="Indexing\IndexingController.cs" />
@@ -194,6 +192,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Cross\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
