@@ -5,9 +5,7 @@ using System.Text;
 
 namespace Mame.Doci.Data.LuceneAccess.Querying
 {
-    class QueryController: IQueryController
+    class IndexImportedFile
     {
-
-
     }
 }
