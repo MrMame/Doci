@@ -7,7 +7,7 @@ namespace Mame.Doci.Data.LuceneAccess.Querying
 {
     interface IQueryController
     {
-        IndexImportedFile FindImportedFile ();
+
 
     }
 }

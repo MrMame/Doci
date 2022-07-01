@@ -37,7 +37,7 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
         private Document ParseLuceneDocument (FileInfo fSFileToimport)
         {
             // Get text content from the Source importfile
-            TextExtractionResult tikaRes = ReadImportFileText (fSFileToimport);
+            TextExtractionResult tikaRes = ParseImportFileText (fSFileToimport);
 
             // Create Lucene importfile
             Document luceneDocument = new Document ();
@@ -85,7 +85,7 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         }
 
-        private TextExtractionResult ReadImportFileText (FileInfo fSFileToimport)
+        private TextExtractionResult ParseImportFileText (FileInfo fSFileToimport)
         {
             TextExtractor tikaEx = new TextExtractor ();
             return tikaEx.Extract (fSFileToimport.FullName);

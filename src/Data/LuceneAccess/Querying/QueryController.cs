@@ -9,5 +9,6 @@ namespace Mame.Doci.Data.LuceneAccess.Querying
     {
 
 
+
     }
 }

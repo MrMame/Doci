@@ -185,7 +185,6 @@
     <Compile Include="Indexing\IndexImportFile.cs" />
     <Compile Include="Indexing\IIndexingController.cs" />
     <Compile Include="Indexing\IndexingController.cs" />
-    <Compile Include="Querying\IndexImportedFile.cs" />
     <Compile Include="Querying\IQueryController.cs" />
     <Compile Include="Querying\QueryController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
