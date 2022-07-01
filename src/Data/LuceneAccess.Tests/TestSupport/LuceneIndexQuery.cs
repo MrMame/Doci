@@ -31,47 +31,98 @@ namespace LuceneAccess.Tests.TestSupport
         {
 
             bool isDocInIndexExisting = false;
+            Document searchDoc = GetDocumentFromIndex (targetIndexFolder, importFile);
+
+            if (searchDoc is null)
+            {
+                isDocInIndexExisting = false;
+            } else
+            {
+                isDocInIndexExisting = true;
+            }
+
+            return isDocInIndexExisting;
+        }
+
+        internal static bool AreAllImportFileFieldsExistingInIndex(DirectoryInfo targetIndexFolder, FileInfo importFile, List<string> checkFieldnames)
+        {
+            bool AllFieldsExisting = false;
+            
+
+            Document searchDoc = GetDocumentFromIndex (targetIndexFolder, importFile);
+
+            if (searchDoc is null)
+            {
+                AllFieldsExisting = false;
+            } else
+            {
+                // Check All Fields
+                IList<IFieldable> theFields = searchDoc.GetFields ();
+
+                AllFieldsExisting = true;
+                if(theFields.Count != checkFieldnames.Count)
+                {
+                    // If checked fields number are not the same, we can be sure that this will not match at all
+                    AllFieldsExisting = false;
+                } else
+                {
+                    /* Check All Fields. As soon as a docuemnt field is not inside the checkedFieldnames,
+                        the docuemnts fields are not matching anymore.*/
+                    bool FieldnameExisting = false;
+                    foreach (string check in checkFieldnames)
+                    {
+                        FieldnameExisting = false;
+                        foreach (IFieldable it in theFields)
+                        {
+                            if (check.Equals (it.Name)) FieldnameExisting = true;
+                        }
+                        if (FieldnameExisting == false) { AllFieldsExisting = false; break; }
+                    }
+                }
+            }
+            return AllFieldsExisting;
+        }
+
+
+
+        #region "PRIVATES"
+
+        private static Document GetDocumentFromIndex (DirectoryInfo targetIndexFolder, FileInfo importFile)
+        {
+
+            Document ReturnDocument;
 
             // Prepare
             SimpleFSDirectory targetFolder = new SimpleFSDirectory (targetIndexFolder);
             Analyzer analyzer = new StandardAnalyzer (Lucene.Net.Util.Version.LUCENE_30);
-            IndexSearcher indexSearcher = new IndexSearcher (targetFolder, readOnly:true);
+            IndexSearcher indexSearcher = new IndexSearcher (targetFolder, readOnly: true);
             int maxNumberOfDocuments = 5;
 
             Term t = new Term (INDEX_FIELDNAME_FILENAME, importFile.FullName);
             Query tq = new TermQuery (t);
 
-
             // Read
             TopDocs tp = indexSearcher.Search (tq, maxNumberOfDocuments);
-            
-            // Check
-            if(tp.TotalHits <= 0)
+            if (tp.TotalHits >= 1)
             {
-                isDocInIndexExisting = false;   // Documenmt is not exitsing
+                ReturnDocument = indexSearcher.Doc (tp.ScoreDocs[0].Doc);
             } else
             {
-                Document HitDocument = indexSearcher.Doc (tp.ScoreDocs[0].Doc);
-                string hitDocumentFilename = HitDocument.Get (INDEX_FIELDNAME_FILENAME);
-
-                if (hitDocumentFilename.Equals(importFile.FullName)) {
-                    isDocInIndexExisting = true;    // Index Document has the same name as previously imported
-                } else
-                {
-                    isDocInIndexExisting = false;   // Index documen name is not the same as previosuyls imported
-                }
-
+                ReturnDocument = null;
             }
-
+            
             // Close
             indexSearcher.Dispose ();
             targetFolder.Dispose ();
 
-
-            return isDocInIndexExisting;
-
-
+            return ReturnDocument;
 
         }
+
+
+        #endregion
+
+
+
     }
 }

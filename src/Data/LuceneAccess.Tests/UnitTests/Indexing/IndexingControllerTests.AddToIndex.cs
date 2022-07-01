@@ -18,9 +18,12 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
         #region "TESTS"
 
         [TestMethod]
-        public void AddToIndex_AccessibleIndexFolderAndImportFile_AddsDocumentToIndex ()
+        public void AddToIndex_AccessibleIndexFolderAndImportFile_AddsDocumentToIndexWithAllFields ()
         {
             //Arrange
+            List<string> checkFieldnames = new List<string> () { "Title", "Filename","Path",
+                                                                "ContentCompressed","Type",
+                                                                "FileSize","Last Modified"};
             DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
             FileInfo ImportFile = GetDefaultImportFile ();
 
@@ -32,8 +35,11 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             //Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
             bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (CleanTargetIndexFolder,ImportFile);
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, ImportFile, checkFieldnames);
             Assert.IsTrue (IsLuceneindexExisting,"There is no Lucene Index existing inside targetindexFolder! " + CleanTargetIndexFolder);
             Assert.IsTrue (IsImporttFileInIndex,"No Document match found inside lucene index for test importfile! " + ImportFile.FullName);
+            Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the document are not matching expected fieldnames.");
+            
 
             // CleanUp
             CleanTargetIndexFolder.Delete (true);
