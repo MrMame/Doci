@@ -17,29 +17,29 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         #region "PUBLICS"
 
-        public void AddToIndex (DirectoryInfo IndexFolder,bool createOrOverwriteExistingIndex, FileInfo ImportFile)
+        public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, FileInfo importFile)
         {
-            // Index is existing but we are not allowed to overwrite it.
-            bool indexExistingAtTarget = IsLuceneIndexExisting (IndexFolder);
-            if (!createOrOverwriteExistingIndex && indexExistingAtTarget)
-            {
-                throw new AccessViolationException ("There is a lucene index already existing, but it's not allowed to overwrite this one!");
-            }
-
-            // open the Index and get the writer Object for adding documents
-            IndexWriter theWriter = OpenIndexWriter (IndexFolder.FullName, createOrOverwriteExistingIndex);
-            // Create a LuceneImportfile for the Lucene index from the source importfile
-            IndexImportFile theImportFile = new IndexImportFile (ImportFile);
-            // Add the document into the index
-            theWriter.AddDocument (theImportFile.LuceneDocument);
-            // Celan up. Write the index to file and close connection
-            theWriter.Optimize();
-            theWriter.Dispose();
+            FileInfo[] files = { importFile };
+            AddToIndex (indexFolder, createOrOverwriteExistingIndex, files);
         }
 
-        public void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex, FileInfo[] ImportFiles)
+        public void AddToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
         {
-            throw new NotImplementedException ();
+            // Index is existing but we are not allowed to overwrite it.
+            ThrowExceptionIfIndexIsProtected (indexFolder, createOrOverwriteExistingIndex);
+            // open the Index and get the writer Object for adding documents
+            IndexWriter theWriter = OpenIndexWriter (indexFolder.FullName, createOrOverwriteExistingIndex);
+            // Add Each File to Index
+            foreach(FileInfo file in importFiles)
+            {
+                // Create a LuceneImportfile for the Lucene index from the source importfile
+                IndexImportFile theImportFile = new IndexImportFile (file);
+                // Add the document into the index
+                theWriter.AddDocument (theImportFile.LuceneDocument);
+            }
+            // Celan up. Write the index to file and close connection
+            theWriter.Optimize ();
+            theWriter.Dispose ();
         }
 
         public void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,  DirectoryInfo ImportFolder, bool ImportWithSubfolders)
@@ -51,6 +51,17 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
 
         #region "PRIVATES"
+
+
+        private void ThrowExceptionIfIndexIsProtected (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex)
+        {
+            bool indexExistingAtTarget = IsLuceneIndexExisting (IndexFolder);
+            if (!createOrOverwriteExistingIndex && indexExistingAtTarget)
+            {
+                throw new AccessViolationException ("There is a lucene index already existing, but it's not allowed to overwrite this one!");
+            }
+        }
+
 
         private IndexWriter OpenIndexWriter (string indexFolder,bool createOrOverwriteExistingIndex)
         {

@@ -1,5 +1,4 @@
 ﻿using Lucene.Net.Documents;
-using Mame.Doci.Data.LuceneAccess.Cross;
 using Mame.Doci.Data.LuceneAccess.Indexing;
 using System;
 using System.Collections.Generic;

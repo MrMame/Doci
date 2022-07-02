@@ -155,6 +155,12 @@
     <AdditionalFiles Include="Assets\jenkins-user-handbook.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
+    <AdditionalFiles Include="Assets\Financial Sample.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <AdditionalFiles Include="Assets\Real-Statistics-Examples-Basics.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +171,11 @@
       <Project>{1d810a1f-9ef5-421b-94af-2179ebca50ba}</Project>
       <Name>LuceneAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="Assets\Aus Kroatien. Skizzen und Erzählungen15734-0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

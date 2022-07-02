@@ -45,6 +45,35 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             CleanTargetIndexFolder.Delete (true);
 
         }
+        [TestMethod]
+        [Description("Test is unsafe. Not tested with missing documents inside the index!")]
+        public void AddToIndex_AccessibleIndexFolderAndImportFiles_AddsDocumentsToIndexWithAllFields ()
+        {
+            //Arrange
+            List<string> checkFieldnames = new List<string> () { "Title", "Filename","Path",
+                                                                "ContentCompressed","Type",
+                                                                "FileSize","Last Modified"};
+            DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
+            FileInfo[] ImportFiles = GetDefaultImportFiles ();
+            IndexingController TestController = IndexingControllerFactory.CreateController ();
+
+            //Act
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, ImportFiles);
+
+            // Assert
+            bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
+            bool AreImporttFilesInIndex = LuceneIndexQuery.AreDocumentsFilenameInIndexExisting (CleanTargetIndexFolder, ImportFiles);
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, ImportFiles, checkFieldnames);
+            Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + CleanTargetIndexFolder);
+            Assert.IsTrue (AreImporttFilesInIndex, "There are documents missing inside the index! ");
+            Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the documents are not matching expected fieldnames.");
+
+            // CleanUp
+            CleanTargetIndexFolder.Delete (true);
+        }
+
+
+
 
         [TestMethod]
         public void AddToIndex_IfIndexFolderIsNotAccessible_ThrowsException ()
@@ -140,6 +169,21 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
         {
             return new FileInfo ("Assets\\jenkins-user-handbook.pdf");
         }
+
+        private FileInfo[] GetDefaultImportFiles ()
+        {
+            List<FileInfo> files = new List<FileInfo> ();
+
+            files.Add (new FileInfo ("Assets\\Aus Kroatien. Skizzen und Erzählungen15734-0.txt"));
+            files.Add (new FileInfo ("Assets\\Financial Sample.xlsx"));
+            files.Add (new FileInfo ("Assets\\jenkins-user-handbook.pdf"));
+            files.Add (new FileInfo ("Assets\\Real-Statistics-Examples-Basics.xlsx"));
+
+            return files.ToArray();
+
+        }
+
+
 
         #endregion
 
