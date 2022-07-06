@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentAccessing.Storing;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
     public interface IStoringController
     {
 
-        void Store (FileInfo storeFile);
-        void Store (List<FileInfo> storeFiles);
+        void Store (FileInfo storeFile, IDocumentStoring documentStorer);
+        void Store (List<FileInfo> storeFiles, IDocumentStoring documentStorer);
 
 
     }
