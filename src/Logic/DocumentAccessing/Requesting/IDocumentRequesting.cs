@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DocumentAccessing.Requesting
 {
-    interface IDocumentRequesting
+    public interface IDocumentRequesting
     {
     }
 }

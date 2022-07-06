@@ -185,7 +185,6 @@
     <Compile Include="Indexing\IndexImportFile.cs" />
     <Compile Include="Indexing\IIndexingController.cs" />
     <Compile Include="Indexing\IndexingController.cs" />
-    <Compile Include="Controller\LuceneAccessController.cs" />
     <Compile Include="Querying\IQueryController.cs" />
     <Compile Include="Querying\QueryController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,6 +194,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Cross\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\DocumentAccessing\DocumentAccessing.csproj">
+      <Project>{a89917df-b37f-441c-8dad-c3cb8c7c32d1}</Project>
+      <Name>DocumentAccessing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

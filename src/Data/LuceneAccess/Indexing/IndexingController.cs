@@ -8,10 +8,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using DocumentAccessing.Storing;
 
 namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
-    public class IndexingController : IIndexingController
+    public class IndexingController : IIndexingController, IDocumentStoring
     {
         public string ParentTargetPathForImportedDocuments { get => throw new NotImplementedException (); set => throw new NotImplementedException (); }
 
