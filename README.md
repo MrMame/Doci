@@ -1,5 +1,5 @@
 # Doci
-Local Document Search Tool using Lucene Net v3 and Dotnet Framework 4.0
+Local document search tool using Lucene Net v3 and Dotnet Framework 4.0
 
 
 ## Dependencies
