@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {
-    class StoringController :IStoringController
+    public class StoringController :IStoringController
     {
         public void Store (FileInfo storeFile)
         {
-            throw new NotImplementedException ();
+            if (storeFile is null) throw new ArgumentNullException ();
         }
 
         public void Store (List<FileInfo> storeFiles)
