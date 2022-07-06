@@ -1,5 +1,10 @@
 # Doci
-Local document search tool using Lucene Net v3 and Dotnet Framework 4.0
+Basic file indexing and requesting tool using Lucene Net v3 and Dotnet Framework 4.0
+
+
+The intention for this project is to present my programming techniques/skills to other people which are interested to know.
+Tests will be implemented, but without focusing on a wide code coverage.
+
 
 
 ## Dependencies
