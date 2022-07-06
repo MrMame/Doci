@@ -22,6 +22,19 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
                 theController.Store (nullFileInfo);
             }, "Exception was not thrown");
         }
+        [Test]
+        public void Store_ListOfFileInfosIsNull_ThrowsArgumentNullException ()
+        {
+            //ARRANGE
+            var theController = new StoringController ();
+            List<FileInfo> nullFileInfos = null;
+            //ACT
+            //ASSERT
+            Assert.Throws<ArgumentNullException> (() =>
+            {
+                theController.Store (nullFileInfos);
+            }, "Exception was not thrown");
+        }
 
 
     }
