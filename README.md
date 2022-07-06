@@ -2,7 +2,7 @@
 Local Document Search Tool using Lucene Net v3 and Dotnet Framework 4.0
 
 
-## Dependecies
+## Dependencies
 
 - .Net-Framework (v4.0)
 - Lucene.Net (v3.0.3)
