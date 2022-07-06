@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main\IDocumentRequesting.cs" />
-    <Compile Include="Main\IDocumentStoring.cs" />
+    <Compile Include="Requesting\IDocumentRequesting.cs" />
+    <Compile Include="Requesting\RequestController.cs" />
+    <Compile Include="Storing\IDocumentStoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storing\StoringController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DocumentAccessing.Main
+namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {
-    public interface IDocumentStoring
+    class StoringController
     {
     }
 }
