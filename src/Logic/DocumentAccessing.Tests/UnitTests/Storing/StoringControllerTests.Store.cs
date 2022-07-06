@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
 {
-    class StoringControllerTests
+    class StoringControllerUnitTests
     {
         [Test]
         public void Store_Test1 ()
