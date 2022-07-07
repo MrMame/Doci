@@ -12,12 +12,15 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
-
+            if (documentStorer is null) throw new ArgumentNullException ();
+            throw new NotImplementedException ();
         }
 
         public void Store (List<FileInfo> storeFiles, IDocumentStoring documentStorer)
         {
             if (storeFiles is null) throw new ArgumentNullException ();
+            if (documentStorer is null) throw new ArgumentNullException ();
+            throw new NotImplementedException ();
         }
 
      

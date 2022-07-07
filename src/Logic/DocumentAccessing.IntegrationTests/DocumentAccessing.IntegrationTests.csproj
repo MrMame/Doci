@@ -146,7 +146,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Storing\SortingController.Store.cs" />
+    <Compile Include="Storing\StoringControllerIntegTests.Store.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSupport\LuceneIndexQuery.cs" />
   </ItemGroup>
@@ -166,6 +166,16 @@
     <AdditionalFiles Include="Assets\Aus Kroatien. Skizzen und Erzählungen15734-0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\LuceneAccess\LuceneAccess.csproj">
+      <Project>{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}</Project>
+      <Name>LuceneAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentAccessing\DocumentAccessing.csproj">
+      <Project>{A89917DF-B37F-441C-8DAD-C3CB8C7C32D1}</Project>
+      <Name>DocumentAccessing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

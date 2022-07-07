@@ -10,6 +10,39 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
 {
     class StoringControllerUnitTests
     {
+
+        [Test]
+        public void Store_IfFileInfosOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
+        {
+            //ARRANGE
+            var theController = new StoringController ();
+            List<FileInfo> fileinfos = new List<FileInfo>();
+            IDocumentStoring docStorer = null;
+
+            //ACT
+            //ASSERT
+            Assert.Throws<ArgumentNullException> (() =>
+            {
+                theController.Store (fileinfos, docStorer);
+            }, "Exception was not thrown");
+        }
+
+        [Test]
+        public void Store_IfFileInfoOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
+        {
+            //ARRANGE
+            var theController = new StoringController ();
+            FileInfo fileinfo = new FileInfo (@"C:\thisFileIsNotExisting.txt");
+            IDocumentStoring docStorer = null;
+
+            //ACT
+            //ASSERT
+            Assert.Throws<ArgumentNullException> (() =>
+            {
+                theController.Store (fileinfo, docStorer);
+            }, "Exception was not thrown");
+        }
+
         [Test]
         public void Store_FileInfoIsNull_ThrowsArgumentNullException ()
         {
@@ -40,6 +73,11 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             }, "Exception was not thrown");
         }
 
+        [Test]
+        public void Store_ExisingFileInfo_CallsIDocument_WHATEVER ()
+        {
+            Assert.Fail ("TESt not implemented");
+        }
 
     }
 }

@@ -1,4 +1,7 @@
 ﻿using DocumentAccessing.IntegrationTests.TestSupport;
+using DocumentAccessing.Storing;
+using Mame.Doci.Data.LuceneAccess.Indexing;
+using Mame.Doci.Logic.DocumentAccessing.Storing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,10 @@ namespace DocumentAccessing.IntegrationTests.Storing
     [TestClass]
     public partial class StoringControllerIntegTests
     {
+
+        
+
+
         [TestMethod]
         public void Store_ExistingFileToAccessibleLuceneindex_StoresDokumentWithAllFields ()
         {
@@ -16,25 +23,27 @@ namespace DocumentAccessing.IntegrationTests.Storing
             List<string> checkFieldnames = new List<string> () { "Title", "Filename","Path",
                                                                 "ContentCompressed","Type",
                                                                 "FileSize","Last Modified"};
-            DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            FileInfo ImportFile = GetDefaultImportFile ();
+            DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
+            FileInfo importFile = GetDefaultImportFile ();
 
+            IDocumentStoring theLuceneDocmentStorer = new IndexingController ();
 
 
             //Act
-            Assert.Fail ("Test not implemented");
-
+            var theStoringController = new StoringController();
+            theStoringController.Store (importFile, theLuceneDocmentStorer);
+            
             //Assert
-            bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
-            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (CleanTargetIndexFolder, ImportFile);
-            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, ImportFile, checkFieldnames);
-            Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + CleanTargetIndexFolder);
-            Assert.IsTrue (IsImporttFileInIndex, "No Document match found inside lucene index for test importfile! " + ImportFile.FullName);
+            bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (cleanTargetIndexFolder);
+            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (cleanTargetIndexFolder, importFile);
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (cleanTargetIndexFolder, importFile, checkFieldnames);
+            Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + cleanTargetIndexFolder);
+            Assert.IsTrue (IsImporttFileInIndex, "No Document match found inside lucene index for test importfile! " + importFile.FullName);
             Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the document are not matching expected fieldnames.");
 
 
             // CleanUp
-            CleanTargetIndexFolder.Delete (true);
+            cleanTargetIndexFolder.Delete (true);
         }
 
 
