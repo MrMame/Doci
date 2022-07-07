@@ -45,7 +45,6 @@ namespace DocumentAccessing.IntegrationTests.Storing
             // CleanUp
             cleanTargetIndexFolder.Delete (true);
         }
-
         [TestMethod]
         public void Store_ExistingFilesAndAccessibleLuceneindex_StoresDocumentsWithAllFields ()
         {

@@ -73,11 +73,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             }, "Exception was not thrown");
         }
 
-        [Test]
-        public void Store_ExisingFileInfo_CallsIDocument_WHATEVER ()
-        {
-            Assert.Fail ("TESt not implemented");
-        }
-
+     
+     
     }
 }
