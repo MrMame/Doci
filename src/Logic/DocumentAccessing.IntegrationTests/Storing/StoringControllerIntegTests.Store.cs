@@ -17,7 +17,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
 
 
         [TestMethod]
-        public void Store_ExistingFileToAccessibleLuceneindex_StoresDokumentWithAllFields ()
+        public void Store_ExistingFileAndAccessibleLuceneindex_StoresDokumentWithAllFields ()
         {
             //Arrange
             List<string> checkFieldnames = new List<string> () { "Title", "Filename","Path",
@@ -26,7 +26,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
             FileInfo importFile = GetDefaultImportFile ();
 
-            IDocumentStoring theLuceneDocmentStorer = new IndexingController ();
+            IDocumentStoring theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder,overwriteExistingIndex:true);
 
 
             //Act
