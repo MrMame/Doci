@@ -47,5 +47,11 @@
     <Compile Include="Storing\IStoringController.cs" />
     <Compile Include="Storing\StoringController.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UI\ConsoleClient\ConsoleClient.csproj">
+      <Project>{0ec36f93-5106-4fee-9512-167035b14a62}</Project>
+      <Name>ConsoleClient</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

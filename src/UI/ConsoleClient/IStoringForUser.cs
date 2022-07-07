@@ -5,10 +5,7 @@ using System.Text;
 
 namespace Mame.Doci.UI.ConsoleClient
 {
-    public class Program
+    public interface IStoringForUser
     {
-        static void Main (string[] args)
-        {
-        }
     }
 }

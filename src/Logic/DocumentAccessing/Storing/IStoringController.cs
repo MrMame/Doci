@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {
-    public interface IStoringController
+    interface IStoringController
     {
 
         void Store (FileInfo storeFile, IDocumentStoring documentStorer);

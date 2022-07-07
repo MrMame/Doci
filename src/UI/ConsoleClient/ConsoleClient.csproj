@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0EC36F93-5106-4FEE-9512-167035B14A62}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Mame.Doci.CrossCutting.ConsoleClient</RootNamespace>
+    <RootNamespace>Mame.Doci.UI.ConsoleClient</RootNamespace>
     <AssemblyName>ConsoleClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Mame.Doci.UI.ConsoleClient.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRequestingForUser.cs" />
+    <Compile Include="IStoringForUser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

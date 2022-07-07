@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Mame.Doci.UI.ConsoleClient;
+
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {
-    public class StoringController :IStoringController
+    public class StoringController :IStoringController, IStoringForUser
     {
         public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
         {
