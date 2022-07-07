@@ -46,6 +46,35 @@ namespace DocumentAccessing.IntegrationTests.Storing
             cleanTargetIndexFolder.Delete (true);
         }
 
+        [TestMethod]
+        public void Store_ExistingFilesAndAccessibleLuceneindex_StoresDocumentsWithAllFields ()
+        {
+            //Arrange
+            List<string> checkFieldnames = new List<string> () { "Title", "Filename","Path",
+                                                                "ContentCompressed","Type",
+                                                                "FileSize","Last Modified"};
+            DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
+            List<FileInfo> importFiles = GetDefaultImportFiles ();
+
+            IDocumentStoring theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
+
+
+            //Act
+            var theStoringController = new StoringController ();
+            theStoringController.Store (importFiles, theLuceneDocmentStorer);
+
+            //Assert
+            bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (cleanTargetIndexFolder);
+            bool IsImporttFileInIndex = LuceneIndexQuery.AreDocumentsFilenameInIndexExisting (cleanTargetIndexFolder, importFiles.ToArray());
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (cleanTargetIndexFolder, importFiles.ToArray(), checkFieldnames);
+            Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + cleanTargetIndexFolder);
+            Assert.IsTrue (IsImporttFileInIndex, "No Documents match found inside lucene index for test importfile! ");
+            Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the document are not matching expected fieldnames.");
+
+
+            // CleanUp
+            cleanTargetIndexFolder.Delete (true);
+        }
 
 
         #region "PRIVATE"
@@ -68,7 +97,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             return new FileInfo ("Assets\\jenkins-user-handbook.pdf");
         }
 
-        private FileInfo[] GetDefaultImportFiles ()
+        private List<FileInfo> GetDefaultImportFiles ()
         {
             List<FileInfo> files = new List<FileInfo> ();
 
@@ -77,7 +106,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             files.Add (new FileInfo ("Assets\\jenkins-user-handbook.pdf"));
             files.Add (new FileInfo ("Assets\\Real-Statistics-Examples-Basics.xlsx"));
 
-            return files.ToArray ();
+            return files;
 
         }
 

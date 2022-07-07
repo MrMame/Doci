@@ -23,6 +23,12 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         #region "PUBLICS"
 
+
+        public IndexingController ()
+        {
+            _defaultIndexFolder = null;
+            _defaultOverwriteExistingIndex = true;
+        }
         public IndexingController (DirectoryInfo indexFolder,bool overwriteExistingIndex)
         {
             _defaultIndexFolder = indexFolder;
@@ -31,9 +37,13 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
 
         #region "INTERFACE IDocumetStoring"
-        public void Store(FileInfo storefile)
+        public void Store(FileInfo storeFile)
         {
-            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storefile);
+            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
+        }
+        public void Store (List<FileInfo> storeFiles)
+        {
+            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
         }
 
         #endregion

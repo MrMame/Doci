@@ -8,6 +8,7 @@ namespace DocumentAccessing.Storing
 {
     public interface IDocumentStoring
     {
-        void Store (FileInfo storefile);
+        void Store (FileInfo storeFile);
+        void Store (List<FileInfo> storeFiles);
     }
 }

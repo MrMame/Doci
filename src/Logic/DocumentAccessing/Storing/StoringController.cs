@@ -22,7 +22,9 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         {
             if (storeFiles is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();
-            throw new NotImplementedException ();
+
+            documentStorer.Store (storeFiles);
+            
         }
 
      
