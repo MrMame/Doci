@@ -5,16 +5,25 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Mame.Doci.UI.ConsoleClient;
-
+using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Data;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {
-    public class StoringController :IStoringController, IStoringForUser
+    public class StoringController :IStoringController, IStoringForUser, ILoggable
     {
 
         IDocumentStoring _documentStorer = null;
+        ILogger _logger = null;
+
+
 
         #region "PUBLICS"
+        public ILogger Logger
+        {
+            get { return _logger; }
+            set { _logger = value; }
+        }
         
         public StoringController ()
         {
@@ -23,8 +32,13 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         {
             _documentStorer = documentStorer;
         }
-        
-        
+
+
+        public void LogMessage (LogLevels logLevel, string message)
+        {
+            if (this._logger != null) _logger.LogText (logLevel, message);
+        }
+
         public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
