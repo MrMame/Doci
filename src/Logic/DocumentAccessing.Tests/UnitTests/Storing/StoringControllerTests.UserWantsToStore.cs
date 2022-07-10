@@ -10,72 +10,66 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
 {
     public partial class StoringControllerUnitTests
     {
-
         [Test]
-        public void Store_IfFileInfosOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
+        public void UserWantsToStore_IfFileInfosOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
         {
             //ARRANGE
-            var theController = new StoringController ();
-            List<FileInfo> fileinfos = new List<FileInfo>();
+            List<FileInfo> fileinfos = new List<FileInfo> ();
             IDocumentStoring docStorer = null;
+            var theController = new StoringController (docStorer);
+                       
 
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (fileinfos, docStorer);
+                theController.UserWantsToStore (fileinfos);
             }, "Exception was not thrown");
         }
-
         [Test]
-        public void Store_IfFileInfoOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
+        public void UserWantsToStore_IfFileInfoOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
         {
             //ARRANGE
-            var theController = new StoringController ();
             FileInfo fileinfo = new FileInfo (@"C:\thisFileIsNotExisting.txt");
             IDocumentStoring docStorer = null;
+            var theController = new StoringController (docStorer);
 
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (fileinfo, docStorer);
+                theController.UserWantsToStore (fileinfo);
             }, "Exception was not thrown");
         }
-
         [Test]
-        public void Store_FileInfoIsNull_ThrowsArgumentNullException ()
+        public void UserWantsToStore_FileInfoIsNull_ThrowsArgumentNullException ()
         {
             //ARRANGE
-            var theController = new StoringController ();
             FileInfo nullFileInfo = null;
             IDocumentStoring docStorer = NSubstitute.Substitute.For<IDocumentStoring> ();
+            var theController = new StoringController (docStorer);
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (nullFileInfo, docStorer);
+                theController.UserWantsToStore (nullFileInfo);
             }, "Exception was not thrown");
         }
         [Test]
-        public void Store_ListOfFileInfosIsNull_ThrowsArgumentNullException ()
+        public void UserWantsToStore_ListOfFileInfosIsNull_ThrowsArgumentNullException ()
         {
             //ARRANGE
-            var theController = new StoringController ();
             List<FileInfo> nullFileInfos = null;
             IDocumentStoring docStorer = NSubstitute.Substitute.For<IDocumentStoring> ();
-                        
+            var theController = new StoringController (docStorer);
+
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (nullFileInfos, docStorer);
+                theController.UserWantsToStore (nullFileInfos);
             }, "Exception was not thrown");
         }
-
-
-
-
-
     }
 }
+

@@ -11,6 +11,20 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {
     public class StoringController :IStoringController, IStoringForUser
     {
+
+        IDocumentStoring _documentStorer = null;
+
+        #region "PUBLICS"
+        
+        public StoringController ()
+        {
+        }
+        public StoringController(IDocumentStoring documentStorer)
+        {
+            _documentStorer = documentStorer;
+        }
+        
+        
         public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
@@ -28,7 +42,17 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
             documentStorer.Store (storeFiles);
             
         }
+        #endregion
 
-     
+        #region "INTERFACE - IStoringForUser"
+        public void UserWantsToStore (FileInfo fileName)
+        {
+            this.Store (fileName, _documentStorer);
+        }
+        public void UserWantsToStore (List<FileInfo> fileNames)
+        {
+            this.Store (fileNames, _documentStorer);
+        }
+        #endregion
     }
 }

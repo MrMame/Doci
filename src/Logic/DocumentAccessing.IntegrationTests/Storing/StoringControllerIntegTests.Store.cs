@@ -74,6 +74,32 @@ namespace DocumentAccessing.IntegrationTests.Storing
             // CleanUp
             cleanTargetIndexFolder.Delete (true);
         }
+        [TestMethod]
+        public void Store_EmptyFilesAndAccessibleLuceneindex_ThrowsNoException ()
+        {
+            //Arrange
+            List<string> checkFieldnames = new List<string> () { "Title", "Filename","Path",
+                                                                "ContentCompressed","Type",
+                                                                "FileSize","Last Modified"};
+            DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
+            List<FileInfo> emptyFilesList = new List<FileInfo> ();
+
+            IDocumentStoring theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
+
+
+            //Act
+            var theStoringController = new StoringController ();
+            theStoringController.Store (emptyFilesList, theLuceneDocmentStorer);
+
+            //Assert
+           
+            /* If no Exception was thrown, the test was successfull*/
+
+            // CleanUp
+            cleanTargetIndexFolder.Delete (true);
+        }
+
+
 
 
         #region "PRIVATE"
