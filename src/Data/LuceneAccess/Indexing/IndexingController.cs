@@ -16,7 +16,37 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
     {
         public string ParentTargetPathForImportedDocuments { get => throw new NotImplementedException (); set => throw new NotImplementedException (); }
 
+
+        DirectoryInfo _defaultIndexFolder;
+        bool _defaultOverwriteExistingIndex;
+
+
         #region "PUBLICS"
+
+
+        public IndexingController ()
+        {
+            _defaultIndexFolder = null;
+            _defaultOverwriteExistingIndex = true;
+        }
+        public IndexingController (DirectoryInfo indexFolder,bool overwriteExistingIndex)
+        {
+            _defaultIndexFolder = indexFolder;
+            _defaultOverwriteExistingIndex = overwriteExistingIndex;
+        }
+
+
+        #region "INTERFACE IDocumetStoring"
+        public void Store(FileInfo storeFile)
+        {
+            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
+        }
+        public void Store (List<FileInfo> storeFiles)
+        {
+            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
+        }
+
+        #endregion
 
         public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, FileInfo importFile)
         {

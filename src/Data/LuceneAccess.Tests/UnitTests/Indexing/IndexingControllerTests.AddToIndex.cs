@@ -76,68 +76,82 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
 
 
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfIndexFolderIsNotAccessible_ThrowsException ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfImportFileIsNotAccessible_LogsMessage ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfSingleFileInImportFilesIsNotAccessible_LogsMessageAndProcessesRestOfFiles ()
         {
             Assert.Fail ("Test not implemented");
         }
 
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfImportFileIsNULL_ThrowsNullReferenceException ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfImportFilesIsNULL_ThrowsNullReferenceException ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfIndexFolderIsNULL_ThrowsNullReferenceException ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfImportFolderIsNULL_ThrowsNullReferenceException ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfIndexIsExistingAndOverwriteIsTRUE_ ()
         {
             Assert.Fail ("Test not implemented");
         }
+        [TestMethod]
+        [Ignore]
         public void AddToIndex_IfIndexIsExistingAndOverwriteIsFALSE_ ()
         {
             Assert.Fail ("Test not implemented");
         }
 
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfIndexIsNotExistingAndOverwriteIsFALSE_AddsDocument ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfIndexIsNotExistingAndOverwriteIsTRUE_AddsDocument ()
         {
             Assert.Fail ("Test not implemented");
         }
 
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfParentPathIsEmpty_AddsDocumentWithRelativePath ()
         {
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
+        [Ignore]
         public void AddToIndex_IfParentPathIsGiven_AddsDocumentWithParentPath ()
         {
             Assert.Fail ("Test not implemented");
