@@ -1,4 +1,6 @@
-﻿using Mame.Doci.Logic.DocumentAccessing.Storing.Factories;
+﻿using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.Logic.DocumentAccessing.Storing.Factories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,22 +11,29 @@ namespace Mame.Doci.UI.ConsoleClient
 {
     public class Program
     {
+      
+
+
         static void Main (string[] args)
         {
+            // Create Logging
+            ILogger logger = new ConsoleLogger ();
+
             // Parsing commandline
             var clp = new CLParsing.CommandLineArgumentsParser (args);
 
             if (clp.HasParsingErrors == true){
+                logger.LogText(LogLevels.Error, "Invalid commandline parameters!");
             }
             else if (!string.IsNullOrEmpty (clp.AddDocument))
             {
                 var documentFilename = new FileInfo(clp.AddDocument);
 
-                IStoringForUser documentStoreController = StoringControllerFactory.CreateDefault ();
+                IStoringForUser documentStoreController = StoringControllerFactory.CreateDefault (logger);
                 documentStoreController.UserWantsToStore (documentFilename);
             }
 
-
         }
+
     }
 }

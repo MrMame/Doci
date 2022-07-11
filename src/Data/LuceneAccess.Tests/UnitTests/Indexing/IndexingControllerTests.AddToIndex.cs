@@ -6,6 +6,9 @@ using System.IO;
 using System.Text;
 
 using LuceneAccess.Tests.TestSupport;
+using NSubstitute;
+using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Data;
 
 namespace LuceneAccess.Tests.UnitTests.Indexing
 {
@@ -73,7 +76,37 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
         }
 
 
+        [TestMethod]
+        public void AddToIndex_AccessibleIndexFolderAndEMPTYImportFile_LogsMessage ()
+        {
+            //Arrange
+            /* We only want to create an empty textfile*/
+            string TargetFileFolder = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments) + "\\";
+            string TargetFileName = "EmptyTestFileToAddToindex.thetestTXT";
+            string targetFileFullname = TargetFileFolder + TargetFileName;
+            FileInfo importFile = new FileInfo (targetFileFullname);
+            if (importFile.Exists) importFile.Delete ();
+            importFile.Refresh ();
+            importFile.CreateText ().Close();
+            importFile.Refresh ();
+            /* IndexDir*/
+            DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
+            /* Logger to check if LogText was called*/                        
+            var logger = Substitute.For<ILogger> ();
 
+            IndexingController TestController = IndexingControllerFactory.CreateController ();
+            TestController.Logger = logger;
+
+            //Act
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, importFile);
+
+            //ASSERT
+            logger.Received ().LogText (LogLevels.Warning, "(" + importFile.FullName + ") has no content.");
+
+            // Clean
+            importFile.Delete ();
+
+        }
 
         [TestMethod]
         [Ignore]
@@ -88,10 +121,28 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             Assert.Fail ("Test not implemented");
         }
         [TestMethod]
-        [Ignore]
         public void AddToIndex_IfSingleFileInImportFilesIsNotAccessible_LogsMessageAndProcessesRestOfFiles ()
         {
-            Assert.Fail ("Test not implemented");
+            //Arrange
+            DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
+            FileInfo importFile = new FileInfo (@"c:\FileisNotExisting.neverever");
+            /* If file is exsiting, delete it. Fileinfo needs to get refreshed after any changes */
+            if (importFile.Exists) importFile.Delete ();
+            importFile.Refresh ();
+
+            var logger = Substitute.For<ILogger> ();
+
+            IndexingController TestController = IndexingControllerFactory.CreateController ();
+            TestController.Logger = logger;
+
+            //Act
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, importFile);
+
+            //ASSERT
+            logger.Received ().LogText (LogLevels.Warning, "(" + importFile.FullName + ") is not existing. Couldn't add document to index!");
+
+
+
         }
 
         [TestMethod]

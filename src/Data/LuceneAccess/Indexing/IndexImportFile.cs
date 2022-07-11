@@ -1,4 +1,6 @@
 ﻿using Lucene.Net.Documents;
+using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Loggers;
 using Mame.Doci.Data.LuceneAccess.Indexing;
 using System;
 using System.Collections.Generic;
@@ -9,25 +11,30 @@ using TikaOnDotNet.TextExtraction;
 
 namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
-    class IndexImportFile
+    class IndexImportFile:ILoggable
     {
 
         Document _lucDoc;
-
+        ILogger _logger;
 
         public Document LuceneDocument  { 
             get { return _lucDoc; }
         }
 
+        public ILogger Logger
+        {
+            get { return _logger; }
+            set { _logger = value; }
+        }
 
-        public IndexImportFile (FileInfo FSFileToimport)
+        public IndexImportFile (FileInfo FSFileToimport,ILogger logger=null)
         {
             if (FSFileToimport == null) throw new ArgumentNullException ();
             if (!FSFileToimport.Exists) throw new FileNotFoundException ();
 
+            _logger = logger;
+
             _lucDoc = ParseLuceneDocument (FSFileToimport);
-
-
 
         }
 
@@ -87,8 +94,25 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         private TextExtractionResult ParseImportFileText (FileInfo fSFileToimport)
         {
-            TextExtractor tikaEx = new TextExtractor ();
-            return tikaEx.Extract (fSFileToimport.FullName);
+            TextExtractionResult retResult;
+
+            try
+            {
+                TextExtractor tikaEx = new TextExtractor ();
+                retResult = tikaEx.Extract (fSFileToimport.FullName);
+            } catch (Exception)
+            {
+                /* If an empty file gets parsed, tika throws an exception. We don't want any problems. only inform someone*/
+                LogMessage (LogLevels.Warning, "(" + fSFileToimport.FullName + ") has no content.");
+                retResult = new TextExtractionResult ();
+                retResult.Text = "";
+            }
+            return retResult;
+        }
+
+        public void LogMessage (LogLevels LogLevel, string Message)
+        {
+            if (_logger != null) _logger.LogText (LogLevel, Message);
         }
     }
 }

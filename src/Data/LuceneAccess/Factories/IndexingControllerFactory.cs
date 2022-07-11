@@ -1,4 +1,5 @@
 ﻿using DocumentAccessing.Storing;
+using Mame.Doci.CrossCutting.Logging.Loggers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,10 +10,10 @@ namespace Mame.Doci.Data.LuceneAccess.Factories
 {
     public class LuceneIndexingControllerFactory
     {
-        public static IDocumentStoring CreateDefault ()
+        public static IDocumentStoring CreateDefault (ILogger logger = null)
         {
             DirectoryInfo targetIndexFolder = CreateCleanAndWriteableFolder ();
-            return new Indexing.IndexingController (indexFolder: targetIndexFolder, overwriteExistingIndex: true);
+            return new Indexing.IndexingController (indexFolder: targetIndexFolder, overwriteExistingIndex: true) { Logger=logger};
         }
 
 
