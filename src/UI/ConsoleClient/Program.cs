@@ -9,6 +9,17 @@ namespace Mame.Doci.UI.ConsoleClient
     {
         static void Main (string[] args)
         {
+            // Parsing commandline
+            var clp = new CLParsing.CommandLineArgumentsParser (args);
+
+            if (clp.HasParsingErrors == true){
+            }
+            else if (!string.IsNullOrEmpty (clp.AddDocument))
+            {
+                
+            }
+
+
         }
     }
 }

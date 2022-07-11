@@ -40,11 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Requesting\IDocumentRequesting.cs" />
     <Compile Include="Requesting\RequestController.cs" />
-    <Compile Include="Storing\IDocumentStoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storing\IStoringController.cs" />
+    <Compile Include="Storing\IStoringForUser.cs" />
     <Compile Include="Storing\StoringController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,9 +51,9 @@
       <Project>{5c17187a-8332-45d3-aa26-f4e359e99c85}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UI\ConsoleClient\ConsoleClient.csproj">
-      <Project>{0ec36f93-5106-4fee-9512-167035b14a62}</Project>
-      <Name>ConsoleClient</Name>
+    <ProjectReference Include="..\..\Data\LuceneAccess\LuceneAccess.csproj">
+      <Project>{1d810a1f-9ef5-421b-94af-2179ebca50ba}</Project>
+      <Name>LuceneAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
