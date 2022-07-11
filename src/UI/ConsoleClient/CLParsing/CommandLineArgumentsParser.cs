@@ -18,7 +18,6 @@ namespace Mame.Doci.UI.ConsoleClient.CLParsing
         {
             [Option ('a', "add-document", Required = true, HelpText = "Add a document to the search DB.")]
             public string AddDocument { get; set; }
-
         }
 
 
