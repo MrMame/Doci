@@ -1,0 +1,42 @@
+
+# Workflow name
+# Is displayed in status badge
+name: build and test
+
+# Trigger this workflow on a push, or pull request to
+# the main branch, when either C# or project files changed
+on:
+  push:
+  pull_request:
+    branches: [ "development_v0.1.0" ]
+    paths-ignore:
+    - 'READMDE.md'
+
+# Create environment variables for central configuration
+env:
+  DOTNET_VERSION: '5.0.x'
+  TARGET_OS: windows-latest
+  
+# The job that will be done
+jobs:
+  build-and-test:
+    name: build-and-test-${{env.TARGET_OS}}
+    runs-on: ${{env.TARGET_OS}}
+    
+    steps:
+    # (1) Checkout the code from github to process
+    - uses: actions/checkout@v3
+    # (2) Setup the Build and test environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+    # (3) Get the dependencies for the project from nuget
+    - name: Install dependencies
+      run: dotnet restore
+    # (4) Build the Solution
+    - name: Build Release
+      run: dotnet build --configuration Release --no-restore
+    # (5) Run the tests for the solution
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
