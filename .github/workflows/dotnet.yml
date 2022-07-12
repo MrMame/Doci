@@ -28,10 +28,10 @@ jobs:
         dotnet-version: '5.0.x'
     # (3) Get the dependencies for the project from nuget
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore src/doci.sln
     # (4) Build the Solution
     - name: Build Release
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build src/doci.sln --configuration Release --no-restore
     # (5) Run the tests for the solution
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test src/doci.sln --no-build --verbosity normal
