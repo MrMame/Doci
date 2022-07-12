@@ -16,7 +16,7 @@ on:
 jobs:
   build-and-test:
     name: build-and-test-windows-latest
-    runs-on: windows-latest
+    runs-on: windows-2019
     
     steps:
     # (1) Checkout the code from github to process
