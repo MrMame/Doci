@@ -22,10 +22,22 @@ jobs:
     # (1) Checkout the code from github to process
     - uses: actions/checkout@v3
     # (2) Setup the Build and test environment
-    - name: Setup .NET
+    - name: Setup .NET 5.0.x
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: '5.0.x'
+    - name: Setup .NET 4.0.x
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '4.0.x'
+    - name: Setup .NET Core 3.1.x
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '3.1.x'
+    - name: Setup .NET 4.5.2
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '4.5.2'
     # (3) Get the dependencies for the project from nuget
     - name: Install dependencies
       run: dotnet restore src/doci.sln
