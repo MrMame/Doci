@@ -12,16 +12,11 @@ on:
     paths-ignore:
     - 'READMDE.md'
 
-# Create environment variables for central configuration
-env:
-  DOTNET_VERSION: '5.0.x'
-  TARGET_OS: windows-latest
-  
 # The job that will be done
 jobs:
   build-and-test:
-    name: build-and-test-${{env.TARGET_OS}}
-    runs-on: ${{env.TARGET_OS}}
+    name: build-and-test-windows-latest
+    runs-on: windows-latest
     
     steps:
     # (1) Checkout the code from github to process
@@ -30,7 +25,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: ${{env.DOTNET_VERSION}}
+        dotnet-version: '5.0.x'
     # (3) Get the dependencies for the project from nuget
     - name: Install dependencies
       run: dotnet restore
