@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Mame.Doci.CrossCutting.Logging.Loggers
 {
-    class ConsoleLogger :ILogger{
+    public class ConsoleLogger :ILogger{
 
         string _seperator = " - ";
         string _DateTimeFormat = "yyyyMMdd_HH:mm:ss";

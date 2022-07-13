@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DocumentAccessing.IntegrationTests</RootNamespace>
     <AssemblyName>DocumentAccessing.IntegrationTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -168,6 +168,10 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CrossCutting\Logging\Logging.csproj">
+      <Project>{5c17187a-8332-45d3-aa26-f4e359e99c85}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\LuceneAccess\LuceneAccess.csproj">
       <Project>{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}</Project>
       <Name>LuceneAccess</Name>

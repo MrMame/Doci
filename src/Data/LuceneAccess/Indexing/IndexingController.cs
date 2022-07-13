@@ -9,17 +9,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using DocumentAccessing.Storing;
+using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Data;
 
 namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
-    public class IndexingController : IIndexingController, IDocumentStoring
+    public class IndexingController : IIndexingController, IDocumentStoring,ILoggable
     {
         public string ParentTargetPathForImportedDocuments { get => throw new NotImplementedException (); set => throw new NotImplementedException (); }
-
+        public ILogger Logger
+        {
+            get { return _logger; }
+            set { _logger = value; }
+        }
 
         DirectoryInfo _defaultIndexFolder;
         bool _defaultOverwriteExistingIndex;
-
+        ILogger _logger;
 
         #region "PUBLICS"
 
@@ -63,10 +69,16 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             // Add Each File to Index
             foreach(FileInfo file in importFiles)
             {
-                // Create a LuceneImportfile for the Lucene index from the source importfile
-                IndexImportFile theImportFile = new IndexImportFile (file);
-                // Add the document into the index
-                theWriter.AddDocument (theImportFile.LuceneDocument);
+                if (!file.Exists)
+                {
+                    LogMessage (LogLevels.Warning, "(" + file.FullName + ") is not existing. Couldn't add document to index!");
+                } else
+                {
+                    // Create a LuceneImportfile for the Lucene index from the source importfile
+                    IndexImportFile theImportFile = new IndexImportFile (file,_logger);
+                    // Add the document into the index
+                    theWriter.AddDocument (theImportFile.LuceneDocument);
+                }
             }
             // Celan up. Write the index to file and close connection
             theWriter.Optimize ();
@@ -107,6 +119,11 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
         {
             SimpleFSDirectory targetFolder = new SimpleFSDirectory (indexPath);
             return IndexReader.IndexExists (targetFolder);
+        }
+
+        public void LogMessage (LogLevels logLevel, string message)
+        {
+            if (_logger != null) _logger.LogText (logLevel, message);
         }
 
 
