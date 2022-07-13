@@ -23,10 +23,11 @@ namespace Mame.Doci.UI.ConsoleClient
             var clp = new CLParsing.CommandLineArgumentsParser (args);
 
             if (clp.HasParsingErrors == true){
-                logger.LogText(LogLevels.Error, "Invalid commandline parameters!");
+                logger.LogText(LogLevels.Error, "Invalid commandline parameters detected!");
             }
             else if (!string.IsNullOrEmpty (clp.AddDocument))
             {
+                logger.LogText (LogLevels.Info, "...Start adding file (" + clp.AddDocument + ")");
                 var documentFilename = new FileInfo(clp.AddDocument);
 
                 IStoringForUser documentStoreController = StoringControllerFactory.CreateDefault (logger);
