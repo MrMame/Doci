@@ -9,11 +9,14 @@ Tests will be implemented, but without focusing on a wide code coverage.
 
 
 
-## Dependencies
 
-- .Net-Framework (v4.0)
+## Release Dependecies
+- .Net-Framework (v4.8.2)
 - Lucene.Net (v3.0.3)
 - TikaOnDotnet (v1.17.1)
 - TikaOnDotnet.TextExtractor (v1.17.1)
+
+## Testing Dependecies
+- .Net Core (v3.1)
 - NUnit (v3.12.0)
 - NSubstitue (v4.3.0)
