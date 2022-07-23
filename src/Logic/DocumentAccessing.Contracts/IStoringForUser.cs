@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.UI.ConsoleClient
+namespace Mame.Doci.Logic.DocumentAccessing.Contracts
 {
     public interface IStoringForUser
     {

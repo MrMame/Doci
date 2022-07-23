@@ -86,6 +86,10 @@
       <Project>{1d810a1f-9ef5-421b-94af-2179ebca50ba}</Project>
       <Name>LuceneAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Logic\DocumentAccessing.Contracts\DocumentAccessing.Contracts.csproj">
+      <Project>{6185f2e2-0a1d-49ba-8fb3-c0c43f9d5b4b}</Project>
+      <Name>DocumentAccessing.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Logic\DocumentAccessing\DocumentAccessing.csproj">
       <Project>{a89917df-b37f-441c-8dad-c3cb8c7c32d1}</Project>
       <Name>DocumentAccessing</Name>

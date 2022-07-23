@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using DocumentAccessing.Storing;
+using Mame.Doci.Logic.DocumentAccessing.Contracts;
 using Mame.Doci.Logic.DocumentAccessing.Storing;
 using NUnit.Framework;
 

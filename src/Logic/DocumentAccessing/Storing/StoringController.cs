@@ -1,11 +1,10 @@
-﻿using DocumentAccessing.Storing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Mame.Doci.UI.ConsoleClient;
 using Mame.Doci.CrossCutting.Logging.Contracts;
+using Mame.Doci.Logic.DocumentAccessing.Contracts;
 //using Mame.Doci.CrossCutting.Logging.Data; 
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing

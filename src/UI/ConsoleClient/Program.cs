@@ -1,6 +1,6 @@
-﻿using DocumentAccessing.Storing;
-using Mame.Doci.CrossCutting.Logging.Contracts;
+﻿using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.Logic.DocumentAccessing.Contracts;
 using System;
 using System.IO;
 

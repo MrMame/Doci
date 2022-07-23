@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace DocumentAccessing.Storing
+namespace Mame.Doci.Logic.DocumentAccessing.Contracts
 {
 
     /* Public Interface for Data tier Objects that provide Access to the storage system, e.g. Data.LuceneAccess.IndexingController

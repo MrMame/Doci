@@ -1,6 +1,5 @@
-﻿using DocumentAccessing.Storing;
-using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.UI.ConsoleClient;
+﻿using Mame.Doci.CrossCutting.Logging.Contracts;
+using Mame.Doci.Logic.DocumentAccessing.Contracts;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing.Factories
 {
