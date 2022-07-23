@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 
 namespace Logging.Tests.UnitTests.Loggers
 {

@@ -1,4 +1,4 @@
-﻿using Mame.Doci.CrossCutting.Logging.Data;
+﻿using Mame.Doci.CrossCutting.Logging.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

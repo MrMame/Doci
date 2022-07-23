@@ -1,5 +1,5 @@
 ﻿using DocumentAccessing.Storing;
-using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Mame.Doci.UI.ConsoleClient;
-using Mame.Doci.CrossCutting.Logging.Loggers;
-using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Contracts;
+//using Mame.Doci.CrossCutting.Logging.Data; 
 
 namespace Mame.Doci.Logic.DocumentAccessing.Storing
 {

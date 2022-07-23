@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Mame.Doci.CrossCutting.Logging;
 using System.IO;
-using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 
 namespace Mame.Doci.CrossCutting.Logging.Loggers
 {

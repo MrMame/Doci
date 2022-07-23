@@ -7,8 +7,7 @@ using System.Text;
 
 using LuceneAccess.Tests.TestSupport;
 using NSubstitute;
-using Mame.Doci.CrossCutting.Logging.Loggers;
-using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 
 namespace LuceneAccess.Tests.UnitTests.Indexing
 {

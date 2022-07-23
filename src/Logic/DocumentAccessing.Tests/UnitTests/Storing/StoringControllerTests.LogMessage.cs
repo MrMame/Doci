@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using NSubstitute;
 using DocumentAccessing.Storing;
-using Mame.Doci.CrossCutting.Logging.Data;
-using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.Logic.DocumentAccessing.Storing;
 using NUnit.Framework;
 
