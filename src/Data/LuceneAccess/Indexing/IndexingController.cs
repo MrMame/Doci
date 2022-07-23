@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using DocumentAccessing.Storing;
-using Mame.Doci.CrossCutting.Logging.Loggers;
-using Mame.Doci.CrossCutting.Logging.Data;
+//using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.CrossCutting.Logging.Contracts;
+using Mame.Doci.Logic.DocumentAccessing.Contracts;
 
 namespace Mame.Doci.Data.LuceneAccess.Indexing
 {

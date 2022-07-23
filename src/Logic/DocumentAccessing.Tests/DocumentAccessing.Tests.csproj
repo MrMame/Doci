@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CrossCutting\Logging\Logging.csproj" />
+    <ProjectReference Include="..\DocumentAccessing.Contracts\DocumentAccessing.Contracts.csproj" />
     <ProjectReference Include="..\DocumentAccessing\DocumentAccessing.csproj" />
   </ItemGroup>
 

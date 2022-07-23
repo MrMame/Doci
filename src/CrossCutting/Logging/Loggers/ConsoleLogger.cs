@@ -1,9 +1,5 @@
-﻿using Mame.Doci.CrossCutting.Logging.Data;
+﻿using Mame.Doci.CrossCutting.Logging.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mame.Doci.CrossCutting.Logging.Loggers
 {

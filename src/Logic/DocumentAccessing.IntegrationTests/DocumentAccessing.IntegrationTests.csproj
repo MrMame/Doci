@@ -168,13 +168,17 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CrossCutting\Logging\Logging.csproj">
-      <Project>{5c17187a-8332-45d3-aa26-f4e359e99c85}</Project>
-      <Name>Logging</Name>
+    <ProjectReference Include="..\..\CrossCutting\Logging.Contracts\Logging.Contracts.csproj">
+      <Project>{2fe41fc8-becd-4773-a6d7-cb30360aa26d}</Project>
+      <Name>Logging.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\LuceneAccess\LuceneAccess.csproj">
       <Project>{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}</Project>
       <Name>LuceneAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocumentAccessing.Contracts\DocumentAccessing.Contracts.csproj">
+      <Project>{6185f2e2-0a1d-49ba-8fb3-c0c43f9d5b4b}</Project>
+      <Name>DocumentAccessing.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\DocumentAccessing\DocumentAccessing.csproj">
       <Project>{A89917DF-B37F-441C-8DAD-C3CB8C7C32D1}</Project>

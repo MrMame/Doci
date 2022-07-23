@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Loggers;
-using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 using System.IO;
 using Logging.Tests.TestSupports;
 using System.Linq;

@@ -1,10 +1,9 @@
-﻿using Mame.Doci.CrossCutting.Logging.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.CrossCutting.Logging.Loggers
+namespace Mame.Doci.CrossCutting.Logging.Contracts
 {
     public interface ILoggable
     {

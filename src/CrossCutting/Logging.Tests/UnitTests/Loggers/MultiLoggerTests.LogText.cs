@@ -4,7 +4,7 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Mame.Doci.CrossCutting.Logging.Data;
+using Mame.Doci.CrossCutting.Logging.Contracts;
 
 using Logging.Tests.TestSupports;
 

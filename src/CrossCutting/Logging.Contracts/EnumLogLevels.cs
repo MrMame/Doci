@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mame.Doci.CrossCutting.Logging.Data
+namespace Mame.Doci.CrossCutting.Logging.Contracts
 {
 
     public enum LogLevels{
