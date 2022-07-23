@@ -1,4 +1,5 @@
-﻿using Mame.Doci.CrossCutting.Logging.Data;
+﻿using DocumentAccessing.Storing;
+using Mame.Doci.CrossCutting.Logging.Data;
 using Mame.Doci.CrossCutting.Logging.Loggers;
 using Mame.Doci.Logic.DocumentAccessing.Storing.Factories;
 using System;
@@ -11,8 +12,7 @@ namespace Mame.Doci.UI.ConsoleClient
 {
     public class Program
     {
-      
-
+    
 
         static void Main (string[] args)
         {
@@ -56,8 +56,10 @@ namespace Mame.Doci.UI.ConsoleClient
             // Start storing
             try
             {
-                IStoringForUser documentStoreController = StoringControllerFactory.CreateDefault (logger);
-                documentStoreController.UserWantsToStore (documentFile);
+                IDocumentStoring luceneIndexingController = Mame.Doci.Data.LuceneAccess.Factories.LuceneIndexingControllerFactory.CreateDefault(logger);
+                IStoringForUser documentStoringController = Mame.Doci.Logic.DocumentAccessing.Storing.Factories.StoringControllerFactory.CreateDefault (luceneIndexingController, logger);
+                
+                documentStoringController.UserWantsToStore (documentFile);
             } catch (Exception ex)
             {
                 logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);

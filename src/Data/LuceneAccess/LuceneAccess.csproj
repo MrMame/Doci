@@ -186,11 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\IndexingControllerFactory.cs" />
-    <Compile Include="Indexing\IDocumentStoring.cs" />
     <Compile Include="Indexing\IndexImportFile.cs" />
     <Compile Include="Indexing\IIndexingController.cs" />
     <Compile Include="Indexing\IndexingController.cs" />
-    <Compile Include="Querying\IDocumentRequesting.cs" />
     <Compile Include="Querying\IQueryController.cs" />
     <Compile Include="Querying\QueryController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,6 +200,10 @@
     <ProjectReference Include="..\..\CrossCutting\Logging\Logging.csproj">
       <Project>{5c17187a-8332-45d3-aa26-f4e359e99c85}</Project>
       <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Logic\DocumentAccessing\DocumentAccessing.csproj">
+      <Project>{a89917df-b37f-441c-8dad-c3cb8c7c32d1}</Project>
+      <Name>DocumentAccessing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
