@@ -1,6 +1,4 @@
 
-![DOCI](https://user-images.githubusercontent.com/51000524/177631326-0d6b1f1e-ddd8-4079-af5d-3d16998ed043.png)
-
 Basic file indexing and search tool using Lucene Net v3 and Dotnet Framework 4.8.2
 
 
