@@ -60,11 +60,25 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         #region "INTERFACE - IStoringForUser"
         public void UserWantsToStore (FileInfo fileName)
         {
-            this.Store (fileName, _documentStorer);
+            try
+            {
+                this.Store (fileName, _documentStorer);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error while storing document for user with filename {fileName}",
+                                    innerException:ex);               
+            }
         }
         public void UserWantsToStore (List<FileInfo> fileNames)
         {
-            this.Store (fileNames, _documentStorer);
+            try
+            {
+                this.Store (fileNames, _documentStorer);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error while storing documents for user with filenames {fileNames}",
+                                    innerException: ex);
+            }
         }
         #endregion
     }
