@@ -73,7 +73,11 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             }, "Exception was not thrown");
         }
 
-
+        [Test]
+        public void Store_IfFileIsInvalid_ThrowsDocumentStoreException ()
+        {
+            Assert.IsTrue (false, "TEST IS NOT IMPLEMENTED");
+        }
 
 
 

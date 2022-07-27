@@ -10,8 +10,9 @@ using System.Linq;
 using System.Text;
 //using Mame.Doci.CrossCutting.Logging.Loggers;
 using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
+using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.Logic.DocumentAccessing.Contracts.Exceptions;
 
 namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
@@ -52,9 +53,10 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
                 AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to store user document file ({storeFile.FullName}) " +
+                throw new DocumentStoreException ($"Error trying to store user document file ({storeFile.FullName}) " +
                                                   $" to lucene index at path ({_defaultIndexFolder.FullName})",
-                                                  ex);
+                                                  ex)
+                { UserDocuments = new FileInfo[1] { storeFile}, RepositoryDirectory = _defaultIndexFolder };
             }
 
         }
@@ -66,9 +68,9 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
                 AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to store ({storeFiles.Count()}) user document files  " +
-                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
-                                                  ex);
+                throw new DocumentStoreException ($"Error trying to store user documents to lucene index at path.",
+                                                  ex)
+                { UserDocuments = storeFiles.ToArray(), RepositoryDirectory = _defaultIndexFolder };
             }
 
         }
