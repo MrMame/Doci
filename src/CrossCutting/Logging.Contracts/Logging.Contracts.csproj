@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumLogLevels.cs" />
+    <Compile Include="Exceptions\LogMessageException.cs" />
     <Compile Include="ILoggable.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
