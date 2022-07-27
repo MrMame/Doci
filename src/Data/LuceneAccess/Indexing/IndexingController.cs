@@ -48,27 +48,96 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             try
             {
                 AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
-            } catch (Exception)
+            } catch (Exception ex)
             {
-
-                throw;
+                throw new Exception ($"Error trying to store user document file ({storeFile.FullName}) " +
+                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
+                                                  ex);
             }
 
         }
         public void Store (List<FileInfo> storeFiles)
         {
-            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
+            try
+            {
+                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error trying to store ({storeFiles.Count()}) user document files  " +
+                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
+                                                  ex);
+            }
+
         }
 
         #endregion
 
         public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, FileInfo importFile)
         {
-            FileInfo[] files = { importFile };
-            AddToIndex (indexFolder, createOrOverwriteExistingIndex, files);
+
+
+            try
+            {
+                FileInfo[] files = { importFile };
+                AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, files);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error trying to add ({importFile.FullName}) " +
+                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
+                                                  ex);
+            }
+
         }
 
         public void AddToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
+        {
+            try
+            {
+                AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, importFiles);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error trying to add ({importFiles.Count()} files ) " +
+                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
+                                                  ex);
+            }
+        }
+
+
+        public void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,  DirectoryInfo ImportFolder, bool ImportWithSubfolders)
+        {
+            throw new NotImplementedException ();
+            //try
+            //{
+
+            //} catch (Exception)
+            //{
+
+            //    throw;
+            //}
+        }
+
+
+        public void LogMessage (LogLevels logLevel, string message)
+        {
+            try
+            {
+                if (_logger != null) _logger.LogText (logLevel, message);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error trying to log message ({message}) " +
+                                                  $" to logger",
+                                                  ex);
+            }
+        }
+
+
+
+        #endregion
+
+
+        #region "PRIVATES"
+
+        private void AddFilesToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
         {
             // Index is existing but we are not allowed to overwrite it.
             ThrowExceptionIfIndexIsProtected (indexFolder, createOrOverwriteExistingIndex);
@@ -93,16 +162,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             theWriter.Dispose ();
         }
 
-        public void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,  DirectoryInfo ImportFolder, bool ImportWithSubfolders)
-        {
-            throw new NotImplementedException ();
-        }
-
-        #endregion
-
-
-        #region "PRIVATES"
-
 
         private void ThrowExceptionIfIndexIsProtected (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex)
         {
@@ -123,17 +182,13 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             return new IndexWriter (dir, theAnalyzer, create: createOrOverwriteExistingIndex, IndexWriter.MaxFieldLength.UNLIMITED);
         }
 
-        public static bool IsLuceneIndexExisting (DirectoryInfo indexPath)
+        private static bool IsLuceneIndexExisting (DirectoryInfo indexPath)
         {
             SimpleFSDirectory targetFolder = new SimpleFSDirectory (indexPath);
             return IndexReader.IndexExists (targetFolder);
         }
 
-        public void LogMessage (LogLevels logLevel, string message)
-        {
-            if (_logger != null) _logger.LogText (logLevel, message);
-        }
-
+     
 
         #endregion
 
