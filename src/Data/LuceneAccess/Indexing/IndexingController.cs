@@ -11,6 +11,7 @@ using System.Text;
 //using Mame.Doci.CrossCutting.Logging.Loggers;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 
 namespace Mame.Doci.Data.LuceneAccess.Indexing
 {
@@ -131,9 +132,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
                 if (_logger != null) _logger.LogText (logLevel, message);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to log message ({message}) " +
-                                                  $" to logger",
-                                                  ex);
+                throw new LogMessageException ($"Error trying to log message ({message}) ",
+                                            ex);
             }
         }
         #endregion

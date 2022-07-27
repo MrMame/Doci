@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
+using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentAccessing.Contracts;
 //using Mame.Doci.CrossCutting.Logging.Data; 
 
@@ -41,9 +42,8 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
                 if (this._logger != null) _logger.LogText (logLevel, message);
             } catch (Exception ex )
             {
-                throw new Exception ($"Error trying to log message ({message}) " +
-                                     $" with loglevel ({logLevel.ToString ()})",
-                                     ex);
+                throw new LogMessageException ($"Error trying to log message ({message}) ",
+                                            ex);
             }
         }
         #endregion

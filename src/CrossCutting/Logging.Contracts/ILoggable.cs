@@ -8,7 +8,7 @@ namespace Mame.Doci.CrossCutting.Logging.Contracts
     public interface ILoggable
     {
         ILogger Logger { get;set;}      // Logger that will be used to Log the Message
-        void LogMessage (LogLevels LogLevel,string Message);    // Call if you want to log a Message
+        void LogMessage (LogLevels LogLevel,string Message);    // throws LogMessageException
 
     }
 }

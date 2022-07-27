@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Mame.Doci.CrossCutting.Logging.Contracts.Exceptions
 {
     [Serializable]
-    internal class LogMessageException:Exception
+    public class LogMessageException:Exception
     {
-        LogMessageException ()
+        public LogMessageException ()
         {
         }
 
-        LogMessageException (string message)
+        public LogMessageException (string message)
             : base (message)    
         {
         }
 
-        LogMessageException (string message, Exception innerException)
+        public LogMessageException (string message, Exception innerException)
             : base (message, innerException)
         {
         }

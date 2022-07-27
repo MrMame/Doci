@@ -1,5 +1,6 @@
 ﻿using Lucene.Net.Documents;
 using Mame.Doci.CrossCutting.Logging.Contracts;
+using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Data.LuceneAccess.Indexing;
 using System;
 using System.Collections.Generic;
@@ -111,7 +112,14 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         public void LogMessage (LogLevels LogLevel, string Message)
         {
-            if (_logger != null) _logger.LogText (LogLevel, Message);
+            try
+            {
+                if (_logger != null) _logger.LogText (LogLevel, Message);
+            } catch (Exception ex)
+            {
+                throw new LogMessageException ($"Error trying to log message ({Message}) ",
+                                            ex);
+            }
         }
     }
 }
