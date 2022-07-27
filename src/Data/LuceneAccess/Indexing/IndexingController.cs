@@ -27,9 +27,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
         bool _defaultOverwriteExistingIndex;
         ILogger _logger;
 
+
         #region "PUBLICS"
-
-
         public IndexingController ()
         {
             _defaultIndexFolder = null;
@@ -40,9 +39,10 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             _defaultIndexFolder = indexFolder;
             _defaultOverwriteExistingIndex = overwriteExistingIndex;
         }
+        #endregion
 
 
-        #region "INTERFACE IDocumetStoring"
+        #region "INTERFACE - IDocumentStoring"
         public void Store(FileInfo storeFile)
         {
             if (storeFile is null) throw new ArgumentNullException ();
@@ -71,9 +71,10 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             }
 
         }
-
         #endregion
 
+
+        #region "INTERFACE - IIndexingController"
         public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, FileInfo importFile)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
@@ -90,7 +91,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             }
 
         }
-
         public void AddToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
@@ -105,8 +105,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
                                                   ex);
             }
         }
-
-
         public void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,  DirectoryInfo ImportFolder, bool ImportWithSubfolders)
         {
             if (IndexFolder is null) throw new ArgumentNullException ();
@@ -121,8 +119,11 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             //    throw;
             //}
         }
+        #endregion
 
 
+
+        #region "INTERFACE - ILogger"
         public void LogMessage (LogLevels logLevel, string message)
         {
             try
@@ -135,14 +136,11 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
                                                   ex);
             }
         }
-
-
-
         #endregion
 
 
-        #region "PRIVATES"
 
+        #region "PRIVATES"
         private void AddFilesToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
@@ -170,8 +168,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             theWriter.Optimize ();
             theWriter.Dispose ();
         }
-
-
         private void ThrowExceptionIfIndexIsProtected (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex)
         {
             if(IndexFolder is null) throw new ArgumentNullException (); 
@@ -182,8 +178,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
                 throw new AccessViolationException ("There is a lucene index already existing, but it's not allowed to overwrite this one!");
             }
         }
-
-
         private IndexWriter OpenIndexWriter (string indexFolder,bool createOrOverwriteExistingIndex)
         {
             // open index
@@ -192,7 +186,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             // getwriter
             return new IndexWriter (dir, theAnalyzer, create: createOrOverwriteExistingIndex, IndexWriter.MaxFieldLength.UNLIMITED);
         }
-
         private static bool IsLuceneIndexExisting (DirectoryInfo indexPath)
         {
             if (indexPath is null) throw new ArgumentNullException ();
@@ -200,9 +193,6 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
             SimpleFSDirectory targetFolder = new SimpleFSDirectory (indexPath);
             return IndexReader.IndexExists (targetFolder);
         }
-
-     
-
         #endregion
 
     }

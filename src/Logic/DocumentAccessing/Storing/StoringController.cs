@@ -31,8 +31,9 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         {
             _documentStorer = documentStorer;
         }
+        #endregion
 
-
+        #region "INTERFACE - ILoggable"
         public void LogMessage (LogLevels logLevel, string message)
         {
             try
@@ -45,7 +46,9 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
                                      ex);
             }
         }
-
+        #endregion
+        
+        #region "INTERFACE - IStoringController"
         public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
