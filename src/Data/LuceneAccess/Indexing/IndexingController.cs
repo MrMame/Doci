@@ -45,7 +45,15 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
         #region "INTERFACE IDocumetStoring"
         public void Store(FileInfo storeFile)
         {
-            AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
+            try
+            {
+                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
+            } catch (Exception)
+            {
+
+                throw;
+            }
+
         }
         public void Store (List<FileInfo> storeFiles)
         {
