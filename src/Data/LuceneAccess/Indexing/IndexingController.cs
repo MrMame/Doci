@@ -45,6 +45,7 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
         #region "INTERFACE IDocumetStoring"
         public void Store(FileInfo storeFile)
         {
+            if (storeFile is null) throw new ArgumentNullException ();
             try
             {
                 AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
@@ -58,6 +59,7 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
         }
         public void Store (List<FileInfo> storeFiles)
         {
+            if (storeFiles is null) throw new ArgumentNullException ();
             try
             {
                 AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
@@ -74,8 +76,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, FileInfo importFile)
         {
-
-
+            if (indexFolder is null) throw new ArgumentNullException ();
+            if (importFile is null) throw new ArgumentNullException ();
             try
             {
                 FileInfo[] files = { importFile };
@@ -91,6 +93,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         public void AddToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
         {
+            if (indexFolder is null) throw new ArgumentNullException ();
+            if (importFiles is null) throw new ArgumentNullException ();
             try
             {
                 AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, importFiles);
@@ -105,6 +109,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         public void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,  DirectoryInfo ImportFolder, bool ImportWithSubfolders)
         {
+            if (IndexFolder is null) throw new ArgumentNullException ();
+            if (ImportFolder is null) throw new ArgumentNullException ();
             throw new NotImplementedException ();
             //try
             //{
@@ -139,6 +145,9 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         private void AddFilesToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
         {
+            if (indexFolder is null) throw new ArgumentNullException ();
+            if (importFiles is null) throw new ArgumentNullException ();
+
             // Index is existing but we are not allowed to overwrite it.
             ThrowExceptionIfIndexIsProtected (indexFolder, createOrOverwriteExistingIndex);
             // open the Index and get the writer Object for adding documents
@@ -165,6 +174,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         private void ThrowExceptionIfIndexIsProtected (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex)
         {
+            if(IndexFolder is null) throw new ArgumentNullException (); 
+
             bool indexExistingAtTarget = IsLuceneIndexExisting (IndexFolder);
             if (!createOrOverwriteExistingIndex && indexExistingAtTarget)
             {
@@ -184,6 +195,8 @@ namespace Mame.Doci.Data.LuceneAccess.Indexing
 
         private static bool IsLuceneIndexExisting (DirectoryInfo indexPath)
         {
+            if (indexPath is null) throw new ArgumentNullException ();
+
             SimpleFSDirectory targetFolder = new SimpleFSDirectory (indexPath);
             return IndexReader.IndexExists (targetFolder);
         }
