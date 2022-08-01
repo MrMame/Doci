@@ -186,11 +186,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\IndexingControllerFactory.cs" />
-    <Compile Include="Indexing\IndexImportFile.cs" />
-    <Compile Include="Indexing\IIndexingController.cs" />
-    <Compile Include="Indexing\IndexingController.cs" />
-    <Compile Include="Querying\IQueryController.cs" />
-    <Compile Include="Querying\QueryController.cs" />
+    <Compile Include="Data\IndexImportFile.cs" />
+    <Compile Include="Logic\IIndexingController.cs" />
+    <Compile Include="Logic\IndexingController.cs" />
+    <Compile Include="Logic\IQueryController.cs" />
+    <Compile Include="Logic\QueryController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

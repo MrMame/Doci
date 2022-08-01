@@ -1,7 +1,7 @@
 ﻿using Lucene.Net.Documents;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Data.LuceneRepository.Indexing;
+using Mame.Doci.Data.LuceneRepository.Logic;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using TikaOnDotNet.TextExtraction;
 
-namespace Mame.Doci.Data.LuceneRepository.Indexing
+namespace Mame.Doci.Data.LuceneRepository.Data
 {
     class IndexImportFile:ILoggable
     {

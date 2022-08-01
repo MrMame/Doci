@@ -182,7 +182,7 @@
       <Project>{2fe41fc8-becd-4773-a6d7-cb30360aa26d}</Project>
       <Name>Logging.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LuceneAccess\LuceneRepository.csproj">
+    <ProjectReference Include="..\LuceneRepository\LuceneRepository.csproj">
       <Project>{1d810a1f-9ef5-421b-94af-2179ebca50ba}</Project>
       <Name>LuceneRepository</Name>
     </ProjectReference>

@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-//using Mame.Doci.CrossCutting.Logging.Loggers;
+using Mame.Doci.Data.LuceneRepository.Data;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentAccessing.Contracts;
 using Mame.Doci.Logic.DocumentAccessing.Contracts.Exceptions;
 
-namespace Mame.Doci.Data.LuceneRepository.Indexing
+namespace Mame.Doci.Data.LuceneRepository.Logic
 {
     public class IndexingController : IIndexingController, IDocumentStoring,ILoggable
     {
