@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts;
 //using Mame.Doci.CrossCutting.Logging.Data; 
 
-namespace Mame.Doci.Logic.DocumentAccessing.Storing
+namespace Mame.Doci.Logic.DocumentManager.Storing
 {
     public class StoringController :IStoringController, IStoringForUser, ILoggable
     {

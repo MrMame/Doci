@@ -1,8 +1,8 @@
-﻿using Mame.Doci.Logic.DocumentAccessing.Contracts;
+﻿using Mame.Doci.Logic.DocumentManager.Contracts;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Mame.Doci.Logic.DocumentAccessing.Storing
+namespace Mame.Doci.Logic.DocumentManager.Storing
 {
     interface IStoringController
     {

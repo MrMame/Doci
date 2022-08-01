@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Storing;
+using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Storing;
 using NUnit.Framework;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing

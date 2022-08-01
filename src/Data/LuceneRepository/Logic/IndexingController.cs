@@ -11,8 +11,9 @@ using System.Text;
 using Mame.Doci.Data.LuceneRepository.Data;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Contracts.Exceptions;
+using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
+
 
 namespace Mame.Doci.Data.LuceneRepository.Logic
 {

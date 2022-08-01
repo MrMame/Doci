@@ -1,7 +1,7 @@
 ﻿using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts;
 
-namespace Mame.Doci.Logic.DocumentAccessing.Storing.Factories
+namespace Mame.Doci.Logic.DocumentManager.Storing.Factories
 {
     public class StoringControllerFactory
     {

@@ -1,4 +1,4 @@
-﻿using Mame.Doci.Logic.DocumentAccessing.Contracts;
+﻿using Mame.Doci.Logic.DocumentManager.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

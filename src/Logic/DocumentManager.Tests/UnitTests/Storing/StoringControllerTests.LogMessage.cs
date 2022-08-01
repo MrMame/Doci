@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using NSubstitute;
 using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Storing;
+using Mame.Doci.Logic.DocumentManager.Storing;
 using NUnit.Framework;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
 {
