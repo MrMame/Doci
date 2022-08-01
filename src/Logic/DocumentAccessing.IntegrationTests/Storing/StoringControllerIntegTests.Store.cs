@@ -1,5 +1,5 @@
 ﻿using DocumentAccessing.IntegrationTests.TestSupport;
-using Mame.Doci.Data.LuceneAccess.Indexing;
+using Mame.Doci.Data.LuceneRepository.Indexing;
 using Mame.Doci.Logic.DocumentAccessing.Contracts;
 using Mame.Doci.Logic.DocumentAccessing.Storing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

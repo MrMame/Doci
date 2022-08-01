@@ -1,4 +1,4 @@
-﻿using Mame.Doci.Data.LuceneAccess.Indexing;
+﻿using Mame.Doci.Data.LuceneRepository.Indexing;
 using System;
 using System.Collections.Generic;
 using System.IO;

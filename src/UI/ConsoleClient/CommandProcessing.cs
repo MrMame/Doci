@@ -44,7 +44,7 @@ namespace Mame.Doci.UI.ConsoleClient
                     return;
                 }
 
-                IDocumentStoring luceneIndexingController = Mame.Doci.Data.LuceneAccess.Factories.LuceneIndexingControllerFactory.CreateDefault (logger);
+                IDocumentStoring luceneIndexingController = Mame.Doci.Data.LuceneRepository.Factories.LuceneIndexingControllerFactory.CreateDefault (logger);
                 IStoringForUser documentStoringController = Mame.Doci.Logic.DocumentAccessing.Storing.Factories.StoringControllerFactory.CreateDefault (luceneIndexingController, logger);
 
                 documentStoringController.UserWantsToStore (documentFile);

@@ -7,7 +7,7 @@
     <ProjectGuid>{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mame.Doci.Data.LuceneAccess</RootNamespace>
+    <RootNamespace>Mame.Doci.Data.LuceneRepository</RootNamespace>
     <AssemblyName>LuceneAccess</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

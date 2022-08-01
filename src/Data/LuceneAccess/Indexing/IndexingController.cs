@@ -14,7 +14,7 @@ using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentAccessing.Contracts;
 using Mame.Doci.Logic.DocumentAccessing.Contracts.Exceptions;
 
-namespace Mame.Doci.Data.LuceneAccess.Indexing
+namespace Mame.Doci.Data.LuceneRepository.Indexing
 {
     public class IndexingController : IIndexingController, IDocumentStoring,ILoggable
     {

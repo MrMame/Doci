@@ -1,4 +1,4 @@
-﻿using Mame.Doci.Data.LuceneAccess.Indexing;
+﻿using Mame.Doci.Data.LuceneRepository.Indexing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
