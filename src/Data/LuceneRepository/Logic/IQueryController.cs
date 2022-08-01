@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace LuceneAccess.Contracts
+namespace Mame.Doci.Data.LuceneRepository.Logic
 {
-    public class Class1
+    interface IQueryController
     {
+
+
     }
 }

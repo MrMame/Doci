@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{92943C5C-689F-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "UI\ConsoleClient\ConsoleClient.csproj", "{0EC36F93-5106-4FEE-9512-167035B14A62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneAccess", "Data\LuceneAccess\LuceneAccess.csproj", "{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneRepository", "Data\LuceneRepository\LuceneRepository.csproj", "{1D810A1F-9EF5-421B-94AF-2179EBCA50BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneAccess.Tests", "Data\LuceneAccess.Tests\LuceneAccess.Tests.csproj", "{DB8090F8-976E-49A7-97FA-53A4D74A3BA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneRepository.Tests", "Data\LuceneRepository.Tests\LuceneRepository.Tests.csproj", "{DB8090F8-976E-49A7-97FA-53A4D74A3BA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "CrossCutting\Logging\Logging.csproj", "{5C17187A-8332-45D3-AA26-F4E359E99C85}"
 EndProject

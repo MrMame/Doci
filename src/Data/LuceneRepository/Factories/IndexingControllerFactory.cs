@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.Data.LuceneAccess.Factories
+namespace Mame.Doci.Data.LuceneRepository.Factories
 {
     public class LuceneIndexingControllerFactory
     {

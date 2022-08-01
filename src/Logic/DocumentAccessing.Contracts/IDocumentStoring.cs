@@ -7,11 +7,10 @@ using System.Text;
 namespace Mame.Doci.Logic.DocumentAccessing.Contracts
 {
 
-    /* Public Interface for Data tier Objects that provide Access to the storage system, e.g. Data.LuceneAccess.IndexingController
-     will be used by the StoringController to get access to the Lucene string DB*/
+
     public interface IDocumentStoring
     {
-        void Store (FileInfo storeFile);
-        void Store (List<FileInfo> storeFiles);
+        void Store (FileInfo storeFile);        // throws DocumentStoreException
+        void Store (List<FileInfo> storeFiles);// throws DocumentStoreException
     }
 }

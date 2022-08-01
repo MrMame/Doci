@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
+using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentAccessing.Contracts;
 //using Mame.Doci.CrossCutting.Logging.Data; 
 
@@ -31,19 +32,37 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         {
             _documentStorer = documentStorer;
         }
+        #endregion
 
-
+        #region "INTERFACE - ILoggable"
         public void LogMessage (LogLevels logLevel, string message)
         {
-            if (this._logger != null) _logger.LogText (logLevel, message);
+            try
+            {
+                if (this._logger != null) _logger.LogText (logLevel, message);
+            } catch (Exception ex )
+            {
+                throw new LogMessageException ($"Error trying to log message ({message}) ",
+                                            ex);
+            }
         }
-
+        #endregion
+        
+        #region "INTERFACE - IStoringController"
         public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();
 
-            documentStorer.Store (storeFile);
+            try
+            {
+                documentStorer.Store (storeFile);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error trying to store file ({storeFile.FullName}) " +
+                                     $" using DocumentStorer ({documentStorer.ToString()})",
+                                     ex);
+            }
 
         }
 
@@ -52,19 +71,46 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
             if (storeFiles is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();
 
-            documentStorer.Store (storeFiles);
-            
+            try
+            {
+                documentStorer.Store (storeFiles);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error trying to store files ({storeFiles}) " +
+                                     $" using DocumentStorer ({documentStorer.ToString ()})",
+                                     ex);
+            }
+
+
         }
         #endregion
 
         #region "INTERFACE - IStoringForUser"
-        public void UserWantsToStore (FileInfo fileName)
+        public void UserWantsToStore (FileInfo documentInfo)
         {
-            this.Store (fileName, _documentStorer);
+            if (documentInfo is null) throw new ArgumentNullException();
+            if (_documentStorer is null) throw new ArgumentNullException ();
+            try
+            {
+                this.Store (documentInfo, _documentStorer);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error while storing document for user with filename {documentInfo}",
+                                    innerException:ex);               
+            }
         }
-        public void UserWantsToStore (List<FileInfo> fileNames)
+        public void UserWantsToStore (List<FileInfo> documentsInfos)
         {
-            this.Store (fileNames, _documentStorer);
+            if (documentsInfos is null) throw new ArgumentNullException ();
+            if (_documentStorer is null) throw new ArgumentNullException ();
+            try
+            {
+                this.Store (documentsInfos, _documentStorer);
+            } catch (Exception ex)
+            {
+                throw new Exception ($"Error while storing documents for user with filenames {documentsInfos}",
+                                    innerException: ex);
+            }
         }
         #endregion
     }
