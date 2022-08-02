@@ -168,6 +168,10 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CrossCutting\DataClasses\DataClasses.csproj">
+      <Project>{d51ac5a3-11ab-4ca4-a0a1-f2f320c06553}</Project>
+      <Name>DataClasses</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\CrossCutting\Logging.Contracts\Logging.Contracts.csproj">
       <Project>{2fe41fc8-becd-4773-a6d7-cb30360aa26d}</Project>
       <Name>Logging.Contracts</Name>

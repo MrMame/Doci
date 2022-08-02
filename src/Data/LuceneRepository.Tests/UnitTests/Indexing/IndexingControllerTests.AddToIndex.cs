@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using Mame.Doci.CrossCutting.DataClasses;
 using LuceneAccess.Tests.TestSupport;
 using NSubstitute;
 using Mame.Doci.CrossCutting.Logging.Contracts;
@@ -27,19 +27,19 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
                                                                 "ContentCompressed","Type",
                                                                 "FileSize","Last Modified"};
             DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            FileInfo ImportFile = GetDefaultImportFile ();
+            Document document = GetDefaultImportFile ();
 
             IndexingController TestController = IndexingControllerFactory.CreateController ();
 
             //Act
-            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex:true, ImportFile);
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex:true, document);
 
             //Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
-            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (CleanTargetIndexFolder,ImportFile);
-            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, ImportFile, checkFieldnames);
+            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (CleanTargetIndexFolder,document);
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, document, checkFieldnames);
             Assert.IsTrue (IsLuceneindexExisting,"There is no Lucene Index existing inside targetindexFolder! " + CleanTargetIndexFolder);
-            Assert.IsTrue (IsImporttFileInIndex,"No Document match found inside lucene index for test importfile! " + ImportFile.FullName);
+            Assert.IsTrue (IsImporttFileInIndex,"No Document match found inside lucene index for test importfile! " + document.FullName);
             Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the document are not matching expected fieldnames.");
             
 
@@ -56,16 +56,16 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
                                                                 "ContentCompressed","Type",
                                                                 "FileSize","Last Modified"};
             DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            FileInfo[] ImportFiles = GetDefaultImportFiles ();
+            Document[] documents = GetDefaultImportFiles ();
             IndexingController TestController = IndexingControllerFactory.CreateController ();
 
             //Act
-            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, ImportFiles);
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, documents);
 
             // Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (CleanTargetIndexFolder);
-            bool AreImporttFilesInIndex = LuceneIndexQuery.AreDocumentsFilenameInIndexExisting (CleanTargetIndexFolder, ImportFiles);
-            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, ImportFiles, checkFieldnames);
+            bool AreImporttFilesInIndex = LuceneIndexQuery.AreDocumentsFilenameInIndexExisting (CleanTargetIndexFolder, documents);
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (CleanTargetIndexFolder, documents, checkFieldnames);
             Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + CleanTargetIndexFolder);
             Assert.IsTrue (AreImporttFilesInIndex, "There are documents missing inside the index! ");
             Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the documents are not matching expected fieldnames.");
@@ -88,6 +88,9 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             importFile.Refresh ();
             importFile.CreateText ().Close();
             importFile.Refresh ();
+            /* Now Create the Docuemtn Object from the Empty file */
+            Document document = new Document (importFile);
+
             /* IndexDir*/
             DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
             /* Logger to check if LogText was called*/                        
@@ -97,7 +100,7 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             TestController.Logger = logger;
 
             //Act
-            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, importFile);
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, document);
 
             //ASSERT
             logger.Received ().LogText (LogLevels.Warning, "(" + importFile.FullName + ") has no content.");
@@ -124,10 +127,10 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
         {
             //Arrange
             DirectoryInfo CleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            FileInfo importFile = new FileInfo (@"c:\FileisNotExisting.neverever");
+            Document document = new Document(new FileInfo (@"c:\FileisNotExisting.neverever"));
             /* If file is exsiting, delete it. Fileinfo needs to get refreshed after any changes */
-            if (importFile.Exists) importFile.Delete ();
-            importFile.Refresh ();
+            if (document.Exists()) document.Delete ();
+            //document.Refresh ();
 
             var logger = Substitute.For<ILogger> ();
 
@@ -135,10 +138,10 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             TestController.Logger = logger;
 
             //Act
-            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, importFile);
+            TestController.AddToIndex (CleanTargetIndexFolder, createOrOverwriteExistingIndex: true, document);
 
             //ASSERT
-            logger.Received ().LogText (LogLevels.Warning, "(" + importFile.FullName + ") is not existing. Couldn't add document to index!");
+            logger.Received ().LogText (LogLevels.Warning, "(" + document.FullName + ") is not existing. Couldn't add document to index!");
 
 
 
@@ -229,20 +232,19 @@ namespace LuceneAccess.Tests.UnitTests.Indexing
             return TargetDir;
         }
 
-        private FileInfo GetDefaultImportFile ()
+        private Document GetDefaultImportFile ()
         {
-            return new FileInfo ("Assets\\jenkins-user-handbook.pdf");
+            return new Document(new FileInfo ("Assets\\jenkins-user-handbook.pdf"));
         }
 
-        private FileInfo[] GetDefaultImportFiles ()
+        private Document[] GetDefaultImportFiles ()
         {
-            List<FileInfo> files = new List<FileInfo> ();
+            List<Document> files = new List<Document> ();
 
-            files.Add (new FileInfo ("Assets\\Aus Kroatien. Skizzen und Erzählungen15734-0.txt"));
-            files.Add (new FileInfo ("Assets\\Financial Sample.xlsx"));
-            files.Add (new FileInfo ("Assets\\jenkins-user-handbook.pdf"));
-            files.Add (new FileInfo ("Assets\\Real-Statistics-Examples-Basics.xlsx"));
-
+            files.Add (new Document(new FileInfo ("Assets\\Aus Kroatien. Skizzen und Erzählungen15734-0.txt")));
+            files.Add (new Document(new FileInfo ("Assets\\Financial Sample.xlsx")));
+            files.Add (new Document(new FileInfo ("Assets\\jenkins-user-handbook.pdf")));
+            files.Add (new Document(new FileInfo ("Assets\\Real-Statistics-Examples-Basics.xlsx")));
             return files.ToArray();
 
         }

@@ -11,6 +11,7 @@ using System.Text;
 using Mame.Doci.Data.LuceneRepository.Data;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
+using Mame.Doci.CrossCutting.DataClasses;
 using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
 
@@ -46,32 +47,32 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
 
 
         #region "INTERFACE - IDocumentStoring"
-        public void WriteToRepository(FileInfo storeFile)
+        public void WriteToRepository(Document document)
         {
-            if (storeFile is null) throw new ArgumentNullException ();
+            if (document is null) throw new ArgumentNullException ();
             try
             {
-                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFile);
+                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, document);
             } catch (Exception ex)
             {
-                throw new DocumentStoreException ($"Error trying to store user document file ({storeFile.FullName}) " +
+                throw new DocumentStoreException ($"Error trying to store user document file ({document.FullName}) " +
                                                   $" to lucene index at path ({_defaultIndexFolder.FullName})",
                                                   ex)
-                { UserDocuments = new FileInfo[1] { storeFile}, RepositoryDirectory = _defaultIndexFolder };
+                { UserDocuments = new Document[1] { document}, RepositoryDirectory = _defaultIndexFolder };
             }
 
         }
-        public void WriteToRepository (List<FileInfo> storeFiles)
+        public void WriteToRepository (List<Document> documents)
         {
-            if (storeFiles is null) throw new ArgumentNullException ();
+            if (documents is null) throw new ArgumentNullException ();
             try
             {
-                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, storeFiles.ToArray());
+                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, documents.ToArray());
             } catch (Exception ex)
             {
                 throw new DocumentStoreException ($"Error trying to store user documents to lucene index at path.",
                                                   ex)
-                { UserDocuments = storeFiles.ToArray(), RepositoryDirectory = _defaultIndexFolder };
+                { UserDocuments = documents.ToArray(), RepositoryDirectory = _defaultIndexFolder };
             }
 
         }
@@ -79,32 +80,32 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
 
 
         #region "INTERFACE - IIndexingController"
-        public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, FileInfo importFile)
+        public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, Document document)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
-            if (importFile is null) throw new ArgumentNullException ();
+            if (document is null) throw new ArgumentNullException ();
             try
             {
-                FileInfo[] files = { importFile };
-                AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, files);
+                Document[] documents = { document };
+                AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, documents);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to add ({importFile.FullName}) " +
+                throw new Exception ($"Error trying to add ({document.FullName}) " +
                                                   $" to lucene index at path ({_defaultIndexFolder.FullName})",
                                                   ex);
             }
 
         }
-        public void AddToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
+        public void AddToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, Document[] documents)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
-            if (importFiles is null) throw new ArgumentNullException ();
+            if (documents is null) throw new ArgumentNullException ();
             try
             {
-                AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, importFiles);
+                AddFilesToIndex (indexFolder, createOrOverwriteExistingIndex, documents);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to add ({importFiles.Count()} files ) " +
+                throw new Exception ($"Error trying to add ({documents.Count()} files ) " +
                                                   $" to lucene index at path ({_defaultIndexFolder.FullName})",
                                                   ex);
             }
@@ -144,25 +145,25 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
 
 
         #region "PRIVATES"
-        private void AddFilesToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, FileInfo[] importFiles)
+        private void AddFilesToIndex (DirectoryInfo indexFolder, bool createOrOverwriteExistingIndex, Document[] documents)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
-            if (importFiles is null) throw new ArgumentNullException ();
+            if (documents is null) throw new ArgumentNullException ();
 
             // Index is existing but we are not allowed to overwrite it.
             ThrowExceptionIfIndexIsProtected (indexFolder, createOrOverwriteExistingIndex);
             // open the Index and get the writer Object for adding documents
             IndexWriter theWriter = OpenIndexWriter (indexFolder.FullName, createOrOverwriteExistingIndex);
             // Add Each File to Index
-            foreach(FileInfo file in importFiles)
+            foreach(Document document in documents)
             {
-                if (!file.Exists)
+                if (!document.Exists())
                 {
-                    LogMessage (LogLevels.Warning, "(" + file.FullName + ") is not existing. Couldn't add document to index!");
+                    LogMessage (LogLevels.Warning, "(" + document.FullName + ") is not existing. Couldn't add document to index!");
                 } else
                 {
                     // Create a LuceneImportfile for the Lucene index from the source importfile
-                    IndexImportFile theImportFile = new IndexImportFile (file,_logger);
+                    IndexImportFile theImportFile = new IndexImportFile (document,_logger);
                     // Add the document into the index
                     theWriter.AddDocument (theImportFile.LuceneDocument);
                 }

@@ -4,7 +4,9 @@ using System.IO;
 using System.Text;
 using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Storing;
+using Mame.Doci.CrossCutting.DataClasses;
 using NUnit.Framework;
+using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
 {
@@ -12,71 +14,81 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
     {
 
         [Test]
-        public void Store_IfFileInfosOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
+        public void Store_IfDocumentsOkButIRepositoryIsNULL_ThrowsArgumentNullException ()
         {
             //ARRANGE
             var theController = new StoringController ();
-            List<FileInfo> fileinfos = new List<FileInfo>();
-            IDocumentRepository docStorer = null;
+            List<Document> documents = new List<Document>();
 
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (fileinfos, docStorer);
+                theController.Store (documents, null);
             }, "Exception was not thrown");
         }
 
         [Test]
-        public void Store_IfFileInfoOkButIDocumentStorerIsNULL_ThrowsArgumentNullException ()
+        public void Store_IfDocumentOkButIRepositoryIsNULL_ThrowsArgumentNullException ()
         {
             //ARRANGE
             var theController = new StoringController ();
-            FileInfo fileinfo = new FileInfo (@"C:\thisFileIsNotExisting.txt");
-            IDocumentRepository docStorer = null;
+            Document document = new Document (new FileInfo(@"C:\thisFileIsNotExisting.txt"));
+
+
 
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (fileinfo, docStorer);
+                theController.Store (document, null);
             }, "Exception was not thrown");
         }
 
         [Test]
-        public void Store_FileInfoIsNull_ThrowsArgumentNullException ()
+        public void Store_DocumentIsNull_ThrowsArgumentNullException ()
         {
             //ARRANGE
             var theController = new StoringController ();
-            FileInfo nullFileInfo = null;
-            IDocumentRepository docStorer = NSubstitute.Substitute.For<IDocumentRepository> ();
+            Document nullDocument = null;
+            IDocumentRepository repository = NSubstitute.Substitute.For<IDocumentRepository> ();
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (nullFileInfo, docStorer);
+                theController.Store (nullDocument, repository);
             }, "Exception was not thrown");
         }
         [Test]
-        public void Store_ListOfFileInfosIsNull_ThrowsArgumentNullException ()
+        public void Store_ListOfDocumentsIsNull_ThrowsArgumentNullException ()
         {
             //ARRANGE
             var theController = new StoringController ();
-            List<FileInfo> nullFileInfos = null;
-            IDocumentRepository docStorer = NSubstitute.Substitute.For<IDocumentRepository> ();
+            List<Document> nullDocuments = null;
+            IDocumentRepository repository = NSubstitute.Substitute.For<IDocumentRepository> ();
                         
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.Store (nullFileInfos, docStorer);
+                theController.Store (nullDocuments, repository);
             }, "Exception was not thrown");
         }
 
         [Test]
         public void Store_IfFileIsInvalid_ThrowsDocumentStoreException ()
         {
-            Assert.IsTrue (false, "TEST IS NOT IMPLEMENTED");
+            //ARRANGE
+            var theController = new StoringController ();
+            Document document = new Document(new FileInfo($"acdb:\\doesntWork"));
+            IDocumentRepository repository = NSubstitute.Substitute.For<IDocumentRepository> ();
+
+            //ACT
+            //ASSERT
+            Assert.Throws<DocumentStoreException> (() =>
+            {
+                theController.Store (document, repository);
+            }, "Exception was not thrown");
         }
 
 

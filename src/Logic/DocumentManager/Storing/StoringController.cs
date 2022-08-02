@@ -6,7 +6,7 @@ using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
-//using Mame.Doci.CrossCutting.Logging.Data; 
+using Mame.Doci.CrossCutting.DataClasses; 
 
 namespace Mame.Doci.Logic.DocumentManager.Storing
 {
@@ -49,35 +49,35 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
         #endregion
         
         #region "INTERFACE - IStoringController"
-        public void Store (FileInfo storeFile, IDocumentRepository documentStorer)
+        public void Store (Document document, IDocumentRepository documentRepository)
         {
-            if (storeFile is null) throw new ArgumentNullException ();
-            if (documentStorer is null) throw new ArgumentNullException ();
+            if (document is null) throw new ArgumentNullException ();
+            if (documentRepository is null) throw new ArgumentNullException ();
 
             try
             {
-                documentStorer.WriteToRepository (storeFile);
+                documentRepository.WriteToRepository (document);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to store file ({storeFile.FullName}) " +
-                                     $" using DocumentStorer ({documentStorer.ToString()})",
+                throw new Exception ($"Error trying to store file ({document.FullName}) " +
+                                     $" using DocumentStorer ({documentRepository.ToString()})",
                                      ex);
             }
 
         }
 
-        public void Store (List<FileInfo> storeFiles, IDocumentRepository documentStorer)
+        public void Store (List<Document> documents, IDocumentRepository documentRepository)
         {
-            if (storeFiles is null) throw new ArgumentNullException ();
-            if (documentStorer is null) throw new ArgumentNullException ();
+            if (documents is null) throw new ArgumentNullException ();
+            if (documentRepository is null) throw new ArgumentNullException ();
 
             try
             {
-                documentStorer.WriteToRepository (storeFiles);
+                documentRepository.WriteToRepository (documents);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to store files ({storeFiles}) " +
-                                     $" using DocumentStorer ({documentStorer.ToString ()})",
+                throw new Exception ($"Error trying to store files ({documents}) " +
+                                     $" using DocumentStorer ({documentRepository.ToString ()})",
                                      ex);
             }
 
@@ -86,29 +86,29 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
         #endregion
 
         #region "INTERFACE - IDocumentService"
-        public void StoreDocument (FileInfo documentInfo)
+        public void StoreDocument (Document document)
         {
-            if (documentInfo is null) throw new ArgumentNullException();
+            if (document is null) throw new ArgumentNullException();
             if (_documentStorer is null) throw new ArgumentNullException ();
             try
             {
-                this.Store (documentInfo, _documentStorer);
+                this.Store (document, _documentStorer);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error while storing document for user with filename {documentInfo}",
+                throw new Exception ($"Error while storing document for user with filename {document}",
                                     innerException:ex);               
             }
         }
-        public void StoreDocuments (List<FileInfo> documentsInfos)
+        public void StoreDocuments (List<Document> documents)
         {
-            if (documentsInfos is null) throw new ArgumentNullException ();
+            if (documents is null) throw new ArgumentNullException ();
             if (_documentStorer is null) throw new ArgumentNullException ();
             try
             {
-                this.Store (documentsInfos, _documentStorer);
+                this.Store (documents, _documentStorer);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error while storing documents for user with filenames {documentsInfos}",
+                throw new Exception ($"Error while storing documents for user with filenames {documents}",
                                     innerException: ex);
             }
         }

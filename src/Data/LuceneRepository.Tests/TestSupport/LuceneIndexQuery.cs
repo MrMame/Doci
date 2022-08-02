@@ -27,11 +27,11 @@ namespace LuceneAccess.Tests.TestSupport
             return IndexReader.IndexExists(targetFolder);
         }
 
-        internal static bool IsDocumentFilenameInIndexExisting (DirectoryInfo targetIndexFolder, FileInfo importFile)
+        internal static bool IsDocumentFilenameInIndexExisting (DirectoryInfo targetIndexFolder, Mame.Doci.CrossCutting.DataClasses.Document document)
         {
             bool isDocInIndexExisting = false;
             // Query The Docuemnt
-            Document searchDoc = GetDocumentFromIndex (targetIndexFolder, importFile);
+            Document searchDoc = GetDocumentFromIndex (targetIndexFolder, document);
             // Check queryResults
             if (searchDoc is null)
             {
@@ -44,37 +44,37 @@ namespace LuceneAccess.Tests.TestSupport
             return isDocInIndexExisting;
         }
 
-        internal static bool AreDocumentsFilenameInIndexExisting (DirectoryInfo targetIndexFolder, FileInfo[] importFiles)
+        internal static bool AreDocumentsFilenameInIndexExisting (DirectoryInfo targetIndexFolder, Mame.Doci.CrossCutting.DataClasses.Document[] documents)
         {
             bool areDocsExisting = false;
             // Query The Docuemnt
-            List<Document> searchDocs = GetDocumentsFromIndex (targetIndexFolder, importFiles);
+            List<Document> searchDocs = GetDocumentsFromIndex (targetIndexFolder, documents);
             // Check queryResults
             if (searchDocs.Count == 0)                          {areDocsExisting = false;
-            } else if(searchDocs.Count == importFiles.Length)   {areDocsExisting = true;}
+            } else if(searchDocs.Count == documents.Length)   {areDocsExisting = true;}
             // return
             return areDocsExisting;
         }
 
 
 
-        internal static bool AreAllImportFileFieldsExistingInIndex(DirectoryInfo targetIndexFolder, FileInfo importFile, List<string> checkFieldnames)
+        internal static bool AreAllImportFileFieldsExistingInIndex(DirectoryInfo targetIndexFolder, Mame.Doci.CrossCutting.DataClasses.Document document, List<string> checkFieldnames)
         {
             bool AllFieldsExisting = false;
             // Query the index for the target file to check
-            Document searchDoc = GetDocumentFromIndex (targetIndexFolder, importFile);
+            Document searchDoc = GetDocumentFromIndex (targetIndexFolder, document);
             // check if queried file has all expected indexFields in  it.
             AllFieldsExisting = HasDocAllFields (searchDoc, checkFieldnames);
             // return
             return AllFieldsExisting;
         }
 
-        internal static bool AreAllImportFileFieldsExistingInIndex (DirectoryInfo targetIndexFolder, FileInfo[] importFiles, List<string> checkFieldnames)
+        internal static bool AreAllImportFileFieldsExistingInIndex (DirectoryInfo targetIndexFolder, Mame.Doci.CrossCutting.DataClasses.Document[] documents, List<string> checkFieldnames)
         {
             // Request the index for searched filenames
-            List<Document> searchDocs = GetDocumentsFromIndex (targetIndexFolder, importFiles);
+            List<Document> searchDocs = GetDocumentsFromIndex (targetIndexFolder, documents);
             // if we have less results then filenames requested, somethig did went wrong
-            if(importFiles.Count() != searchDocs.Count) { throw new FileNotFoundException ("The number of documents found are not as expected!"); }
+            if(documents.Count() != searchDocs.Count) { throw new FileNotFoundException ("The number of documents found are not as expected!"); }
             // Check each docuemnt, if it is containing all expected index field
             bool AllFieldsExisting = true;
             foreach(Document doc in searchDocs)
@@ -135,14 +135,14 @@ namespace LuceneAccess.Tests.TestSupport
 
 
 
-        private static Document GetDocumentFromIndex (DirectoryInfo targetIndexFolder, FileInfo importFile)
+        private static Document GetDocumentFromIndex (DirectoryInfo targetIndexFolder, Mame.Doci.CrossCutting.DataClasses.Document document)
         {
             Document ReturnDocument;
             // Prepare
             IndexSearcher indexSearcher = OpenIndexSearcher (targetIndexFolder);
             int maxNumberOfDocuments = 5;
             // Create the INdex Query
-            Term t = new Term (INDEX_FIELDNAME_FILENAME, importFile.FullName);
+            Term t = new Term (INDEX_FIELDNAME_FILENAME, document.FullName);
             Query tq = new TermQuery (t);
             // Read
             TopDocs tp = indexSearcher.Search (tq, maxNumberOfDocuments);
@@ -159,7 +159,7 @@ namespace LuceneAccess.Tests.TestSupport
             return ReturnDocument;
         }
 
-        private static List<Document> GetDocumentsFromIndex (DirectoryInfo targetIndexFolder,FileInfo[] importFiles)
+        private static List<Document> GetDocumentsFromIndex (DirectoryInfo targetIndexFolder, Mame.Doci.CrossCutting.DataClasses.Document[] documents)
         {
             // Functios Return List
             List<Document> returnDocs = new List<Document> ();
@@ -167,10 +167,10 @@ namespace LuceneAccess.Tests.TestSupport
             IndexSearcher indexSearcher = OpenIndexSearcher (targetIndexFolder);
             int maxNumberOfDocuments = 5;
             // query for each filename
-            foreach (FileInfo filename in importFiles)
+            foreach (Mame.Doci.CrossCutting.DataClasses.Document document in documents)
             {
                 // Create the IndexQuery
-                Term t = new Term (INDEX_FIELDNAME_FILENAME, filename.FullName);
+                Term t = new Term (INDEX_FIELDNAME_FILENAME, document.FullName);
                 Query tq = new TermQuery (t);
                 // Read and collect 
                 TopDocs tp = indexSearcher.Search (tq, maxNumberOfDocuments);

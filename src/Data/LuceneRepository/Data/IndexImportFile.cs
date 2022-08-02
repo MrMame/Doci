@@ -27,37 +27,37 @@ namespace Mame.Doci.Data.LuceneRepository.Data
             set { _logger = value; }
         }
 
-        public IndexImportFile (FileInfo FSFileToimport,ILogger logger=null)
+        public IndexImportFile (Mame.Doci.CrossCutting.DataClasses.Document document,ILogger logger=null)
         {
-            if (FSFileToimport == null) throw new ArgumentNullException ();
-            if (!FSFileToimport.Exists) throw new FileNotFoundException ();
+            if (document == null) throw new ArgumentNullException ();
+            if (!document.Exists ()) throw new FileNotFoundException ();
 
             _logger = logger;
 
-            _lucDoc = ParseLuceneDocument (FSFileToimport);
+            _lucDoc = ParseLuceneDocument (document);
 
         }
 
 
 
 
-        private Document ParseLuceneDocument (FileInfo fSFileToimport)
+        private Document ParseLuceneDocument (Mame.Doci.CrossCutting.DataClasses.Document document)
         {
             // Get text content from the Source importfile
-            TextExtractionResult tikaRes = ParseImportFileText (fSFileToimport);
+            TextExtractionResult tikaRes = ParseImportFileText (document);
 
             // Create Lucene importfile
             Document luceneDocument = new Document ();
             luceneDocument.Add (new Field ("Title",
-                                fSFileToimport.Name.ToString (),
+                                document.Title.ToString (),
                                 Field.Store.YES,
                                 Field.Index.ANALYZED));
             luceneDocument.Add (new Field ("Filename",
-                        fSFileToimport.FullName.ToString (),
+                        document.FullName.ToString (),
                         Field.Store.YES,
                         Field.Index.NOT_ANALYZED));
             luceneDocument.Add (new Field ("Path",
-                        fSFileToimport.DirectoryName,
+                        document.Path,
                         Field.Store.YES,
                         Field.Index.NOT_ANALYZED));
 
@@ -76,15 +76,15 @@ namespace Mame.Doci.Data.LuceneRepository.Data
                         CompressionTools.CompressString (tikaRes.Text),
                         Field.Store.YES));
             luceneDocument.Add (new Field ("Type",
-                        fSFileToimport.Extension.ToString (),
+                        document.FileExtension.ToString (),
                         Field.Store.YES,
                         Field.Index.ANALYZED));
             luceneDocument.Add (new Field ("FileSize",
-                        fSFileToimport.Length.ToString (),
+                        document.FileSize.ToString (),
                         Field.Store.YES,
                         Field.Index.NOT_ANALYZED));
             luceneDocument.Add (new Field ("Last Modified",
-                        fSFileToimport.LastWriteTime.ToString (),
+                        document.LastModified.ToString (),
                         Field.Store.YES,
                         Field.Index.ANALYZED));
 
@@ -92,18 +92,18 @@ namespace Mame.Doci.Data.LuceneRepository.Data
 
         }
 
-        private TextExtractionResult ParseImportFileText (FileInfo fSFileToimport)
+        private TextExtractionResult ParseImportFileText (Mame.Doci.CrossCutting.DataClasses.Document document)
         {
             TextExtractionResult retResult;
 
             try
             {
                 TextExtractor tikaEx = new TextExtractor ();
-                retResult = tikaEx.Extract (fSFileToimport.FullName);
+                retResult = tikaEx.Extract (document.FullName);
             } catch (Exception)
             {
                 /* If an empty file gets parsed, tika throws an exception. We don't want any problems. only inform someone*/
-                LogMessage (LogLevels.Warning, "(" + fSFileToimport.FullName + ") has no content.");
+                LogMessage (LogLevels.Warning, "(" + document.FullName + ") has no content.");
                 retResult = new TextExtractionResult ();
                 retResult.Text = "";
             }
