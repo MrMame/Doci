@@ -1,5 +1,6 @@
 ﻿using DocumentAccessing.IntegrationTests.TestSupport;
 using Mame.Doci.Data.LuceneRepository.Logic;
+using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Storing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,21 +25,21 @@ namespace DocumentAccessing.IntegrationTests.Storing
                                                                 "ContentCompressed","Type",
                                                                 "FileSize","Last Modified"};
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            FileInfo importFile = GetDefaultImportFile ();
+            Mame.Doci.CrossCutting.DataClasses.Document document = GetDefaultImportFile ();
 
             IDocumentRepository theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder,overwriteExistingIndex:true);
 
 
             //Act
             var theStoringController = new StoringController();
-            theStoringController.Store (importFile, theLuceneDocmentStorer);
+            theStoringController.Store (document, theLuceneDocmentStorer);
             
             //Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (cleanTargetIndexFolder);
-            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (cleanTargetIndexFolder, importFile);
-            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (cleanTargetIndexFolder, importFile, checkFieldnames);
+            bool IsImporttFileInIndex = LuceneIndexQuery.IsDocumentFilenameInIndexExisting (cleanTargetIndexFolder, document);
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (cleanTargetIndexFolder, document, checkFieldnames);
             Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + cleanTargetIndexFolder);
-            Assert.IsTrue (IsImporttFileInIndex, "No Document match found inside lucene index for test importfile! " + importFile.FullName);
+            Assert.IsTrue (IsImporttFileInIndex, "No Document match found inside lucene index for test importfile! " + document.FullName);
             Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the document are not matching expected fieldnames.");
 
 
@@ -53,19 +54,19 @@ namespace DocumentAccessing.IntegrationTests.Storing
                                                                 "ContentCompressed","Type",
                                                                 "FileSize","Last Modified"};
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            List<FileInfo> importFiles = GetDefaultImportFiles ();
+            List<Mame.Doci.CrossCutting.DataClasses.Document> documents = GetDefaultImportFiles ();
 
             IDocumentRepository theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
 
 
             //Act
             var theStoringController = new StoringController ();
-            theStoringController.Store (importFiles, theLuceneDocmentStorer);
+            theStoringController.Store (documents, theLuceneDocmentStorer);
 
             //Assert
             bool IsLuceneindexExisting = LuceneIndexQuery.IsLuceneIndexExisting (cleanTargetIndexFolder);
-            bool IsImporttFileInIndex = LuceneIndexQuery.AreDocumentsFilenameInIndexExisting (cleanTargetIndexFolder, importFiles.ToArray());
-            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (cleanTargetIndexFolder, importFiles.ToArray(), checkFieldnames);
+            bool IsImporttFileInIndex = LuceneIndexQuery.AreDocumentsFilenameInIndexExisting (cleanTargetIndexFolder, documents.ToArray());
+            bool AreAllFieldsInIndexExsiting = LuceneIndexQuery.AreAllImportFileFieldsExistingInIndex (cleanTargetIndexFolder, documents.ToArray(), checkFieldnames);
             Assert.IsTrue (IsLuceneindexExisting, "There is no Lucene Index existing inside targetindexFolder! " + cleanTargetIndexFolder);
             Assert.IsTrue (IsImporttFileInIndex, "No Documents match found inside lucene index for test importfile! ");
             Assert.IsTrue (AreAllFieldsInIndexExsiting, "The index fields of the document are not matching expected fieldnames.");
@@ -82,7 +83,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
                                                                 "ContentCompressed","Type",
                                                                 "FileSize","Last Modified"};
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
-            List<FileInfo> emptyFilesList = new List<FileInfo> ();
+            List<Mame.Doci.CrossCutting.DataClasses.Document> emptyFilesList = new List<Mame.Doci.CrossCutting.DataClasses.Document> ();
 
             IDocumentRepository theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
 
@@ -98,7 +99,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             // CleanUp
             cleanTargetIndexFolder.Delete (true);
         }
-
+       
 
 
 
@@ -117,19 +118,19 @@ namespace DocumentAccessing.IntegrationTests.Storing
             return TargetDir;
         }
 
-        private FileInfo GetDefaultImportFile ()
+        private Mame.Doci.CrossCutting.DataClasses.Document GetDefaultImportFile ()
         {
-            return new FileInfo ("Assets\\jenkins-user-handbook.pdf");
+            return new Mame.Doci.CrossCutting.DataClasses.Document (new FileInfo ("Assets\\jenkins-user-handbook.pdf"));
         }
 
-        private List<FileInfo> GetDefaultImportFiles ()
+        private List<Mame.Doci.CrossCutting.DataClasses.Document> GetDefaultImportFiles ()
         {
-            List<FileInfo> files = new List<FileInfo> ();
+            List< Mame.Doci.CrossCutting.DataClasses.Document> files = new List<Mame.Doci.CrossCutting.DataClasses.Document> ();
 
-            files.Add (new FileInfo ("Assets\\Aus Kroatien. Skizzen und Erzählungen15734-0.txt"));
-            files.Add (new FileInfo ("Assets\\Financial Sample.xlsx"));
-            files.Add (new FileInfo ("Assets\\jenkins-user-handbook.pdf"));
-            files.Add (new FileInfo ("Assets\\Real-Statistics-Examples-Basics.xlsx"));
+            files.Add (new Mame.Doci.CrossCutting.DataClasses.Document(new FileInfo ("Assets\\Aus Kroatien. Skizzen und Erzählungen15734-0.txt")));
+            files.Add (new Mame.Doci.CrossCutting.DataClasses.Document(new FileInfo ("Assets\\Financial Sample.xlsx")));
+            files.Add (new Mame.Doci.CrossCutting.DataClasses.Document(new FileInfo ("Assets\\jenkins-user-handbook.pdf")));
+            files.Add (new Mame.Doci.CrossCutting.DataClasses.Document(new FileInfo ("Assets\\Real-Statistics-Examples-Basics.xlsx")));
 
             return files;
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mame.Doci.CrossCutting.DataClasses;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,8 +9,8 @@ namespace Mame.Doci.Logic.DocumentManager.Contracts.Interfaces
 {
     public interface IDocumentService
     {
-        void StoreDocument(FileInfo fileName);
-        void StoreDocuments (List<FileInfo> fileNames);
+        void StoreDocument(Document document);
+        void StoreDocuments (List<Document> documents);
 
     }
 }

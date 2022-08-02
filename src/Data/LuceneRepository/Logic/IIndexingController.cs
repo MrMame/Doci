@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Mame.Doci.CrossCutting.DataClasses;
 
 namespace Mame.Doci.Data.LuceneRepository.Logic
 {
@@ -13,8 +14,8 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
           as their importfolder as parent.*/
         String ParentTargetPathForImportedDocuments { get; set; }
 
-        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,FileInfo ImportFile);
-        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,FileInfo[] ImportFiles);
+        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,Document document);
+        void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex,Document[] documents);
         void AddToIndex (DirectoryInfo IndexFolder, bool createOrOverwriteExistingIndex, DirectoryInfo ImportFolder, bool ImportWithSubfolders);
     }
 }

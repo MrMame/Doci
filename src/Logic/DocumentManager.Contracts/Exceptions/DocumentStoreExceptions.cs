@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Mame.Doci.CrossCutting.DataClasses;
 
 namespace Mame.Doci.Logic.DocumentManager.Contracts.Exceptions
 {
@@ -14,7 +15,7 @@ namespace Mame.Doci.Logic.DocumentManager.Contracts.Exceptions
         public DocumentStoreException (string message, Exception innerException) : base (message, innerException) { }
 
 
-        public FileInfo[] UserDocuments { get; set; }
+        public Document[] UserDocuments { get; set; }
         public DirectoryInfo RepositoryDirectory{get;set;}
     }
 }
