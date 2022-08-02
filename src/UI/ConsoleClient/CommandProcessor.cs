@@ -15,18 +15,17 @@ namespace Mame.Doci.UI.ConsoleClient
     {
 
 
-        public ILogger Logger { get; set; }
-        public IDocumentService DocumentService { get; set; }
-        public IDocumentRepository DocumentRepository { get; set; }
-
+        ILogger _logger;
+        IDocumentService _documentService;
+        IDocumentRepository _documentRepository;
 
 
         #region "Publics"
         public CommandProcessor (ILogger logger, IDocumentService documentService, IDocumentRepository documentRepository)
         {
-            this.Logger = logger;   
-            this.DocumentService = documentService;
-            this.DocumentRepository = documentRepository;
+            _logger = logger;   
+            _documentService = documentService;
+            _documentRepository = documentRepository;
         }
         public void DoCommands (CommandLineArgumentsParser clp)
         {
@@ -49,7 +48,7 @@ namespace Mame.Doci.UI.ConsoleClient
             if (document is null) throw new ArgumentNullException ();
 
             // Get File to add
-            this.Logger.LogText (LogLevels.Info,
+            _logger.LogText (LogLevels.Info,
                             "...Start adding file (" + document.FullName + ")");
 
             // Start storing
@@ -57,14 +56,14 @@ namespace Mame.Doci.UI.ConsoleClient
             {
                 if (!document.Exists())
                 {
-                    this.Logger.LogText (LogLevels.Info, "Document is not existing (" + document.FullName + ")!");
+                    _logger.LogText (LogLevels.Info, "Document is not existing (" + document.FullName + ")!");
                     return;
                 }
 
-                this.DocumentService.StoreDocument (document);
+                _documentService.StoreDocument (document);
             } catch (Exception ex)
             {
-                this.Logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);
+                _logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);
             }
         }
         #endregion
