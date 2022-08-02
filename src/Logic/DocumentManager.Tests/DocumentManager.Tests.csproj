@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CrossCutting\DataClasses\DataClasses.csproj" />
     <ProjectReference Include="..\..\CrossCutting\Logging\Logging.csproj" />
+    <ProjectReference Include="..\..\Data\LuceneRepository\LuceneRepository.csproj" />
     <ProjectReference Include="..\DocumentManager.Contracts\DocumentManager.Contracts.csproj" />
     <ProjectReference Include="..\DocumentManager\DocumentManager.csproj" />
   </ItemGroup>

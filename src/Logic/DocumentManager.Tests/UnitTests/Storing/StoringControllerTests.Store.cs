@@ -75,21 +75,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             }, "Exception was not thrown");
         }
 
-        [Test]
-        public void Store_IfFileIsInvalid_ThrowsDocumentStoreException ()
-        {
-            //ARRANGE
-            var theController = new StoringController ();
-            Document document = new Document(new FileInfo($"acdb:\\doesntWork"));
-            IDocumentRepository repository = NSubstitute.Substitute.For<IDocumentRepository> ();
-
-            //ACT
-            //ASSERT
-            Assert.Throws<DocumentStoreException> (() =>
-            {
-                theController.Store (document, repository);
-            }, "Exception was not thrown");
-        }
+       
 
 
 

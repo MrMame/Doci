@@ -6,7 +6,8 @@ using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
-using Mame.Doci.CrossCutting.DataClasses; 
+using Mame.Doci.CrossCutting.DataClasses;
+using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
 
 namespace Mame.Doci.Logic.DocumentManager.Storing
 {
@@ -59,7 +60,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
                 documentRepository.WriteToRepository (document);
             } catch (Exception ex)
             {
-                throw new Exception ($"Error trying to store file ({document.FullName}) " +
+                throw new DocumentStoreException ($"Error trying to store file ({document.FullName}) " +
                                      $" using DocumentStorer ({documentRepository.ToString()})",
                                      ex);
             }

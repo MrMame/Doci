@@ -1,5 +1,6 @@
 ﻿using DocumentAccessing.IntegrationTests.TestSupport;
 using Mame.Doci.Data.LuceneRepository.Logic;
+using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
 using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Storing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -98,7 +99,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             // CleanUp
             cleanTargetIndexFolder.Delete (true);
         }
-
+       
 
 
 
