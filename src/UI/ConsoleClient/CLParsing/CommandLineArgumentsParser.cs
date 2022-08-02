@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Mame.Doci.UI.ConsoleClient.CLParsing
 {
-    class CommandLineArgumentsParser
+    public class CommandLineArgumentsParser
     {
 
         public string AddDocument{get;}
