@@ -189,8 +189,6 @@
     <Compile Include="Data\IndexImportFile.cs" />
     <Compile Include="Logic\IIndexingController.cs" />
     <Compile Include="Logic\IndexingController.cs" />
-    <Compile Include="Logic\IQueryController.cs" />
-    <Compile Include="Logic\QueryController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +199,9 @@
       <Project>{2fe41fc8-becd-4773-a6d7-cb30360aa26d}</Project>
       <Name>Logging.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Logic\DocumentAccessing.Contracts\DocumentAccessing.Contracts.csproj">
+    <ProjectReference Include="..\..\Logic\DocumentManager.Contracts\DocumentManager.Contracts.csproj">
       <Project>{6185f2e2-0a1d-49ba-8fb3-c0c43f9d5b4b}</Project>
-      <Name>DocumentAccessing.Contracts</Name>
+      <Name>DocumentManager.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

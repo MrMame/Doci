@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.Data.LuceneRepository.Logic
+namespace Mame.Doci.Logic.DocumentManager.Requesting
 {
-    interface IQueryController
+    class RequestController
     {
-
-
     }
 }

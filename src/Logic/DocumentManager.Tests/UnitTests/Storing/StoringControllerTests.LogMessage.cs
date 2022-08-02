@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using NSubstitute;
 using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Storing;
+using Mame.Doci.Logic.DocumentManager.Storing;
 using NUnit.Framework;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
 {
@@ -16,7 +16,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
         {
             //ARRANGE
             List<FileInfo> fileinfos = new List<FileInfo> ();
-            IDocumentStoring docStorer = null;
+            IDocumentRepository docStorer = null;
             var theController = new StoringController (docStorer);
 
             //ACT
@@ -31,7 +31,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
         {
             //ARRANGE
             List<FileInfo> fileinfos = new List<FileInfo> ();
-            IDocumentStoring docStorer = null;
+            IDocumentRepository docStorer = null;
             var theController = new StoringController (docStorer);
 
             var theLogger = Substitute.For<ILogger> ();

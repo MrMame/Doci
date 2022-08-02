@@ -11,12 +11,13 @@ using System.Text;
 using Mame.Doci.Data.LuceneRepository.Data;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Contracts.Exceptions;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
+using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
+
 
 namespace Mame.Doci.Data.LuceneRepository.Logic
 {
-    public class IndexingController : IIndexingController, IDocumentStoring,ILoggable
+    public class IndexingController : IIndexingController, IDocumentRepository,ILoggable
     {
         public string ParentTargetPathForImportedDocuments { get => throw new NotImplementedException (); set => throw new NotImplementedException (); }
         public ILogger Logger
@@ -45,7 +46,7 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
 
 
         #region "INTERFACE - IDocumentStoring"
-        public void Store(FileInfo storeFile)
+        public void WriteToRepository(FileInfo storeFile)
         {
             if (storeFile is null) throw new ArgumentNullException ();
             try
@@ -60,7 +61,7 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
             }
 
         }
-        public void Store (List<FileInfo> storeFiles)
+        public void WriteToRepository (List<FileInfo> storeFiles)
         {
             if (storeFiles is null) throw new ArgumentNullException ();
             try

@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 //using Mame.Doci.CrossCutting.Logging.Data; 
 
-namespace Mame.Doci.Logic.DocumentAccessing.Storing
+namespace Mame.Doci.Logic.DocumentManager.Storing
 {
-    public class StoringController :IStoringController, IStoringForUser, ILoggable
+    public class StoringController :IStoringController, IDocumentService, ILoggable
     {
 
-        IDocumentStoring _documentStorer = null;
+        IDocumentRepository _documentStorer = null;
         ILogger _logger = null;
 
 
@@ -28,7 +28,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         public StoringController ()
         {
         }
-        public StoringController(IDocumentStoring documentStorer)
+        public StoringController(IDocumentRepository documentStorer)
         {
             _documentStorer = documentStorer;
         }
@@ -49,14 +49,14 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         #endregion
         
         #region "INTERFACE - IStoringController"
-        public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
+        public void Store (FileInfo storeFile, IDocumentRepository documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();
 
             try
             {
-                documentStorer.Store (storeFile);
+                documentStorer.WriteToRepository (storeFile);
             } catch (Exception ex)
             {
                 throw new Exception ($"Error trying to store file ({storeFile.FullName}) " +
@@ -66,14 +66,14 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
 
         }
 
-        public void Store (List<FileInfo> storeFiles, IDocumentStoring documentStorer)
+        public void Store (List<FileInfo> storeFiles, IDocumentRepository documentStorer)
         {
             if (storeFiles is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();
 
             try
             {
-                documentStorer.Store (storeFiles);
+                documentStorer.WriteToRepository (storeFiles);
             } catch (Exception ex)
             {
                 throw new Exception ($"Error trying to store files ({storeFiles}) " +
@@ -85,8 +85,8 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
         }
         #endregion
 
-        #region "INTERFACE - IStoringForUser"
-        public void UserWantsToStore (FileInfo documentInfo)
+        #region "INTERFACE - IDocumentService"
+        public void StoreDocument (FileInfo documentInfo)
         {
             if (documentInfo is null) throw new ArgumentNullException();
             if (_documentStorer is null) throw new ArgumentNullException ();
@@ -99,7 +99,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Storing
                                     innerException:ex);               
             }
         }
-        public void UserWantsToStore (List<FileInfo> documentsInfos)
+        public void StoreDocuments (List<FileInfo> documentsInfos)
         {
             if (documentsInfos is null) throw new ArgumentNullException ();
             if (_documentStorer is null) throw new ArgumentNullException ();

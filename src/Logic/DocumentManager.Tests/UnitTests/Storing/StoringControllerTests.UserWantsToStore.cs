@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Mame.Doci.Logic.DocumentAccessing.Contracts;
-using Mame.Doci.Logic.DocumentAccessing.Storing;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
+using Mame.Doci.Logic.DocumentManager.Storing;
 using NUnit.Framework;
 
 namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
@@ -15,7 +15,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
         {
             //ARRANGE
             List<FileInfo> fileinfos = new List<FileInfo> ();
-            IDocumentStoring docStorer = null;
+            IDocumentRepository docStorer = null;
             var theController = new StoringController (docStorer);
                        
 
@@ -23,7 +23,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (fileinfos);
+                theController.StoreDocuments (fileinfos);
             }, "Exception was not thrown");
         }
         [Test]
@@ -31,14 +31,14 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
         {
             //ARRANGE
             FileInfo fileinfo = new FileInfo (@"C:\thisFileIsNotExisting.txt");
-            IDocumentStoring docStorer = null;
+            IDocumentRepository docStorer = null;
             var theController = new StoringController (docStorer);
 
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (fileinfo);
+                theController.StoreDocument (fileinfo);
             }, "Exception was not thrown");
         }
         [Test]
@@ -46,13 +46,13 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
         {
             //ARRANGE
             FileInfo nullFileInfo = null;
-            IDocumentStoring docStorer = NSubstitute.Substitute.For<IDocumentStoring> ();
+            IDocumentRepository docStorer = NSubstitute.Substitute.For<IDocumentRepository> ();
             var theController = new StoringController (docStorer);
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (nullFileInfo);
+                theController.StoreDocument (nullFileInfo);
             }, "Exception was not thrown");
         }
         [Test]
@@ -60,14 +60,14 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
         {
             //ARRANGE
             List<FileInfo> nullFileInfos = null;
-            IDocumentStoring docStorer = NSubstitute.Substitute.For<IDocumentStoring> ();
+            IDocumentRepository docStorer = NSubstitute.Substitute.For<IDocumentRepository> ();
             var theController = new StoringController (docStorer);
 
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (nullFileInfos);
+                theController.StoreDocuments (nullFileInfos);
             }, "Exception was not thrown");
         }
     }

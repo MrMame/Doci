@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Mame.Doci.Logic.DocumentAccessing.Tests</RootNamespace>
+    <RootNamespace>Mame.Doci.Logic.DocumentManager.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\CrossCutting\Logging\Logging.csproj" />
-    <ProjectReference Include="..\DocumentAccessing.Contracts\DocumentAccessing.Contracts.csproj" />
-    <ProjectReference Include="..\DocumentAccessing\DocumentAccessing.csproj" />
+    <ProjectReference Include="..\DocumentManager.Contracts\DocumentManager.Contracts.csproj" />
+    <ProjectReference Include="..\DocumentManager\DocumentManager.csproj" />
   </ItemGroup>
 
 </Project>

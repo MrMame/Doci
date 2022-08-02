@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mame.Doci.Logic.DocumentAccessing.Contracts.Exceptions
+namespace Mame.Doci.Logic.DocumentManager.Contracts.Exceptions
 {
     public class DocumentStoreException : Exception
     {

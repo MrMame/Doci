@@ -21,15 +21,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "CrossCutting\Log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Tests", "CrossCutting\Logging.Tests\Logging.Tests.csproj", "{01C247CA-38F5-4BD6-9632-00F4AF961E40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentAccessing", "Logic\DocumentAccessing\DocumentAccessing.csproj", "{A89917DF-B37F-441C-8DAD-C3CB8C7C32D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager", "Logic\DocumentManager\DocumentManager.csproj", "{A89917DF-B37F-441C-8DAD-C3CB8C7C32D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentAccessing.Tests", "Logic\DocumentAccessing.Tests\DocumentAccessing.Tests.csproj", "{4E50EA58-382A-4FA5-AC43-48E33EB261DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentManager.Tests", "Logic\DocumentManager.Tests\DocumentManager.Tests.csproj", "{4E50EA58-382A-4FA5-AC43-48E33EB261DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentAccessing.IntegrationTests", "Logic\DocumentAccessing.IntegrationTests\DocumentAccessing.IntegrationTests.csproj", "{5456A23F-C929-461E-AAF7-EFBC34A91F90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager.IntegrationTests", "Logic\DocumentManager.IntegrationTests\DocumentManager.IntegrationTests.csproj", "{5456A23F-C929-461E-AAF7-EFBC34A91F90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Contracts", "CrossCutting\Logging.Contracts\Logging.Contracts.csproj", "{2FE41FC8-BECD-4773-A6D7-CB30360AA26D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentAccessing.Contracts", "Logic\DocumentAccessing.Contracts\DocumentAccessing.Contracts.csproj", "{6185F2E2-0A1D-49BA-8FB3-C0C43F9D5B4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentManager.Contracts", "Logic\DocumentManager.Contracts\DocumentManager.Contracts.csproj", "{6185F2E2-0A1D-49BA-8FB3-C0C43F9D5B4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
