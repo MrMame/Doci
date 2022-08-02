@@ -42,10 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\DocumentStoreExceptions.cs" />
-    <Compile Include="IDocumentRequesting.cs" />
-    <Compile Include="IDocumentStoring.cs" />
-    <Compile Include="IRequestingForUser.cs" />
-    <Compile Include="IStoringForUser.cs" />
+    <Compile Include="Interfaces\IDocumentRepository.cs" />
+    <Compile Include="Interfaces\IDocumentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

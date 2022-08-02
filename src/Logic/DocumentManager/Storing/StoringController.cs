@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 //using Mame.Doci.CrossCutting.Logging.Data; 
 
 namespace Mame.Doci.Logic.DocumentManager.Storing
 {
-    public class StoringController :IStoringController, IStoringForUser, ILoggable
+    public class StoringController :IStoringController, IDocumentService, ILoggable
     {
 
-        IDocumentStoring _documentStorer = null;
+        IDocumentRepository _documentStorer = null;
         ILogger _logger = null;
 
 
@@ -28,7 +28,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
         public StoringController ()
         {
         }
-        public StoringController(IDocumentStoring documentStorer)
+        public StoringController(IDocumentRepository documentStorer)
         {
             _documentStorer = documentStorer;
         }
@@ -49,7 +49,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
         #endregion
         
         #region "INTERFACE - IStoringController"
-        public void Store (FileInfo storeFile, IDocumentStoring documentStorer)
+        public void Store (FileInfo storeFile, IDocumentRepository documentStorer)
         {
             if (storeFile is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();
@@ -66,7 +66,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
 
         }
 
-        public void Store (List<FileInfo> storeFiles, IDocumentStoring documentStorer)
+        public void Store (List<FileInfo> storeFiles, IDocumentRepository documentStorer)
         {
             if (storeFiles is null) throw new ArgumentNullException ();
             if (documentStorer is null) throw new ArgumentNullException ();

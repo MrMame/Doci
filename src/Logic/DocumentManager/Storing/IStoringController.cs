@@ -1,4 +1,4 @@
-﻿using Mame.Doci.Logic.DocumentManager.Contracts;
+﻿using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 
@@ -7,8 +7,8 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
     interface IStoringController
     {
 
-        void Store (FileInfo storeFile, IDocumentStoring documentStorer);
-        void Store (List<FileInfo> storeFiles, IDocumentStoring documentStorer);
+        void Store (FileInfo storeFile, IDocumentRepository documentStorer);
+        void Store (List<FileInfo> storeFiles, IDocumentRepository documentStorer);
 
 
     }

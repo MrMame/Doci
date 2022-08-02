@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Mame.Doci.Logic.DocumentManager.Contracts
+namespace Mame.Doci.Logic.DocumentManager.Contracts.Interfaces
 {
-    public interface IStoringForUser
+    public interface IDocumentService
     {
         void UserWantsToStore (FileInfo fileName);
         void UserWantsToStore (List<FileInfo> fileNames);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Storing;
 using NUnit.Framework;
 
@@ -17,7 +17,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ARRANGE
             var theController = new StoringController ();
             List<FileInfo> fileinfos = new List<FileInfo>();
-            IDocumentStoring docStorer = null;
+            IDocumentRepository docStorer = null;
 
             //ACT
             //ASSERT
@@ -33,7 +33,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ARRANGE
             var theController = new StoringController ();
             FileInfo fileinfo = new FileInfo (@"C:\thisFileIsNotExisting.txt");
-            IDocumentStoring docStorer = null;
+            IDocumentRepository docStorer = null;
 
             //ACT
             //ASSERT
@@ -49,7 +49,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ARRANGE
             var theController = new StoringController ();
             FileInfo nullFileInfo = null;
-            IDocumentStoring docStorer = NSubstitute.Substitute.For<IDocumentStoring> ();
+            IDocumentRepository docStorer = NSubstitute.Substitute.For<IDocumentRepository> ();
             //ACT
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
@@ -63,7 +63,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ARRANGE
             var theController = new StoringController ();
             List<FileInfo> nullFileInfos = null;
-            IDocumentStoring docStorer = NSubstitute.Substitute.For<IDocumentStoring> ();
+            IDocumentRepository docStorer = NSubstitute.Substitute.For<IDocumentRepository> ();
                         
             //ACT
             //ASSERT

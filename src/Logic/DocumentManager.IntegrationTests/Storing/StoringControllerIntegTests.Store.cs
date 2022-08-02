@@ -1,6 +1,6 @@
 ﻿using DocumentAccessing.IntegrationTests.TestSupport;
 using Mame.Doci.Data.LuceneRepository.Logic;
-using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Storing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -26,7 +26,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
             FileInfo importFile = GetDefaultImportFile ();
 
-            IDocumentStoring theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder,overwriteExistingIndex:true);
+            IDocumentRepository theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder,overwriteExistingIndex:true);
 
 
             //Act
@@ -55,7 +55,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
             List<FileInfo> importFiles = GetDefaultImportFiles ();
 
-            IDocumentStoring theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
+            IDocumentRepository theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
 
 
             //Act
@@ -84,7 +84,7 @@ namespace DocumentAccessing.IntegrationTests.Storing
             DirectoryInfo cleanTargetIndexFolder = CreateCleanAndWriteableFolder ();
             List<FileInfo> emptyFilesList = new List<FileInfo> ();
 
-            IDocumentStoring theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
+            IDocumentRepository theLuceneDocmentStorer = new IndexingController (cleanTargetIndexFolder, overwriteExistingIndex: true);
 
 
             //Act

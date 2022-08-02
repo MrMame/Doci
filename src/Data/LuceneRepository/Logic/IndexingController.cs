@@ -11,13 +11,13 @@ using System.Text;
 using Mame.Doci.Data.LuceneRepository.Data;
 using Mame.Doci.CrossCutting.Logging.Contracts;
 using Mame.Doci.CrossCutting.Logging.Contracts.Exceptions;
-using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Logic.DocumentManager.Contracts.Exceptions;
 
 
 namespace Mame.Doci.Data.LuceneRepository.Logic
 {
-    public class IndexingController : IIndexingController, IDocumentStoring,ILoggable
+    public class IndexingController : IIndexingController, IDocumentRepository,ILoggable
     {
         public string ParentTargetPathForImportedDocuments { get => throw new NotImplementedException (); set => throw new NotImplementedException (); }
         public ILogger Logger

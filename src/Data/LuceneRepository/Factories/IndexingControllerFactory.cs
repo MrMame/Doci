@@ -1,5 +1,5 @@
 ﻿using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.Data.LuceneRepository.Logic;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace Mame.Doci.Data.LuceneRepository.Factories
 {
     public class LuceneIndexingControllerFactory
     {
-        public static IDocumentStoring CreateDefault (ILogger logger = null)
+        public static IDocumentRepository CreateDefault (ILogger logger = null)
         {
             DirectoryInfo targetIndexFolder = CreateCleanAndWriteableFolder ();
             return new IndexingController (indexFolder: targetIndexFolder, overwriteExistingIndex: true) { Logger=logger};

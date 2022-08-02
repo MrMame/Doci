@@ -1,5 +1,5 @@
 ﻿using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.Logic.DocumentManager.Contracts;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 using Mame.Doci.UI.ConsoleClient.CLParsing;
 using System;
 using System.Collections.Generic;
@@ -44,8 +44,8 @@ namespace Mame.Doci.UI.ConsoleClient
                     return;
                 }
 
-                IDocumentStoring luceneIndexingController = Mame.Doci.Data.LuceneRepository.Factories.LuceneIndexingControllerFactory.CreateDefault (logger);
-                IStoringForUser documentStoringController = Mame.Doci.Logic.DocumentManager.Storing.Factories.StoringControllerFactory.CreateDefault (luceneIndexingController, logger);
+                IDocumentRepository luceneIndexingController = Mame.Doci.Data.LuceneRepository.Factories.LuceneIndexingControllerFactory.CreateDefault (logger);
+                IDocumentService documentStoringController = Mame.Doci.Logic.DocumentManager.Storing.Factories.StoringControllerFactory.CreateDefault (luceneIndexingController, logger);
 
                 documentStoringController.UserWantsToStore (documentFile);
             } catch (Exception ex)
