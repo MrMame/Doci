@@ -11,29 +11,44 @@ using System.Threading.Tasks;
 
 namespace Mame.Doci.UI.ConsoleClient
 {
-    internal static class CommandProcessing
+    public class CommandProcessor
     {
 
 
-        internal static void DoCommands (CommandLineArgumentsParser clp, ILogger logger)
+        ILogger _logger;
+        IDocumentService _documentService;
+        IDocumentRepository _documentRepository;
+
+
+        #region "Publics"
+        public CommandProcessor (ILogger logger, IDocumentService documentService, IDocumentRepository documentRepository)
+        {
+            _logger = logger;   
+            _documentService = documentService;
+            _documentRepository = documentRepository;
+        }
+        public void DoCommands (CommandLineArgumentsParser clp)
         {
             if (!string.IsNullOrEmpty (clp.AddDocument))
             {
                 // Return if file is not existing
                 var document = new Document(new FileInfo (clp.AddDocument));
-                CmdStoreDocument (logger, document);
+                CmdStoreDocument (document);
             }
 
         }
+        #endregion
 
 
-        internal static void CmdStoreDocument (ILogger logger, Document document)
+
+        #region "Privates"
+        private void CmdStoreDocument ( Document document)
         {
             // Parameter Check
             if (document is null) throw new ArgumentNullException ();
 
             // Get File to add
-            logger.LogText (LogLevels.Info,
+            _logger.LogText (LogLevels.Info,
                             "...Start adding file (" + document.FullName + ")");
 
             // Start storing
@@ -41,19 +56,17 @@ namespace Mame.Doci.UI.ConsoleClient
             {
                 if (!document.Exists())
                 {
-                    logger.LogText (LogLevels.Info, "Document is not existing (" + document.FullName + ")!");
+                    _logger.LogText (LogLevels.Info, "Document is not existing (" + document.FullName + ")!");
                     return;
                 }
 
-                IDocumentRepository luceneIndexingController = Mame.Doci.Data.LuceneRepository.Factories.LuceneIndexingControllerFactory.CreateDefault (logger);
-                IDocumentService documentStoringController = Mame.Doci.Logic.DocumentManager.Storing.Factories.StoringControllerFactory.CreateDefault (luceneIndexingController, logger);
-
-                documentStoringController.StoreDocument (document);
+                _documentService.StoreDocument (document);
             } catch (Exception ex)
             {
-                logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);
+                _logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);
             }
         }
+        #endregion
 
     }
 }

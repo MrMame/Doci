@@ -182,11 +182,11 @@
     </ProjectReference>
     <ProjectReference Include="..\DocumentManager.Contracts\DocumentManager.Contracts.csproj">
       <Project>{6185f2e2-0a1d-49ba-8fb3-c0c43f9d5b4b}</Project>
-      <Name>DocumentAccessing.Contracts</Name>
+      <Name>DocumentManager.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\DocumentManager\DocumentManager.csproj">
       <Project>{A89917DF-B37F-441C-8DAD-C3CB8C7C32D1}</Project>
-      <Name>DocumentAccessing</Name>
+      <Name>DocumentManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

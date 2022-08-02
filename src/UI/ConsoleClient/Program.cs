@@ -1,23 +1,28 @@
 ﻿using Mame.Doci.CrossCutting.Logging.Contracts;
-using Mame.Doci.CrossCutting.Logging.Loggers;
 using Mame.Doci.Logic.DocumentManager.Contracts;
-
+using Ninject;
 using System;
 using System.IO;
 using Mame.Doci.UI.ConsoleClient.CLParsing;
+using Mame.Doci.Data.DIMappings;
+using Mame.Doci.Logic.DocumentManager.Contracts.Interfaces;
 
 namespace Mame.Doci.UI.ConsoleClient
 {
     public class Program
     {
 
-       
-
-
+     
         static void Main (string[] args)
         {
-            // Init Logging Objects
-            ILogger logger = new ConsoleLogger ();
+            // Init DI Container
+            var kernel = new StandardKernel();
+            new KernelInitializer (kernel);
+
+            // Init Application Dependencies
+            var logger = kernel.Get<ILogger> ();
+            var documentService = kernel.Get<IDocumentService> ();
+            var documentRepository = kernel.Get<IDocumentRepository> ();
 
             try
             {
@@ -30,7 +35,8 @@ namespace Mame.Doci.UI.ConsoleClient
                 }
 
                 // process the commandline commands
-                CommandProcessing.DoCommands (clp, logger);
+                var commandProcessor = new CommandProcessor (logger, documentService, documentRepository);
+                commandProcessor.DoCommands (clp);
 
                 // End
                 logger.LogText (LogLevels.Info, "Program finished!");

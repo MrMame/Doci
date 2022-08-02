@@ -90,7 +90,7 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
         #endregion
 
 
-        #region "INTERFACE - IDocumentStoring"
+        #region "INTERFACE - IDocumentRepository"
         public void WriteToRepository(Document document)
         {
             if (document is null) throw new ArgumentNullException ();
