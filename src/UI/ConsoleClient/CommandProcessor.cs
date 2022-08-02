@@ -20,13 +20,14 @@ namespace Mame.Doci.UI.ConsoleClient
         public IDocumentRepository DocumentRepository { get; set; }
 
 
+
+        #region "Publics"
         public CommandProcessor (ILogger logger, IDocumentService documentService, IDocumentRepository documentRepository)
         {
             this.Logger = logger;   
             this.DocumentService = documentService;
             this.DocumentRepository = documentRepository;
         }
-
         public void DoCommands (CommandLineArgumentsParser clp)
         {
             if (!string.IsNullOrEmpty (clp.AddDocument))
@@ -37,9 +38,12 @@ namespace Mame.Doci.UI.ConsoleClient
             }
 
         }
+        #endregion
 
 
-        public void CmdStoreDocument ( Document document)
+
+        #region "Privates"
+        private void CmdStoreDocument ( Document document)
         {
             // Parameter Check
             if (document is null) throw new ArgumentNullException ();
@@ -63,6 +67,7 @@ namespace Mame.Doci.UI.ConsoleClient
                 this.Logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);
             }
         }
+        #endregion
 
     }
 }

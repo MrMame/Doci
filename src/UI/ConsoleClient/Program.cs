@@ -24,7 +24,6 @@ namespace Mame.Doci.UI.ConsoleClient
             var documentService = kernel.Get<IDocumentService> ();
             var documentRepository = kernel.Get<IDocumentRepository> ();
 
-
             try
             {
                 // Parsing commandline
