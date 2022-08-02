@@ -19,6 +19,4 @@ Tests will be implemented, but without focusing on a wide code coverage.
 - NUnit (v3.12.0)
 - NSubstitue (v4.3.0)
 
-## Architecture
-- Public interfaces for using an assembly are stored inside a similar named assembly, but with a ".Contracts" suffix. All dependencies for using the target assemblies are only going against this additional ".Contracts" assembly.  
-- All Public Interfaces defined by the ".COntracts" assemblies are the main entry points of the underlying assemblies (Same name, without ".Contracts" in name). The implemented interface methods of the implementing class are calling its methods inside a try catch block. This try catch block  is catching all internal unhandled exceptions, creating a new Exception with a meaningfull description that is storing the internal exceptions as an inner exception.
+
