@@ -43,43 +43,6 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
             _defaultIndexFolder = indexFolder;
             _defaultOverwriteExistingIndex = overwriteExistingIndex;
         }
-        #endregion
-
-
-        #region "INTERFACE - IDocumentStoring"
-        public void WriteToRepository(Document document)
-        {
-            if (document is null) throw new ArgumentNullException ();
-            try
-            {
-                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, document);
-            } catch (Exception ex)
-            {
-                throw new DocumentStoreException ($"Error trying to store user document file ({document.FullName}) " +
-                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
-                                                  ex)
-                { UserDocuments = new Document[1] { document}, RepositoryDirectory = _defaultIndexFolder };
-            }
-
-        }
-        public void WriteToRepository (List<Document> documents)
-        {
-            if (documents is null) throw new ArgumentNullException ();
-            try
-            {
-                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, documents.ToArray());
-            } catch (Exception ex)
-            {
-                throw new DocumentStoreException ($"Error trying to store user documents to lucene index at path.",
-                                                  ex)
-                { UserDocuments = documents.ToArray(), RepositoryDirectory = _defaultIndexFolder };
-            }
-
-        }
-        #endregion
-
-
-        #region "INTERFACE - IIndexingController"
         public void AddToIndex (DirectoryInfo indexFolder,bool createOrOverwriteExistingIndex, Document document)
         {
             if (indexFolder is null) throw new ArgumentNullException ();
@@ -126,6 +89,38 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
         }
         #endregion
 
+
+        #region "INTERFACE - IDocumentStoring"
+        public void WriteToRepository(Document document)
+        {
+            if (document is null) throw new ArgumentNullException ();
+            try
+            {
+                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, document);
+            } catch (Exception ex)
+            {
+                throw new DocumentStoreException ($"Error trying to store user document file ({document.FullName}) " +
+                                                  $" to lucene index at path ({_defaultIndexFolder.FullName})",
+                                                  ex)
+                { UserDocuments = new Document[1] { document}, RepositoryDirectory = _defaultIndexFolder };
+            }
+
+        }
+        public void WriteToRepository (List<Document> documents)
+        {
+            if (documents is null) throw new ArgumentNullException ();
+            try
+            {
+                AddToIndex (_defaultIndexFolder, _defaultOverwriteExistingIndex, documents.ToArray());
+            } catch (Exception ex)
+            {
+                throw new DocumentStoreException ($"Error trying to store user documents to lucene index at path.",
+                                                  ex)
+                { UserDocuments = documents.ToArray(), RepositoryDirectory = _defaultIndexFolder };
+            }
+
+        }
+        #endregion
 
 
         #region "INTERFACE - ILogger"
