@@ -85,8 +85,8 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
         }
         #endregion
 
-        #region "INTERFACE - IStoringForUser"
-        public void UserWantsToStore (FileInfo documentInfo)
+        #region "INTERFACE - IDocumentService"
+        public void StoreDocument (FileInfo documentInfo)
         {
             if (documentInfo is null) throw new ArgumentNullException();
             if (_documentStorer is null) throw new ArgumentNullException ();
@@ -99,7 +99,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
                                     innerException:ex);               
             }
         }
-        public void UserWantsToStore (List<FileInfo> documentsInfos)
+        public void StoreDocuments (List<FileInfo> documentsInfos)
         {
             if (documentsInfos is null) throw new ArgumentNullException ();
             if (_documentStorer is null) throw new ArgumentNullException ();

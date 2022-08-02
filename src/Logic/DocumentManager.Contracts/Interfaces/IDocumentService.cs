@@ -8,8 +8,8 @@ namespace Mame.Doci.Logic.DocumentManager.Contracts.Interfaces
 {
     public interface IDocumentService
     {
-        void UserWantsToStore (FileInfo fileName);
-        void UserWantsToStore (List<FileInfo> fileNames);
+        void StoreDocument(FileInfo fileName);
+        void StoreDocuments (List<FileInfo> fileNames);
 
     }
 }

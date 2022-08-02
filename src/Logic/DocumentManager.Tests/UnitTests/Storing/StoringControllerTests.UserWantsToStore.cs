@@ -23,7 +23,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (fileinfos);
+                theController.StoreDocuments (fileinfos);
             }, "Exception was not thrown");
         }
         [Test]
@@ -38,7 +38,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (fileinfo);
+                theController.StoreDocument (fileinfo);
             }, "Exception was not thrown");
         }
         [Test]
@@ -52,7 +52,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (nullFileInfo);
+                theController.StoreDocument (nullFileInfo);
             }, "Exception was not thrown");
         }
         [Test]
@@ -67,7 +67,7 @@ namespace Mame.Doci.Logic.DocumentAccessing.Tests.UnitTests.Storing
             //ASSERT
             Assert.Throws<ArgumentNullException> (() =>
             {
-                theController.UserWantsToStore (nullFileInfos);
+                theController.StoreDocuments (nullFileInfos);
             }, "Exception was not thrown");
         }
     }

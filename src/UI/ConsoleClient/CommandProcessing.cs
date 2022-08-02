@@ -47,7 +47,7 @@ namespace Mame.Doci.UI.ConsoleClient
                 IDocumentRepository luceneIndexingController = Mame.Doci.Data.LuceneRepository.Factories.LuceneIndexingControllerFactory.CreateDefault (logger);
                 IDocumentService documentStoringController = Mame.Doci.Logic.DocumentManager.Storing.Factories.StoringControllerFactory.CreateDefault (luceneIndexingController, logger);
 
-                documentStoringController.UserWantsToStore (documentFile);
+                documentStoringController.StoreDocument (documentFile);
             } catch (Exception ex)
             {
                 logger.LogText (LogLevels.Fatal, "An unhandled exception occures while storing the document. " + ex.Message);
