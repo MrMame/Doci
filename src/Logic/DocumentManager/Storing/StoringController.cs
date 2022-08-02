@@ -56,7 +56,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
 
             try
             {
-                documentStorer.Store (storeFile);
+                documentStorer.WriteToRepository (storeFile);
             } catch (Exception ex)
             {
                 throw new Exception ($"Error trying to store file ({storeFile.FullName}) " +
@@ -73,7 +73,7 @@ namespace Mame.Doci.Logic.DocumentManager.Storing
 
             try
             {
-                documentStorer.Store (storeFiles);
+                documentStorer.WriteToRepository (storeFiles);
             } catch (Exception ex)
             {
                 throw new Exception ($"Error trying to store files ({storeFiles}) " +

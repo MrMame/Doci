@@ -10,7 +10,7 @@ namespace Mame.Doci.Logic.DocumentManager.Contracts.Interfaces
 
     public interface IDocumentRepository
     {
-        void Store (FileInfo storeFile);        // throws DocumentStoreException
-        void Store (List<FileInfo> storeFiles);// throws DocumentStoreException
+        void WriteToRepository (FileInfo storeFile);        // throws DocumentStoreException
+        void WriteToRepository (List<FileInfo> storeFiles);// throws DocumentStoreException
     }
 }

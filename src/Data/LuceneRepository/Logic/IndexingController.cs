@@ -46,7 +46,7 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
 
 
         #region "INTERFACE - IDocumentStoring"
-        public void Store(FileInfo storeFile)
+        public void WriteToRepository(FileInfo storeFile)
         {
             if (storeFile is null) throw new ArgumentNullException ();
             try
@@ -61,7 +61,7 @@ namespace Mame.Doci.Data.LuceneRepository.Logic
             }
 
         }
-        public void Store (List<FileInfo> storeFiles)
+        public void WriteToRepository (List<FileInfo> storeFiles)
         {
             if (storeFiles is null) throw new ArgumentNullException ();
             try
